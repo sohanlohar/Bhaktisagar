@@ -1,6 +1,8 @@
 import React from 'react';
-import { View, FlatList, Text, Pressable } from 'react-native';
+import { View, FlatList, Text } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { useTheme } from '../context/ThemeContext';
+import ItemCard from '../components/ItemCard';
 
 import mantras from '../data/mantras.json';
 import chalisas from '../data/chalisas.json';
@@ -10,7 +12,8 @@ import aartis from '../data/aartis.json';
 export default function SubcategoryScreen() {
   const nav = useNavigation();
   const route = useRoute();
-  const { subId, kind } = route.params; // e.g. { subId: 'hanuman', kind: 'mantra' }
+  const { colors } = useTheme();
+  const { subId, kind, title } = route.params;
 
   const allData = {
     mantra: mantras,
@@ -27,22 +30,27 @@ export default function SubcategoryScreen() {
     ) || [];
 
   return (
-    <View className="flex-1 p-2">
+    <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <View className="px-5 pt-6 pb-4">
+        <Text className="text-3xl font-bold" style={{ color: colors.text }}>{title}</Text>
+        <Text className="text-[14px] mt-1" style={{ color: colors.textLight }}>सूची</Text>
+      </View>
+
       {filtered.length === 0 ? (
-        <Text className="text-center text-muted mt-10">
-          कोई सामग्री उपलब्ध नहीं है।
-        </Text>
+        <View className="flex-1 items-center justify-center">
+          <Text style={{ color: colors.textLight }}>कोई सामग्री उपलब्ध नहीं है।</Text>
+        </View>
       ) : (
         <FlatList
           data={filtered}
           keyExtractor={(item) => item.id}
+          contentContainerStyle={{ paddingHorizontal: 10, paddingBottom: 20 }}
           renderItem={({ item }) => (
-            <Pressable
-              onPress={() => nav.navigate('DetailList', { item })}
-              className="bg-white border border-gray-200 rounded-xl p-4 mb-3"
-            >
-              <Text className="text-[14px] text-text">{item.title}</Text>
-            </Pressable>
+            <ItemCard
+              id={item.id}
+              title={item.title}
+              onPress={() => nav.navigate('Detail', { item: { ...item, kind } })}
+            />
           )}
         />
       )}

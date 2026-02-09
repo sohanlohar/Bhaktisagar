@@ -4,6 +4,7 @@ import HomeScreen from '../../screens/HomeScreen';
 import CategoryScreen from '../../screens/CategoryScreen';
 import SubcategoryScreen from '../../screens/SubcategoryScreen';
 import DetailListScreen from '../../screens/DetailListScreen';
+import ContentDetailScreen from '../../screens/ContentDetailScreen';
 
 const Stack = createNativeStackNavigator();
 export default function HomeStack() {
@@ -12,7 +13,7 @@ export default function HomeStack() {
       <Stack.Screen
         name="Home"
         component={HomeScreen}
-        options={{ title: 'Bhakti Sagar' }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="Category"
@@ -28,6 +29,11 @@ export default function HomeStack() {
         name="DetailList"
         component={DetailListScreen}
         options={({ route }) => ({ title: route.params.title })}
+      />
+      <Stack.Screen
+        name="Detail"
+        component={ContentDetailScreen}
+        options={{ headerShown: false }} // Header is custom in the screen
       />
     </Stack.Navigator>
   );

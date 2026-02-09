@@ -1,16 +1,19 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./App.tsx', './src/**/*.{js,jsx,ts,tsx}'],
+  content: ['./App.jsx', './src/**/*.{js,jsx,ts,tsx}'],
   presets: [require('nativewind/preset')],
   theme: {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#161622',
+          DEFAULT: '#B22222', // Red
           kesari: '#FF9A00',
         },
+        saffron: '#FF9933',
+        gold: '#FDCB02',
+        orange: '#E65100',
         secondary: {
-          DEFAULT: '#FF9C01',
+          DEFAULT: '#800000',
           100: '#FF9001',
           200: '#FF8E01',
         },

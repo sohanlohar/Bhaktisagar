@@ -1,27 +1,34 @@
 import React from 'react';
 import { View, Text, FlatList, Pressable } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
+import { useTheme } from '../context/ThemeContext';
+import { ChevronRight } from 'lucide-react-native';
 
 const SUBS = [
-  { id: 'hanuman', title: 'हनुमान' },
-  { id: 'shiv', title: 'शिव' },
-  { id: 'krishna', title: 'कृष्ण' },
-  { id: 'durga', title: 'दुर्गा' },
+  { id: 'hanuman', title: 'हनुमान', icon: '🙏' },
+  { id: 'shiv', title: 'शिव', icon: '🕉️' },
+  { id: 'krishna', title: 'कृष्ण', icon: '🪈' },
+  { id: 'durga', title: 'दुर्गा', icon: '🔱' },
 ];
 
 export default function CategoryScreen() {
   const nav = useNavigation();
   const route = useRoute();
+  const { colors } = useTheme();
   const { kind, title } = route.params;
 
   return (
-    <View className="flex-1 p-3">
+    <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <View className="px-5 pt-6 pb-4">
+        <Text className="text-3xl font-bold" style={{ color: colors.text }}>{title}</Text>
+        <Text className="text-[14px] mt-1" style={{ color: colors.textLight }}>वर्ग चुनें</Text>
+      </View>
+
       <FlatList
         data={SUBS}
         keyExtractor={(item) => item.id}
         numColumns={2}
-        columnWrapperStyle={{ gap: 8 }}
-        contentContainerStyle={{ gap: 8 }}
+        contentContainerStyle={{ paddingHorizontal: 12, paddingBottom: 20 }}
         renderItem={({ item }) => (
           <Pressable
             onPress={() =>
@@ -31,9 +38,13 @@ export default function CategoryScreen() {
                 title: `${item.title} ${title}`,
               })
             }
-            className="flex-1 bg-white border border-gray-200 rounded-xl p-4"
+            className="flex-1 m-2 p-6 rounded-[32px] border items-center shadow-sm"
+            style={{ backgroundColor: colors.cardBg, borderColor: colors.border }}
           >
-            <Text className="text-[14px] text-text">{item.title}</Text>
+            <View className="w-16 h-16 rounded-2xl bg-saffron/10 items-center justify-center mb-4" style={{ backgroundColor: colors.saffron + '15' }}>
+              <Text className="text-3xl">{item.icon}</Text>
+            </View>
+            <Text className="text-[16px] font-bold text-center" style={{ color: colors.text }}>{item.title}</Text>
           </Pressable>
         )}
       />

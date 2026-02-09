@@ -1,13 +1,24 @@
 import React from 'react';
 import { Pressable, Text } from 'react-native';
+import { useTheme } from '../context/ThemeContext';
 
-export default function CategoryPill({ label, onPress }) {
+export default function CategoryPill({ label, onPress, color }) {
+  const { colors } = useTheme();
+
   return (
     <Pressable
       onPress={onPress}
-      className="px-4 py-2 rounded-full bg-white border border-gray-200 mr-2 shadow-sm"
+      className={`px-4 py-1.5 rounded-full mr-2 shadow-sm border border-gray-300`}
+      style={{
+        backgroundColor: color || colors.cardBg,
+      }}
     >
-      <Text className="text-[13px] text-text" >{label}</Text>
+      <Text
+        className="text-[14px] font-bold"
+        style={{ color: color === '#F8DE7E' || !color ? colors.text : colors.white }}
+      >
+        {label}
+      </Text>
     </Pressable>
   );
 }

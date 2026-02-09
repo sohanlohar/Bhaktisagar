@@ -5,31 +5,37 @@ import BookmarksScreen from '../screens/BookmarkScreen';
 import PanchangScreen from '../screens/PanchangScreen';
 import WeatherScreen from '../screens/WeatherScreen';
 import { Home, Bookmark, CalendarDays, CloudSun } from 'lucide-react-native';
+import { useTheme } from '../context/ThemeContext';
 
 const Tab = createBottomTabNavigator();
 
 const renderIcon =
   IconComponent =>
-  ({ color, size }) =>
-    <IconComponent color={color} size={size} />;
+    ({ color, size }) =>
+      <IconComponent color={color} size={size} />;
 
 const RootNavigator = () => {
+  const { colors } = useTheme();
+
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: '#B22222',
-        tabBarInactiveTintColor: '#777',
+        tabBarActiveTintColor: colors.tabBarActive,
+        tabBarInactiveTintColor: colors.tabBarInactive,
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: '600',
         },
         tabBarStyle: {
           height: 70,
-          paddingBottom: 5,
-          backgroundColor: '#FFF9F5',
-          borderTopWidth: 0.5,
-          borderTopColor: '#ddd',
+          paddingBottom: 10,
+          paddingTop: 10,
+          backgroundColor: colors.background,
+          borderTopWidth: 1,
+          borderTopColor: colors.border,
+          elevation: 0,
+          shadowOpacity: 0,
         },
       }}
     >
