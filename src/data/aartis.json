@@ -1,5 +1,107 @@
 [
-  { "id": "lakshmi_aarti", "title": "श्री लक्ष्मी जी की आरती", "content": "ॐ जय लक्ष्मी माता..." },
-  { "id": "ganesh_aarti", "title": "श्री गणेश आरती", "content": "जय गणेश जय गणेश जय गणेश देवा..." },
-  { "id": "hanuman_aarti", "title": "हनुमान आरती", "content": "आरती कीजै हनुमान लला की..." }
+  {
+    "id": "lakshmi_aarti",
+    "title": "श्री लक्ष्मी जी की आरती",
+    "slug": "lakshmi-aarti",
+    "category": "aarti",
+    "deity": {
+      "id": "lakshmi",
+      "name": "Maa Lakshmi",
+      "type": "goddess"
+    },
+    "language": "hindi",
+    "lyrics": "ॐ जय लक्ष्मी माता...",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "lakshmi.png",
+      "icon": "lakshmi_icon.png"
+    },
+    "days": [
+      "monday"
+    ],
+    "tags": [
+      "wealth",
+      "diwali",
+      "lakshmi"
+    ],
+    "isFeatured": true,
+    "isPopular": true,
+    "order": 1,
+    "createdAt": "static",
+    "updatedAt": "static"
+  },
+  {
+    "id": "ganesh_aarti",
+    "title": "श्री गणेश आरती",
+    "slug": "ganesh-aarti",
+    "category": "aarti",
+    "deity": {
+      "id": "ganesh",
+      "name": "Shree Ganesh",
+      "type": "god"
+    },
+    "language": "hindi",
+    "lyrics": "जय गणेश जय गणेश जय गणेश देवा...",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "ganesh.png",
+      "icon": "ganesh_icon.png"
+    },
+    "days": [
+      "monday"
+    ],
+    "tags": [
+      "ganesh",
+      "festival",
+      "start"
+    ],
+    "isFeatured": true,
+    "isPopular": true,
+    "order": 2,
+    "createdAt": "static",
+    "updatedAt": "static"
+  },
+  {
+    "id": "hanuman_aarti",
+    "title": "हनुमान आरती",
+    "slug": "hanuman-aarti",
+    "category": "aarti",
+    "deity": {
+      "id": "hanuman",
+      "name": "Shree Hanuman",
+      "type": "god"
+    },
+    "language": "hindi",
+    "lyrics": "आरती कीजै हनुमान लला की...",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "hanuman.png",
+      "icon": "hanuman_icon.png"
+    },
+    "days": [
+      "monday"
+    ],
+    "tags": [
+      "hanuman",
+      "strength",
+      "tuesday"
+    ],
+    "isFeatured": true,
+    "isPopular": true,
+    "order": 3,
+    "createdAt": "static",
+    "updatedAt": "static"
+  }
 ]

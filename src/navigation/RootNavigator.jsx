@@ -26,6 +26,7 @@ const RootNavigator = () => {
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: '600',
+          marginBottom: 10,
         },
         tabBarStyle: {
           height: 70,

@@ -2,8 +2,8 @@ export const LIGHT_COLORS = {
   background: '#F5F5F5',
   primary: '#B22222',
   saffron: '#FF9933',
-  gold: '#FDCB02',      // Header Gold
-  orange: '#E65100',    // Section Title Orange
+  gold: '#FDCB02',
+  orange: '#E65100',
   secondary: '#800000',
   text: '#222222',
   textLight: '#666666',
@@ -12,7 +12,11 @@ export const LIGHT_COLORS = {
   cardBg: '#FFFFFF',
   shadow: 'rgba(0,0,0,0.1)',
 
-  // Tithi/Pill Colors from screenshot
+  // Semantic Tokens
+  headerBg: '#FDCB02',      // Header background (Gold)
+  headerText: '#B22222',    // Header text/icon color (Primary)
+  statusBarBg: '#FDCB02',   // Status bar background
+
   pillYellow: '#F8DE7E',
   pillRed: '#B01C04',
   pillDarkGreen: '#1B4D3E',
@@ -27,8 +31,8 @@ export const DARK_COLORS = {
   background: '#121212',
   primary: '#FF9933',
   saffron: '#FF9933',
-  gold: '#FDCB02',      // Added for consistency with redesigned header
-  orange: '#FF9100',    // Brighter orange for dark mode
+  gold: '#FDCB02',
+  orange: '#FF9100',
   secondary: '#2A2A2A',
   text: '#FFFFFF',
   textLight: '#AAAAAA',
@@ -37,7 +41,11 @@ export const DARK_COLORS = {
   cardBg: '#1E1E1E',
   shadow: 'rgba(0,0,0,0.5)',
 
-  // Tithi/Pill Colors (Fallback for dark mode)
+  // Semantic Tokens
+  headerBg: '#1E1E1E',      // Header background in dark mode
+  headerText: '#FF9933',    // Header text/icon color in dark mode
+  statusBarBg: '#1E1E1E',
+
   pillYellow: '#F8DE7E',
   pillRed: '#D32F2F',
   pillDarkGreen: '#2E7D32',
@@ -48,4 +56,4 @@ export const DARK_COLORS = {
   tabBarBorder: '#333333',
 };
 
-export const COLORS = LIGHT_COLORS; // Default to light
+export const COLORS = LIGHT_COLORS;

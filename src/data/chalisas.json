@@ -2,13 +2,67 @@
   {
     "id": "hanuman_chalisa",
     "title": "हनुमान चालीसा",
-    "subCategory": "हनुमान",
-    "content": "जय हनुमान ज्ञान गुन सागर... (पूरा पाठ यहाँ आएगा)"
+    "slug": "hanuman-chalisa",
+    "category": "chalisa",
+    "deity": {
+      "id": "hanuman",
+      "name": "Shree Hanuman",
+      "type": "god"
+    },
+    "language": "hindi",
+    "lyrics": "जय हनुमान ज्ञान गुन सागर... (पूरा पाठ यहाँ आएगा)",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "hanuman.png",
+      "icon": "hanuman_icon.png"
+    },
+    "tags": [
+      "hanuman",
+      "bajrangbali",
+      "strength",
+      "tuesday"
+    ],
+    "isFeatured": true,
+    "isPopular": true,
+    "order": 1,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
     "id": "shiv_chalisa",
     "title": "शिव चालीसा",
-    "subCategory": "शिव",
-    "content": "जय गिरिजा पति दीन दयाला..."
+    "slug": "shiv-chalisa",
+    "category": "chalisa",
+    "deity": {
+      "id": "shiv",
+      "name": "Lord Shiva",
+      "type": "god"
+    },
+    "language": "hindi",
+    "lyrics": "जय गिरिजा पति दीन दयाला...",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "shiv.png",
+      "icon": "shiv_icon.png"
+    },
+    "tags": [
+      "shiv",
+      "mahadev",
+      "sawan",
+      "monday"
+    ],
+    "isFeatured": true,
+    "isPopular": true,
+    "order": 2,
+    "createdAt": "static",
+    "updatedAt": "static"
   }
 ]

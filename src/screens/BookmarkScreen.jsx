@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, FlatList, StatusBar } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { View, Text, FlatList } from 'react-native';
+import ScreenWrapper from '../components/ScreenWrapper';
 import { useBookmarks } from '../hooks/useBookmarks';
 import { useTheme } from '../context/ThemeContext';
 import ItemCard from '../components/ItemCard';
@@ -13,8 +13,7 @@ const BookmarksScreen = () => {
   const nav = useNavigation();
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.gold || '#FDCB02' }} edges={['top']}>
-      <StatusBar barStyle="dark-content" backgroundColor={colors.gold || '#FDCB02'} />
+    <ScreenWrapper>
       <View style={{ flex: 1, backgroundColor: colors.background }}>
         <BhaktiHeader />
         <View style={{ flex: 1, padding: 16 }}>
@@ -37,7 +36,7 @@ const BookmarksScreen = () => {
           />
         </View>
       </View>
-    </SafeAreaView>
+    </ScreenWrapper>
   );
 };
 

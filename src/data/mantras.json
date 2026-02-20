@@ -1,20 +1,122 @@
 [
   {
-    "id": "hanuman_moola",
+    "id": "hanuman_moola_mantra",
     "title": "हनुमान मूल मंत्र",
-    "subCategory": "हनुमान",
-    "content": "ॐ हनुमते नमः ॥"
+    "slug": "hanuman-moola-mantra",
+    "category": "mantra",
+    "deity": {
+      "id": "hanuman",
+      "name": "Shree Hanuman",
+      "type": "god"
+    },
+    "language": "sanskrit",
+    "lyrics": "ॐ हनुमते नमः ॥",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0,
+      "loopable": true
+    },
+    "media": {
+      "image": "hanuman.png",
+      "icon": "hanuman_icon.png"
+    },
+    "tags": [
+      "hanuman",
+      "protection",
+      "strength",
+      "jap"
+    ],
+    "jap": {
+      "countRecommended": 108,
+      "hasCountingFeature": true
+    },
+    "isFeatured": true,
+    "isPopular": true,
+    "order": 1,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
-    "id": "shiv_gayatri",
+    "id": "shiv_gayatri_mantra",
     "title": "शिव गायत्री मंत्र",
-    "subCategory": "शिव",
-    "content": "ॐ तत्पुरुषाय विद्महे महादेवाय धीमहि। तन्नो रुद्रः प्रचोदयात्॥"
+    "slug": "shiv-gayatri-mantra",
+    "category": "mantra",
+    "deity": {
+      "id": "shiv",
+      "name": "Lord Shiva",
+      "type": "god"
+    },
+    "language": "sanskrit",
+    "lyrics": "ॐ तत्पुरुषाय विद्महे महादेवाय धीमहि। तन्नो रुद्रः प्रचोदयात्॥",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0,
+      "loopable": true
+    },
+    "media": {
+      "image": "shiv.png",
+      "icon": "shiv_icon.png"
+    },
+    "days": [
+      "monday"
+    ],
+    "tags": [
+      "shiv",
+      "gayatri",
+      "meditation",
+      "jap"
+    ],
+    "jap": {
+      "countRecommended": 108,
+      "hasCountingFeature": true
+    },
+    "isFeatured": true,
+    "isPopular": true,
+    "order": 2,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
-    "id": "durga_beej",
+    "id": "durga_beej_mantra",
     "title": "दुर्गा बीज मंत्र",
-    "subCategory": "दुर्गा",
-    "content": "ॐ ऐं ह्रीं क्लीं चामुण्डायै विच्चे॥"
+    "slug": "durga-beej-mantra",
+    "category": "mantra",
+    "deity": {
+      "id": "durga",
+      "name": "Maa Durga",
+      "type": "goddess"
+    },
+    "language": "sanskrit",
+    "lyrics": "ॐ ऐं ह्रीं क्लीं चामुण्डायै विच्चे॥",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0,
+      "loopable": true
+    },
+    "media": {
+      "image": "durga.png",
+      "icon": "durga_icon.png"
+    },
+    "days": [
+      "monday"
+    ],
+    "tags": [
+      "durga",
+      "shakti",
+      "beej",
+      "navratri"
+    ],
+    "jap": {
+      "countRecommended": 108,
+      "hasCountingFeature": true
+    },
+    "isFeatured": true,
+    "isPopular": true,
+    "order": 3,
+    "createdAt": "static",
+    "updatedAt": "static"
   }
 ]

@@ -1,6 +1,7 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../../screens/HomeScreen';
+import BrowseCategoryScreen from '../../screens/BrowseCategoryScreen';
 import CategoryScreen from '../../screens/CategoryScreen';
 import SubcategoryScreen from '../../screens/SubcategoryScreen';
 import DetailListScreen from '../../screens/DetailListScreen';
@@ -13,6 +14,11 @@ export default function HomeStack() {
       <Stack.Screen
         name="Home"
         component={HomeScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="BrowseCategory"
+        component={BrowseCategoryScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen

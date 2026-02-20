@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, ScrollView, StatusBar } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { View, Text, FlatList, ScrollView } from 'react-native';
+import ScreenWrapper from '../components/ScreenWrapper';
 import {
   getNext7DaysPanchang,
   getTodayPanchang,
@@ -32,8 +32,7 @@ export default function PanchangScreen() {
   );
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.gold || '#FDCB02' }} edges={['top']}>
-      <StatusBar barStyle="dark-content" backgroundColor={colors.gold || '#FDCB02'} />
+    <ScreenWrapper>
       <View style={{ flex: 1, backgroundColor: colors.background }}>
         <BhaktiHeader />
         <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
@@ -83,6 +82,6 @@ export default function PanchangScreen() {
           </View>
         </ScrollView>
       </View>
-    </SafeAreaView>
+    </ScreenWrapper>
   );
 }

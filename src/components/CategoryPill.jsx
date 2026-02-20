@@ -15,7 +15,7 @@ export default function CategoryPill({ label, onPress, color }) {
     >
       <Text
         className="text-[14px] font-bold"
-        style={{ color: color === '#F8DE7E' || !color ? colors.text : colors.white }}
+        style={{ color: color === colors.pillYellow || !color ? colors.text : colors.white }}
       >
         {label}
       </Text>

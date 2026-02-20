@@ -6,9 +6,8 @@ import {
   Platform,
   FlatList,
   ScrollView,
-  StatusBar,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import ScreenWrapper from '../components/ScreenWrapper';
 import Geolocation from 'react-native-geolocation-service';
 import { get7Day, getToday } from '../services/weatherApi';
 import { useTheme } from '../context/ThemeContext';
@@ -54,8 +53,7 @@ export default function WeatherScreen() {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.gold || '#FDCB02' }} edges={['top']}>
-      <StatusBar barStyle="dark-content" backgroundColor={colors.gold || '#FDCB02'} />
+    <ScreenWrapper>
       <View style={{ flex: 1, backgroundColor: colors.background }}>
         <BhaktiHeader />
         <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
@@ -116,7 +114,7 @@ export default function WeatherScreen() {
           </View>
         </ScrollView>
       </View>
-    </SafeAreaView>
+    </ScreenWrapper>
   );
 }
 

@@ -1,16 +1,103 @@
 [
   {
-    "id": "mata_bhajan",
+    "id": "mata_bhajan_ambe_gauri",
     "title": "जय अम्बे गौरी",
-    "content": "आई सिंह पे सवार, मैया ओढ़े चुनरी।\n\nआधी शक्ति है मात भवानी, जय दुर्गे माँ काली।\nबड़े-बड़े राक्षस संहारे, रण चंडी मतवाली।\nकरे भक्तों का उद्धार, मैया ओढ़े चुनरी।\nआई सिंह पे सवार, मैया ओढ़े चुनरी।\n\nमहिषासुर सा महाबली, देवों को खूब सताया।\nछीन लिया इन्द्रासन, और देवों को मार भगाया।\nकरे देवों ने पुकार, मैया ओढ़े चुनरी।\nआई सिंह पे सवार, मैया ओढ़े चुनरी।\n\nदुर्गा का अवतार लिया, झट महिषासुर संहारी।\nदूर किया देवों का संकट, लीला तेरी न्यारी।\nकिया देवों पे उपकार, मैया ओढ़े चुनरी।\nआई सिंह पे सवार, मैया ओढ़े चुनरी।\n\nजो कोई जिस मंशा से, मैया द्वार तुम्हारे आते।\nहर इच्छा होती पूरी, और मुँह माँगा फल पाते।\nतेरा गुण गावे संसार, मैया ओढ़े चुनरी।\nआई सिंह पे सवार, मैया ओढ़े चुनरी।"
+    "slug": "jai-ambe-gauri",
+    "category": "bhajan",
+    "deity": {
+      "id": "durga",
+      "name": "Maa Durga",
+      "type": "goddess"
+    },
+    "language": "hindi",
+    "lyrics": "आई सिंह पे सवार, मैया ओढ़े चुनरी।\n\nआधी शक्ति है मात भवानी, जय दुर्गे माँ काली।\nबड़े-बड़े राक्षस संहारे, रण चंडी मतवाली।\nकरे भक्तों का उद्धार, मैया ओढ़े चुनरी।\nआई सिंह पे सवार, मैया ओढ़े चुनरी।\n\nमहिषासुर सा महाबली, देवों को खूब सताया।\nछीन लिया इन्द्रासन, और देवों को मार भगाया।\nकरे देवों ने पुकार, मैया ओढ़े चुनरी।\nआई सिंह पे सवार, मैया ओढ़े चुनरी।\n\nदुर्गा का अवतार लिया, झट महिषासुर संहारी।\nदूर किया देवों का संकट, लीला तेरी न्यारी।\nकिया देवों पे उपकार, मैया ओढ़े चुनरी।\nआई सिंह पे सवार, मैया ओढ़े चुनरी।\n\nजो कोई जिस मंशा से, मैया द्वार तुम्हारे आते।\nहर इच्छा होती पूरी, और मुँह माँगा फल पाते।\nतेरा गुण गावे संसार, मैया ओढ़े चुनरी।\nआई सिंह पे सवार, मैया ओढ़े चुनरी।",
+    "singer": "Traditional",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "durga.png",
+      "icon": "durga_icon.png"
+    },
+    "tags": [
+      "durga",
+      "navratri",
+      "mata",
+      "bhakti"
+    ],
+    "isFeatured": true,
+    "isPopular": true,
+    "order": 1,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
-    "id": "krishna_bhajan",
-    "title": "श्याम तेरी बंसी पुकारे राधा नाम"
+    "id": "krishna_bhajan_bansi_pukare",
+    "title": "श्याम तेरी बंसी पुकारे राधा नाम",
+    "slug": "shyam-teri-bansi-pukare",
+    "category": "bhajan",
+    "deity": {
+      "id": "krishna",
+      "name": "Shree Krishna",
+      "type": "god"
+    },
+    "language": "hindi",
+    "lyrics": "",
+    "singer": "Traditional",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "krishna.png",
+      "icon": "krishna_icon.png"
+    },
+    "tags": [
+      "krishna",
+      "radha",
+      "love",
+      "bhakti"
+    ],
+    "isFeatured": true,
+    "isPopular": true,
+    "order": 2,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
-    "id": "ram_bhajan",
-    "title": "राम जी की निकली सवारी"
+    "id": "ram_bhajan_nikli_sawari",
+    "title": "राम जी की निकली सवारी",
+    "slug": "ram-ji-ki-nikli-sawari",
+    "category": "bhajan",
+    "deity": {
+      "id": "ram",
+      "name": "Shree Ram",
+      "type": "god"
+    },
+    "language": "hindi",
+    "lyrics": "",
+    "singer": "Traditional",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "ram.png",
+      "icon": "ram_icon.png"
+    },
+    "tags": [
+      "ram",
+      "bhakti",
+      "festival"
+    ],
+    "isFeatured": false,
+    "isPopular": true,
+    "order": 3,
+    "createdAt": "static",
+    "updatedAt": "static"
   }
 ]
-
