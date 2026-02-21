@@ -30,7 +30,13 @@ const BookmarksScreen = () => {
             )}
             ListEmptyComponent={
               <View className="flex-1 items-center justify-center mt-20">
-                <Text style={{ color: colors.textLight }}>अभी कोई बुकमार्क नहीं है।</Text>
+                <Text
+                  className="text-center px-6"
+                  style={{ color: colors.textLight }}
+                >
+                  अभी कोई बुकमार्क नहीं है। अपने प्रिय मंत्र, चालीसा और आरती को
+                  बुकमार्क करके यहां देखें।
+                </Text>
               </View>
             }
           />

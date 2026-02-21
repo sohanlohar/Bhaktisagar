@@ -7,8 +7,10 @@ import { BhaktiHeader, SpecialTicker } from '../components/home/BhaktiHeader';
 import { IconTile } from '../components/IconTile';
 import CategoryPill from '../components/CategoryPill';
 import { GridListItem, SubCategoryChip } from '../components/home/HomeComponents';
+import ItemCard from '../components/ItemCard';
 import { Search, Music, Zap, Star, Flame, Sun, Ghost, ScrollText, Heart, Wind, Sunrise, Sunset, Clock, Sparkles, Smile } from 'lucide-react-native';
 import { getTodayPanchang } from '../services/panchangApi';
+import { getHomePageContent } from '../utils/homeContentUtils';
 
 const HOME_CATEGORIES = [
   { id: '1', title: 'मंत्र', icon: '🙏', kind: 'mantra' },
@@ -19,19 +21,41 @@ const HOME_CATEGORIES = [
   { id: '6', title: 'चलचित्र', icon: '📽️', isNew: true },
 ];
 
-const BHAJANS = [
-  { id: 'b1', title: 'ॐ शंकर शिव भोले उमा...' },
-  { id: 'b2', title: 'आये है दिन सावन के - ...' },
-  { id: 'b3', title: 'हमारे साथ श्री महाकाल...' },
-  { id: 'b4', title: 'महेश वंदना: किस विधि...' },
-];
+/**
+ * Get icon component based on content kind
+ */
+const getKindIcon = (kind) => {
+  switch (kind) {
+    case 'mantra':
+      return Sparkles;
+    case 'chalisa':
+      return ScrollText;
+    case 'bhajan':
+      return Music;
+    case 'aarti':
+      return Zap;
+    default:
+      return Star;
+  }
+};
 
-const AARTIS = [
-  { id: 'a1', title: 'शिव आरती - ॐ जय ...' },
-  { id: 'a2', title: 'श्री राम स्तुति' },
-  { id: 'a3', title: 'नृसिंह आरती ISKCON' },
-  { id: 'a4', title: 'स्वामीनारायण आरती' },
-];
+/**
+ * Get icon color based on content kind
+ */
+const getKindColor = (kind, colors) => {
+  switch (kind) {
+    case 'mantra':
+      return colors.primary;
+    case 'chalisa':
+      return colors.saffron;
+    case 'bhajan':
+      return colors.orange;
+    case 'aarti':
+      return colors.gold || colors.saffron;
+    default:
+      return colors.text;
+  }
+};
 
 const SectionHeader = ({ title }) => {
   const { colors } = useTheme();
@@ -45,16 +69,26 @@ const SectionHeader = ({ title }) => {
 };
 
 export default function HomeScreen() {
-  // const nav = useNavigation();
   const { colors } = useTheme();
   const navigation = useNavigation();
   const [panchang, setPanchang] = React.useState(null);
+  const [homeContent, setHomeContent] = React.useState({
+    todaysDevotion: [],
+    dailyPicks: [],
+    trending: [],
+  });
 
   React.useEffect(() => {
     (async () => {
       const data = await getTodayPanchang();
       setPanchang(data);
     })();
+  }, []);
+
+  React.useEffect(() => {
+    // Load dynamic home content
+    const content = getHomePageContent();
+    setHomeContent(content);
   }, []);
 
   return (
@@ -149,26 +183,88 @@ export default function HomeScreen() {
             </View>
           )}
 
-          {/* Bhajan Section */}
-          <SectionHeader title="भजन" />
-          <View className="px-3 flex-row flex-wrap">
-            {BHAJANS.map(item => (
-              <View key={item.id} style={{ width: '50%' }}>
-                <GridListItem title={item.title} icon={Music} color={colors.primary} />
+          {/* Today's Devotion Section */}
+          {homeContent.todaysDevotion.length > 0 && (
+            <>
+              <SectionHeader title="आज की भक्ति" />
+              <View className="px-3">
+                <FlatList
+                  data={homeContent.todaysDevotion}
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  keyExtractor={(item) => item.id}
+                  contentContainerStyle={{ paddingVertical: 8 }}
+                  renderItem={({ item }) => (
+                    <View style={{ width: 280, marginRight: 12 }}>
+                      <ItemCard
+                        id={item.id}
+                        title={item.title}
+                        item={item}
+                        onPress={() =>
+                          navigation.navigate('Detail', {
+                            item: { ...item, kind: item.kind },
+                          })
+                        }
+                      />
+                    </View>
+                  )}
+                />
               </View>
-            ))}
-          </View>
+            </>
+          )}
 
-
-          {/* Aarti Section */}
-          <SectionHeader title="आरती" />
-          <View className="px-3 flex-row flex-wrap">
-            {AARTIS.map(item => (
-              <View key={item.id} style={{ width: '50%' }}>
-                <GridListItem title={item.title} icon={Zap} color={colors.saffron} />
+          {/* Daily Picks Section */}
+          {homeContent.dailyPicks.length > 0 && (
+            <>
+              <SectionHeader title="दैनिक चयन" />
+              <View className="px-3 flex-row flex-wrap">
+                {homeContent.dailyPicks.map(item => (
+                  <View key={item.id} style={{ width: '50%' }}>
+                    <GridListItem
+                      title={item.title}
+                      icon={getKindIcon(item.kind)}
+                      color={getKindColor(item.kind, colors)}
+                      onPress={() =>
+                        navigation.navigate('Detail', {
+                          item: { ...item, kind: item.kind },
+                        })
+                      }
+                    />
+                  </View>
+                ))}
               </View>
-            ))}
-          </View>
+            </>
+          )}
+
+          {/* Trending Section */}
+          {homeContent.trending.length > 0 && (
+            <>
+              <SectionHeader title="लोकप्रिय" />
+              <View className="px-3">
+                <FlatList
+                  data={homeContent.trending}
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  keyExtractor={(item) => item.id}
+                  contentContainerStyle={{ paddingVertical: 8 }}
+                  renderItem={({ item }) => (
+                    <View style={{ width: 280, marginRight: 12 }}>
+                      <ItemCard
+                        id={item.id}
+                        title={item.title}
+                        item={item}
+                        onPress={() =>
+                          navigation.navigate('Detail', {
+                            item: { ...item, kind: item.kind },
+                          })
+                        }
+                      />
+                    </View>
+                  )}
+                />
+              </View>
+            </>
+          )}
 
           {/* Festivals Section */}
           <SectionHeader title="आगामी त्योहार" />

@@ -40,8 +40,11 @@ export default function SubcategoryScreen() {
         </View>
 
         {filtered.length === 0 ? (
-          <View className="flex-1 items-center justify-center">
-            <Text style={{ color: colors.textLight }}>कोई सामग्री उपलब्ध नहीं है।</Text>
+          <View className="flex-1 items-center justify-center px-6">
+            <Text className="text-center" style={{ color: colors.textLight }}>
+              इस उपश्रेणी में अभी कोई सामग्री उपलब्ध नहीं है। कृपया अन्य श्रेणियों
+              को देखें या बाद में पुनः प्रयास करें।
+            </Text>
           </View>
         ) : (
           <FlatList
@@ -52,7 +55,11 @@ export default function SubcategoryScreen() {
               <ItemCard
                 id={item.id}
                 title={item.title}
-                onPress={() => nav.navigate('Detail', { item: { ...item, kind } })}
+                onPress={() =>
+                  nav.navigate('Detail', {
+                    item: { ...item, kind },
+                  })
+                }
               />
             )}
           />

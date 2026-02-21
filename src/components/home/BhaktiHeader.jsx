@@ -1,10 +1,13 @@
 import React from 'react';
 import { View, Text, Pressable, Image } from 'react-native';
-import { Menu, MapPin, Calendar, Sun, Heart, Bell } from 'lucide-react-native';
+import { Heart, Bell, Settings } from 'lucide-react-native';
+import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../../context/ThemeContext';
+import { ROUTES } from '../../constants';
 
 export function BhaktiHeader() {
     const { colors } = useTheme();
+    const navigation = useNavigation();
 
     return (
         <View
@@ -29,6 +32,12 @@ export function BhaktiHeader() {
                 </Pressable>
                 <Pressable className="p-1 ml-1">
                     <Bell size={22} color={colors.orange} />
+                </Pressable>
+                <Pressable
+                    className="p-1 ml-1"
+                    onPress={() => navigation.navigate(ROUTES.SETTINGS)}
+                >
+                    <Settings size={22} color={colors.orange} />
                 </Pressable>
             </View>
         </View>

@@ -1,9 +1,13 @@
-import "./global.css";
+import './global.css';
 import React from 'react';
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
+import {
+  NavigationContainer,
+  DefaultTheme,
+  DarkTheme,
+} from '@react-navigation/native';
 import { BookmarkProvider } from './src/context/BookmarkContext';
 import { ThemeProvider, useTheme } from './src/context/ThemeContext';
-import { StatusBar, View, Text, Image } from 'react-native';
+import { View } from 'react-native';
 import RootNavigator from './src/navigation/RootNavigator';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
@@ -25,10 +29,6 @@ const AppContent = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.background }}>
-      <StatusBar
-        barStyle={isDarkMode ? "light-content" : "dark-content"}
-        backgroundColor={colors.background}
-      />
       <NavigationContainer theme={navTheme}>
         <RootNavigator />
       </NavigationContainer>

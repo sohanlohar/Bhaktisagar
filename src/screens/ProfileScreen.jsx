@@ -1,10 +1,13 @@
 import React from 'react';
 import { View, Text, Pressable, Switch } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../context/ThemeContext';
-import { User, Moon, Sun, Bell, Shield, Info } from 'lucide-react-native';
+import ScreenWrapper from '../components/ScreenWrapper';
+import { ChevronLeft, Moon, Sun, Bell, Shield, Info } from 'lucide-react-native';
 
 const ProfileScreen = () => {
   const { colors, isDarkMode, toggleTheme } = useTheme();
+  const navigation = useNavigation();
 
   const MenuItem = ({ icon: Icon, label, value, onValueChange, type = 'arrow' }) => (
     <View className="flex-row items-center justify-between p-4 mb-3 rounded-2xl border" style={{ backgroundColor: colors.cardBg, borderColor: colors.border }}>
@@ -28,15 +31,17 @@ const ProfileScreen = () => {
   );
 
   return (
-    <View style={{ flex: 1, backgroundColor: colors.background }} className="p-5">
-      <Text className="text-3xl font-bold mb-8" style={{ color: colors.text }}>सेटिंग्स</Text>
-
-      <View className="items-center mb-10">
-        <View className="w-24 h-24 rounded-[32px] items-center justify-center mb-4" style={{ backgroundColor: colors.cardBg, borderWidth: 1, borderColor: colors.border }}>
-          <User size={48} color={colors.textLight} />
-        </View>
-        <Text className="text-xl font-bold" style={{ color: colors.text }}>भक्त</Text>
-        <Text style={{ color: colors.textLight }}>bhakt@example.com</Text>
+    <ScreenWrapper>
+      <View style={{ flex: 1, backgroundColor: colors.background }} className="p-5">
+      <View className="flex-row items-center mb-8">
+        <Pressable
+          onPress={() => navigation.goBack()}
+          className="w-10 h-10 rounded-full items-center justify-center mr-3"
+          style={{ backgroundColor: colors.cardBg }}
+        >
+          <ChevronLeft size={22} color={colors.text} />
+        </Pressable>
+        <Text className="text-3xl font-bold" style={{ color: colors.text }}>सेटिंग्स</Text>
       </View>
 
       <MenuItem
@@ -51,7 +56,8 @@ const ProfileScreen = () => {
       <MenuItem icon={Info} label="हमारे बारे में" />
 
       <Text className="text-center mt-10" style={{ color: colors.textLight, fontSize: 12 }}>Version 0.0.1</Text>
-    </View>
+      </View>
+    </ScreenWrapper>
   );
 };
 

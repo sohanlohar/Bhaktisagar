@@ -5,10 +5,17 @@ import { Bookmark } from 'lucide-react-native';
 import { useTheme } from '../context/ThemeContext';
 import AnimatedPressable from './AnimatedPressable';
 
-export default function ItemCard({ id, title, onPress }) {
+export default function ItemCard({ id, title, onPress, item }) {
   const { isBookmarked, toggle } = useBookmarks();
   const { colors } = useTheme();
   const active = isBookmarked(id);
+
+  const handleBookmarkPress = (e) => {
+    e.stopPropagation();
+    // Use full item if provided, otherwise create minimal object
+    const bookmarkItem = item || { id, title, kind: 'bhajan' };
+    toggle(bookmarkItem);
+  };
 
   return (
     <AnimatedPressable
@@ -33,7 +40,7 @@ export default function ItemCard({ id, title, onPress }) {
           <Text className="text-[12px]" style={{ color: colors.textLight }}>सुप्रभात • २ मि</Text>
         </View>
         <Pressable
-          onPress={() => toggle({ id, title, kind: 'bhajan' })}
+          onPress={handleBookmarkPress}
           hitSlop={20}
           className="w-10 h-10 rounded-full items-center justify-center"
           style={{ backgroundColor: colors.background }}

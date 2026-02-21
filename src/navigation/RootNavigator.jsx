@@ -1,20 +1,24 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeStack from './home/HomeStack';
 import BookmarksScreen from '../screens/BookmarkScreen';
 import PanchangScreen from '../screens/PanchangScreen';
 import WeatherScreen from '../screens/WeatherScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 import { Home, Bookmark, CalendarDays, CloudSun } from 'lucide-react-native';
 import { useTheme } from '../context/ThemeContext';
+import { ROUTES } from '../constants';
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
 const renderIcon =
   IconComponent =>
     ({ color, size }) =>
       <IconComponent color={color} size={size} />;
 
-const RootNavigator = () => {
+const MainTabs = () => {
   const { colors } = useTheme();
 
   return (
@@ -41,7 +45,7 @@ const RootNavigator = () => {
       }}
     >
       <Tab.Screen
-        name="HomeTab"
+        name={ROUTES.HOME_TAB}
         component={HomeStack}
         options={{
           title: 'Home',
@@ -49,7 +53,7 @@ const RootNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Bookmarks"
+        name={ROUTES.BOOKMARKS}
         component={BookmarksScreen}
         options={{
           title: 'Bookmarks',
@@ -57,7 +61,7 @@ const RootNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Panchang"
+        name={ROUTES.PANCHANG}
         component={PanchangScreen}
         options={{
           title: 'Panchang',
@@ -65,7 +69,7 @@ const RootNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Weather"
+        name={ROUTES.WEATHER}
         component={WeatherScreen}
         options={{
           title: 'Weather',
@@ -73,6 +77,21 @@ const RootNavigator = () => {
         }}
       />
     </Tab.Navigator>
+  );
+};
+
+const RootNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen
+        name={ROUTES.ROOT_TABS}
+        component={MainTabs}
+      />
+      <Stack.Screen
+        name={ROUTES.SETTINGS}
+        component={ProfileScreen}
+      />
+    </Stack.Navigator>
   );
 };
 

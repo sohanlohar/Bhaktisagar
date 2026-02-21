@@ -7,6 +7,7 @@ import React, {
     ReactNode,
 } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { STORAGE_KEYS } from '../constants';
 import { BookmarkItem } from '../types';
 
 interface BookmarkContextType {
@@ -28,7 +29,7 @@ export const BookmarkProvider: React.FC<BookmarkProviderProps> = ({ children }) 
     useEffect(() => {
         (async () => {
             try {
-                const raw = await AsyncStorage.getItem('BOOKMARKS');
+                const raw = await AsyncStorage.getItem(STORAGE_KEYS.BOOKMARKS);
                 if (raw) {
                     setBookmarks(JSON.parse(raw));
                 }
@@ -42,7 +43,10 @@ export const BookmarkProvider: React.FC<BookmarkProviderProps> = ({ children }) 
     useEffect(() => {
         const save = async () => {
             try {
-                await AsyncStorage.setItem('BOOKMARKS', JSON.stringify(bookmarks));
+                await AsyncStorage.setItem(
+                    STORAGE_KEYS.BOOKMARKS,
+                    JSON.stringify(bookmarks),
+                );
             } catch (err) {
                 console.error('Error saving bookmarks:', err);
             }
