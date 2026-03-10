@@ -20,8 +20,9 @@ export default function ItemCard({ id, title, onPress, item }) {
   return (
     <AnimatedPressable
       onPress={onPress}
-      className="rounded-[24px] p-5 m-2 flex-1 shadow-md"
+      className="rounded-[16px] p-5 shadow-md"
       style={{
+        minHeight: 80,
         backgroundColor: colors.cardBg,
         shadowColor: colors.primary,
         shadowOffset: { width: 0, height: 8 },
@@ -32,12 +33,11 @@ export default function ItemCard({ id, title, onPress, item }) {
         borderColor: colors.border
       }}
     >
-      <View className="flex-row items-center justify-between">
+      <View className="flex-row items-center justify-between flex-wrap">
         <View className="flex-1">
-          <Text className="text-[16px] font-bold mb-1" style={{ color: colors.text }} numberOfLines={1}>
+          <Text className="text-[14px] font-bold mb-1" style={{ color: colors.text }} numberOfLines={1}>
             {title}
           </Text>
-          <Text className="text-[12px]" style={{ color: colors.textLight }}>सुप्रभात • २ मि</Text>
         </View>
         <Pressable
           onPress={handleBookmarkPress}

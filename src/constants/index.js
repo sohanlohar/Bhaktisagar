@@ -6,6 +6,7 @@ export const ROUTES = {
   WEATHER: 'Weather',
   SETTINGS: 'Settings',
   DETAIL: 'Detail',
+  SEARCH: 'Search',
 };
 
 export const STORAGE_KEYS = {

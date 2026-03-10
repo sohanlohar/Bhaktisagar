@@ -1,9 +1,10 @@
-import React from 'react';
-import { View, Text, Pressable, Image } from 'react-native';
-import { Heart, Bell, Settings } from 'lucide-react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useTheme } from '../../context/ThemeContext';
+import { Bell, Heart, Search, Settings } from 'lucide-react-native';
+import React from 'react';
+import { Image, Pressable, Text, View } from 'react-native';
 import { ROUTES } from '../../constants';
+import { useTheme } from '../../context/ThemeContext';
+
 
 export function BhaktiHeader() {
     const { colors } = useTheme();
@@ -11,34 +12,41 @@ export function BhaktiHeader() {
 
     return (
         <View
-            className="flex-row items-center justify-between px-3 h-14"
+            className="flex-row items-center justify-between px-3 h-14 py-2"
             style={{ backgroundColor: colors.headerBg }}
         >
             <View className="flex-row items-center">
-                <View className="ml-2 w-10 h-10 rounded-full overflow-hidden bg-white items-center justify-center border border-orange-100 shadow-sm">
+                <View className="rounded-full overflow-hidden bg-white items-center justify-center border border-orange-100 shadow-sm">
                     <Image
                         source={require('../../assets/app_icon.png')}
-                        style={{ width: 38, height: 38, resizeMode: 'contain' }}
+                        style={{ width: 35, height: 35, resizeMode: 'contain' }}
                     />
                 </View>
             </View>
 
             <View className="flex-row items-center">
-                <Pressable className="flex-row items-center p-1">
-                    <Heart size={22} color={colors.orange} />
+                <Pressable className="flex-row items-center p-1" onPress={() => navigation.navigate(ROUTES.BOOKMARKS)}>
+                    <Heart size={22} color={colors.headerText} />
                     <View className="absolute top-0 right-0 bg-white rounded-full w-4 h-4 items-center justify-center border border-gray-100">
                         <Text className="text-[8px] font-bold" style={{ color: colors.text }}>0</Text>
                     </View>
                 </Pressable>
-                <Pressable className="p-1 ml-1">
-                    <Bell size={22} color={colors.orange} />
+                {/* <Pressable className="p-1 ml-1">
+                    <Bell size={22} color={colors.headerText} />
+                </Pressable> */}
+                <Pressable
+                    className="p-1 ml-1"
+                    onPress={() => navigation.navigate(ROUTES.SEARCH)}
+                >
+                    <Search size={22} color={colors.headerText} />
                 </Pressable>
                 <Pressable
                     className="p-1 ml-1"
                     onPress={() => navigation.navigate(ROUTES.SETTINGS)}
                 >
-                    <Settings size={22} color={colors.orange} />
+                    <Settings size={22} color={colors.headerText} />
                 </Pressable>
+
             </View>
         </View>
     );

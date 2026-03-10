@@ -10,6 +10,7 @@ import { ThemeProvider, useTheme } from './src/context/ThemeContext';
 import { View } from 'react-native';
 import RootNavigator from './src/navigation/RootNavigator';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const AppContent = () => {
   const { isDarkMode, colors } = useTheme();
@@ -26,7 +27,6 @@ const AppContent = () => {
     },
   };
 
-
   return (
     <View style={{ flex: 1, backgroundColor: colors.background }}>
       <NavigationContainer theme={navTheme}>
@@ -39,11 +39,13 @@ const AppContent = () => {
 export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <ThemeProvider>
-        <BookmarkProvider>
-          <AppContent />
-        </BookmarkProvider>
-      </ThemeProvider>
+      <SafeAreaProvider>
+        <ThemeProvider>
+          <BookmarkProvider>
+            <AppContent />
+          </BookmarkProvider>
+        </ThemeProvider>
+      </SafeAreaProvider>
     </GestureHandlerRootView>
   );
 }

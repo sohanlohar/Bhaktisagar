@@ -11,11 +11,12 @@ export const LIGHT_COLORS = {
   white: '#FFFFFF',
   cardBg: '#FFFFFF',
   shadow: 'rgba(0,0,0,0.1)',
+  purple: '#6A0DAD',
 
   // Semantic Tokens
-  headerBg: '#FDCB02',      // Header background (Gold)
-  headerText: '#B22222',    // Header text/icon color (Primary)
-  statusBarBg: '#FDCB02',   // Status bar background
+  headerBg: '#FF7F11',      // Header background (Purple)
+  headerText: '#ffffff',    // Header text/icon color
+  statusBarBg: '#F2B50B',   // Status bar background (Deep Red)
 
   pillYellow: '#F8DE7E',
   pillRed: '#B01C04',
@@ -29,9 +30,9 @@ export const LIGHT_COLORS = {
 
 export const DARK_COLORS = {
   background: '#121212',
-  primary: '#FF9933',
-  saffron: '#FF9933',
-  gold: '#FDCB02',
+  primary: '#FF7F11',
+  saffron: '#FF7F11',
+  gold: '#FF7F11',
   orange: '#FF9100',
   secondary: '#2A2A2A',
   text: '#FFFFFF',
@@ -40,11 +41,12 @@ export const DARK_COLORS = {
   white: '#1E1E1E',
   cardBg: '#1E1E1E',
   shadow: 'rgba(0,0,0,0.5)',
+  purple: '#4B0082',
 
   // Semantic Tokens
-  headerBg: '#1E1E1E',      // Header background in dark mode
-  headerText: '#FF9933',    // Header text/icon color in dark mode
-  statusBarBg: '#1E1E1E',
+  headerBg: '#FF7F11',      // Header background in dark mode (Indigo/Purple)
+  headerText: '#FFFFFF',    // Header text/icon color in dark mode
+  statusBarBg: '#F2B50B',   // Status bar background (Darker Red for dark mode)
 
   pillYellow: '#F8DE7E',
   pillRed: '#D32F2F',

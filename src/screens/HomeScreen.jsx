@@ -60,7 +60,7 @@ const getKindColor = (kind, colors) => {
 const SectionHeader = ({ title }) => {
   const { colors } = useTheme();
   return (
-    <View className="items-center mt-10 mb-6">
+    <View className="items-center mt-8 mb-6">
       <Text className="text-2xl font-bold" style={{ color: colors.orange }}>
         {title} <Text style={{ fontSize: 20 }}>›</Text>
       </Text>
@@ -97,9 +97,9 @@ export default function HomeScreen() {
         <BhaktiHeader />
         {/* <SpecialTicker /> */}
 
-        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 100 }}>
+        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 40 }}>
           {/* Categories */}
-          <View className="mt-6">
+          <View className="mt-2">
             <FlatList
               data={HOME_CATEGORIES}
               horizontal
@@ -127,7 +127,7 @@ export default function HomeScreen() {
           {/* Quick Pills */}
           <SectionHeader title="आज का पंचांग" />
           {panchang ? (
-            <View className="px-5">
+            <View className="px-4">
               <Pressable
                 onPress={() => navigation.navigate('Panchang')}
                 className="rounded-3xl p-5 border shadow-sm"
@@ -175,7 +175,7 @@ export default function HomeScreen() {
               </Pressable>
             </View>
           ) : (
-            <View className="mt-10 flex-row justify-center px-4 flex-wrap">
+            <View className="mt-4 flex-row justify-center px-4 flex-wrap">
               <CategoryPill label="तिथि" color={colors.pillYellow} />
               <CategoryPill label="राशिफल" color={colors.pillRed} />
               <CategoryPill label="राहुकाल" color={colors.pillDarkGreen} />
@@ -187,28 +187,21 @@ export default function HomeScreen() {
           {homeContent.todaysDevotion.length > 0 && (
             <>
               <SectionHeader title="आज की भक्ति" />
-              <View className="px-3">
-                <FlatList
-                  data={homeContent.todaysDevotion}
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  keyExtractor={(item) => item.id}
-                  contentContainerStyle={{ paddingVertical: 8 }}
-                  renderItem={({ item }) => (
-                    <View style={{ width: 280, marginRight: 12 }}>
-                      <ItemCard
-                        id={item.id}
-                        title={item.title}
-                        item={item}
-                        onPress={() =>
-                          navigation.navigate('Detail', {
-                            item: { ...item, kind: item.kind },
-                          })
-                        }
-                      />
-                    </View>
-                  )}
-                />
+              <View className="px-4 flex-row flex-wrap justify-between">
+                {homeContent.todaysDevotion.map((item) => (
+                  <View key={item.id} style={{ width: '48%', marginBottom: 12 }}>
+                    <ItemCard
+                      id={item.id}
+                      title={item.title}
+                      item={item}
+                      onPress={() =>
+                        navigation.navigate('Detail', {
+                          item: { ...item, kind: item.kind },
+                        })
+                      }
+                    />
+                  </View>
+                ))}
               </View>
             </>
           )}
@@ -240,7 +233,7 @@ export default function HomeScreen() {
           {homeContent.trending.length > 0 && (
             <>
               <SectionHeader title="लोकप्रिय" />
-              <View className="px-3">
+              <View className="px-4">
                 <FlatList
                   data={homeContent.trending}
                   horizontal
@@ -267,7 +260,7 @@ export default function HomeScreen() {
           )}
 
           {/* Festivals Section */}
-          <SectionHeader title="आगामी त्योहार" />
+          {/* <SectionHeader title="आगामी त्योहार" />
           <View className="px-3 flex-row flex-wrap">
             <View style={{ width: '50%' }}><GridListItem title="फाल्गुन कृष्ण जन्माष्टमी" icon={Star} color={colors.pillGreen} /></View>
             <View style={{ width: '50%' }}><GridListItem title="फाल्गुन कालाष्टमी व्रत" icon={Ghost} color={colors.text} /></View>
@@ -275,16 +268,9 @@ export default function HomeScreen() {
             <View style={{ width: '50%' }}><GridListItem title="दयानंद सरस्वती जयंती" icon={Flame} color={colors.orange} /></View>
             <View style={{ width: '50%' }}><GridListItem title="कुम्भ संक्रान्ति" icon={Sun} color={colors.gold} /></View>
             <View style={{ width: '50%' }}><GridListItem title="विजया एकादशी" icon={Star} color={colors.primary} /></View>
-          </View>
+          </View> */}
         </ScrollView>
       </View>
-
-      <Pressable
-        className="absolute bottom-24 right-4 w-12 h-12 rounded-full items-center justify-center shadow-lg"
-        style={{ backgroundColor: colors.headerBg, elevation: 8 }}
-      >
-        <Search size={28} color={colors.headerText} />
-      </Pressable>
     </ScreenWrapper>
   );
 }

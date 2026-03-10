@@ -6,7 +6,9 @@ import BookmarksScreen from '../screens/BookmarkScreen';
 import PanchangScreen from '../screens/PanchangScreen';
 import WeatherScreen from '../screens/WeatherScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-import { Home, Bookmark, CalendarDays, CloudSun } from 'lucide-react-native';
+import SearchScreen from '../screens/SearchScreen';
+import ContentDetailScreen from '../screens/ContentDetailScreen';
+import { Home, Bookmark, CalendarDays, CloudSun, Heart } from 'lucide-react-native';
 import { useTheme } from '../context/ThemeContext';
 import { ROUTES } from '../constants';
 
@@ -30,12 +32,12 @@ const MainTabs = () => {
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: '600',
-          marginBottom: 10,
+          marginBottom: 20,
         },
         tabBarStyle: {
-          height: 70,
+          height: 80,
           paddingBottom: 10,
-          paddingTop: 10,
+          paddingTop: 5,
           backgroundColor: colors.background,
           borderTopWidth: 1,
           borderTopColor: colors.border,
@@ -56,8 +58,8 @@ const MainTabs = () => {
         name={ROUTES.BOOKMARKS}
         component={BookmarksScreen}
         options={{
-          title: 'Bookmarks',
-          tabBarIcon: renderIcon(Bookmark),
+          title: 'Favorites',
+          tabBarIcon: renderIcon(Heart),
         }}
       />
       <Tab.Screen
@@ -68,14 +70,14 @@ const MainTabs = () => {
           tabBarIcon: renderIcon(CalendarDays),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name={ROUTES.WEATHER}
         component={WeatherScreen}
         options={{
           title: 'Weather',
           tabBarIcon: renderIcon(CloudSun),
         }}
-      />
+      /> */}
     </Tab.Navigator>
   );
 };
@@ -90,6 +92,14 @@ const RootNavigator = () => {
       <Stack.Screen
         name={ROUTES.SETTINGS}
         component={ProfileScreen}
+      />
+      <Stack.Screen
+        name={ROUTES.SEARCH}
+        component={SearchScreen}
+      />
+      <Stack.Screen
+        name={ROUTES.DETAIL}
+        component={ContentDetailScreen}
       />
     </Stack.Navigator>
   );

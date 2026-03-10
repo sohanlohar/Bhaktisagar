@@ -36,11 +36,6 @@ export default function HomeStack() {
         component={DetailListScreen}
         options={({ route }) => ({ title: route.params.title })}
       />
-      <Stack.Screen
-        name="Detail"
-        component={ContentDetailScreen}
-        options={{ headerShown: false }} // Header is custom in the screen
-      />
     </Stack.Navigator>
   );
 }

@@ -1,543 +1,1019 @@
 [
   {
-  "id":"lakshmi_aarti",
-  "title":"श्री लक्ष्मी जी की आरती",
-  "slug":"lakshmi-aarti",
-  "category":"aarti",
-  "deity":{"id":"lakshmi","name":"Maa Lakshmi","type":"goddess"},
-  "language":"hindi",
-  "lyrics":"ॐ जय लक्ष्मी माता, मैया जय लक्ष्मी माता...",
-  "audio":{"enabled":false,"file":"","duration":0},
-  "media":{"image":"lakshmi.png","icon":"lakshmi_icon.png"},
-  "days":["friday"],
-  "tags":["wealth","diwali","lakshmi"],
-  "isFeatured":true,
-  "isPopular":true,
-  "order":1,
-  "createdAt":"static",
-  "updatedAt":"static"
+    "id": "lakshmi_aarti",
+    "title": "श्री लक्ष्मी जी की आरती",
+    "slug": "lakshmi-aarti",
+    "category": "aarti",
+    "deity": {
+      "id": "lakshmi",
+      "name": "Maa Lakshmi",
+      "type": "goddess"
+    },
+    "language": "hindi",
+    "lyrics": "ओम जय लक्ष्मी माता, मैया जय लक्ष्मी माता।\nतुमको निशिदिन सेवत, हरि विष्णु विधाता॥\n\nओम जय लक्ष्मी माता॥\n\nउमा, रमा, ब्रह्माणी, तुम ही जग-माता।\nमैया तुम ही जग-माता।।\n\nसूर्य-चंद्रमा ध्यावत, नारद ऋषि गाता॥\nओम जय लक्ष्मी माता॥\n\nदुर्गा रुप निरंजनी, सुख सम्पत्ति दाता।\nमैया सुख सम्पत्ति दाता॥\n\nजो कोई तुमको ध्याता, ऋद्धि-सिद्धि धन पाता॥\nओम जय लक्ष्मी माता॥\n\nतुम पाताल-निवासिनि, तुम ही शुभदाता।\nमैया तुम ही शुभदाता॥\n\nकर्म-प्रभाव-प्रकाशिनी, भवनिधि की त्राता॥\nओम जय लक्ष्मी माता॥\n\nजिस घर में तुम रहतीं, सब सद्गुण आता।\nमैया सब सद्गुण आता॥\n\nसब सम्भव हो जाता, मन नहीं घबराता॥\nओम जय लक्ष्मी माता॥\n\nतुम बिन यज्ञ न होते, वस्त्र न कोई पाता।\nमैया वस्त्र न कोई पाता॥\n\nखान-पान का वैभव, सब तुमसे आता॥\nओम जय लक्ष्मी माता॥\n\nशुभ-गुण मंदिर सुंदर, क्षीरोदधि-जाता।\nमैया क्षीरोदधि-जाता॥\n\nरत्न चतुर्दश तुम बिन, कोई नहीं पाता॥\nओम जय लक्ष्मी माता॥\n\nमहालक्ष्मीजी की आरती, जो कोई जन गाता।\nमैया जो कोई जन गाता॥\n\nउर आनन्द समाता, पाप उतर जाता॥\nओम जय लक्ष्मी माता॥\n\nऊं जय लक्ष्मी माता, मैया जय लक्ष्मी माता।\nतुमको निशदिन सेवत, हरि विष्णु विधाता। ऊं जय लक्ष्मी माता।।\n\n\nदोहा\n\nमहालक्ष्मी नमस्तुभ्यम्, नमस्तुभ्यम् सुरेश्वरि। हरिप्रिये नमस्तुभ्यम्, नमस्तुभ्यम् दयानिधे।।\n\nपद्मालये नमस्तुभ्यं नमस्तुभ्यं च सर्वदे। सर्व भूत हितार्थाय, वसु सृष्टिं सदा कुरुं।।",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "lakshmi.png",
+      "icon": "lakshmi_icon.png"
+    },
+    "days": [
+      "friday"
+    ],
+    "tags": [
+      "wealth",
+      "diwali",
+      "lakshmi"
+    ],
+    "isFeatured": true,
+    "isPopular": true,
+    "order": 1,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
-  "id":"ganesh_aarti",
-  "title":"श्री गणेश जी की आरती",
-  "slug":"ganesh-aarti",
-  "category":"aarti",
-  "deity":{"id":"ganesh","name":"Lord Ganesha","type":"god"},
-  "language":"hindi",
-  "lyrics":"जय गणेश जय गणेश जय गणेश देवा...",
-  "audio":{"enabled":false,"file":"","duration":0},
-  "media":{"image":"ganesh.png","icon":"ganesh_icon.png"},
-  "days":["wednesday"],
-  "tags":["ganesh","start","success"],
-  "isFeatured":true,
-  "isPopular":true,
-  "order":2,
-  "createdAt":"static",
-  "updatedAt":"static"
+    "id": "ganesh_aarti",
+    "title": "श्री गणेश जी की आरती",
+    "slug": "ganesh-aarti",
+    "category": "aarti",
+    "deity": {
+      "id": "ganesh",
+      "name": "Lord Ganesha",
+      "type": "god"
+    },
+    "language": "hindi",
+    "lyrics": "जय गणेश जय गणेश, जय गणेश देवा,\nमाता जाकी पार्वती, पिता महादेवा।\nएक दंत दयावंत, चार भुजा धारी,\nमाथे सिंदूर सोहे, मूसे की सवारी।\n\nजय गणेश जय गणेश, जय गणेश देवा।\nमाता जाकी पार्वती, पिता महादेवा।\nपान चढ़े फल चढ़े, और चढ़े मेवा,\nलड्डुअन का भोग लगे, संत करें सेवा।\n\nजय गणेश जय गणेश, जय गणेश देवा,\nमाता जाकी पार्वती, पिता महादेवा।\n\nअंधन को आंख देत, कोढ़िन को काया,\nबांझन को पुत्र देत, निर्धन को माया।\n\nजय गणेश जय गणेश, जय गणेश देवा,\nमाता जाकी पार्वती, पिता महादेवा।\n\n'सूर' श्याम शरण आए, सफल कीजे सेवा,\nमाता जाकी पार्वती, पिता महादेवा।\n\nजय गणेश जय गणेश, जय गणेश देवा,\nमाता जाकी पार्वती, पिता महादेवा।\n\nदीनन की लाज रखो, शंभु सुतकारी,\nकामना को पूर्ण करो, जाऊं बलिहारी।\n\nजय गणेश जय गणेश, जय गणेश देवा,\nमाता जाकी पार्वती, पिता महादेवा।\n\nभगवान गणेश की जय, पार्वती के लल्ला की जय, ओम गं गणपतये नमः",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "ganesh.png",
+      "icon": "ganesh_icon.png"
+    },
+    "days": [
+      "wednesday"
+    ],
+    "tags": [
+      "ganesh",
+      "start",
+      "success"
+    ],
+    "isFeatured": true,
+    "isPopular": true,
+    "order": 2,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
-  "id":"shiv_aarti",
-  "title":"श्री शिव जी की आरती",
-  "slug":"shiv-aarti",
-  "category":"aarti",
-  "deity":{"id":"shiv","name":"Lord Shiva","type":"god"},
-  "language":"hindi",
-  "lyrics":"ॐ जय शिव ओंकारा...",
-  "audio":{"enabled":false,"file":"","duration":0},
-  "media":{"image":"shiv.png","icon":"shiv_icon.png"},
-  "days":["monday"],
-  "tags":["mahadev","shiv","somvar"],
-  "isFeatured":true,
-  "isPopular":true,
-  "order":3,
-  "createdAt":"static",
-  "updatedAt":"static"
+    "id": "shiv_aarti",
+    "title": "श्री शिव जी की आरती",
+    "slug": "shiv-aarti",
+    "category": "aarti",
+    "deity": {
+      "id": "shiv",
+      "name": "Lord Shiva",
+      "type": "god"
+    },
+    "language": "hindi",
+    "lyrics": "ॐ जय शिव ओंकारा, स्वामी जय शिव ओंकारा।\nब्रह्मा, विष्णु, सदाशिव, अर्द्धांगी धारा॥\n\nओम जय शिव ओंकारा॥\nएकानन चतुरानन पञ्चानन राजे।\nहंसासन गरूड़ासन वृषवाहन साजे॥\n\nओम जय शिव ओंकारा॥\n\nदो भुज चार चतुर्भुज दसभुज अति सोहे।\nत्रिगुण रूप निरखत त्रिभुवन जन मोहे॥\n\nओम जय शिव ओंकारा॥\n\nअक्षमाला वनमाला मुण्डमालाधारी।\nत्रिपुरारी कंसारी कर माला धारी॥\n\nओम जय शिव ओंकारा॥\n\nश्वेताम्बर पीताम्बर बाघंबर अंगे।\nसनकादिक गरुड़ादिक भूतादिक संगे॥\n\nओम जय शिव ओंकारा॥\n\nकर के मध्य कमण्डल चक्र त्रिशूलधारी।\nजगकर्ता जगभर्ता जगसंहारकर्ता॥\n\nओम जय शिव ओंकारा॥\n\nब्रह्मा विष्णु सदाशिव जानत अविवेका।\nप्रणवाक्षर के मध्ये ये तीनों एका॥\n\nओम जय शिव ओंकारा॥\n\nपर्वत सोहैं पार्वती, शंकर कैलासा।\nभांग धतूरे का भोजन, भस्मी में वासा॥\n\nओम जय शिव ओंकारा॥\n\nजटा में गंग बहत है, गल मुण्डन माला।\nशेष नाग लिपटावत, ओढ़त मृगछाला॥\n\nओम जय शिव ओंकारा॥\n\nकाशी में विराजे विश्वनाथ, नन्दी ब्रह्मचारी।\nनित उठ दर्शन पावत, महिमा अति भारी॥\n\nओम जय शिव ओंकारा॥\n\nत्रिगुणस्वामी जी की आरति जो कोइ नर गावे।\nकहत शिवानन्द स्वामी, मनवान्छित फल पावे॥\n\nओम जय शिव ओंकारा॥ स्वामी ओम जय शिव ओंकारा॥",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "shiv.png",
+      "icon": "shiv_icon.png"
+    },
+    "days": [
+      "monday"
+    ],
+    "tags": [
+      "mahadev",
+      "shiv",
+      "somvar"
+    ],
+    "isFeatured": true,
+    "isPopular": true,
+    "order": 3,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
-  "id":"hanuman_aarti",
-  "title":"श्री हनुमान जी की आरती",
-  "slug":"hanuman-aarti",
-  "category":"aarti",
-  "deity":{"id":"hanuman","name":"Lord Hanuman","type":"god"},
-  "language":"hindi",
-  "lyrics":"आरती कीजै हनुमान लला की...",
-  "audio":{"enabled":false,"file":"","duration":0},
-  "media":{"image":"hanuman.png","icon":"hanuman_icon.png"},
-  "days":["tuesday","saturday"],
-  "tags":["hanuman","bajrangbali","strength"],
-  "isFeatured":true,
-  "isPopular":true,
-  "order":4,
-  "createdAt":"static",
-  "updatedAt":"static"
+    "id": "hanuman_aarti",
+    "title": "श्री हनुमान जी की आरती",
+    "slug": "hanuman-aarti",
+    "category": "aarti",
+    "deity": {
+      "id": "hanuman",
+      "name": "Lord Hanuman",
+      "type": "god"
+    },
+    "language": "hindi",
+    "lyrics": "आरती कीजै हनुमान लला की।\nदुष्ट दलन रघुनाथ कला की।।\n\nजाके बल से गिरिवर कांपे।\nरोग दोष जाके निकट न झांके।।\n\nअंजनि पुत्र महाबलदायी।\nसंतान के प्रभु सदा सहाई।।\n\nदे बीरा रघुनाथ पठाए।\nलंका जारी सिया सुध लाए।।\n\nलंका सो कोट समुद्र सी खाई।\nजात पवनसुत बार न लाई।।\n\nलंका जारी असुर संहारे।\nसियारामजी के काज संवारे।।\n\nलक्ष्मण मूर्छित पड़े सकारे।\nआणि संजीवन प्राण उबारे।।\n\nपैठी पताल तोरि जमकारे।\nअहिरावण की भुजा उखाड़े।।\n\nबाएं भुजा असुर दल मारे।\nदाहिने भुजा संतजन तारे।।\n\nसुर-नर-मुनि जन आरती उतारे।\nजै जै जै हनुमान उचारे।।\n\nकंचन थार कपूर लौ छाई।\nआरती करत अंजना माई।।\n\nलंकविध्वंस कीन्ह रघुराई।\nतुलसीदास प्रभु कीरति गाई।।\n\nजो हनुमानजी की आरती गावै।\nबसी बैकुंठ परमपद पावै।।",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "hanuman.png",
+      "icon": "hanuman_icon.png"
+    },
+    "days": [
+      "tuesday",
+      "saturday"
+    ],
+    "tags": [
+      "hanuman",
+      "bajrangbali",
+      "strength"
+    ],
+    "isFeatured": true,
+    "isPopular": true,
+    "order": 4,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
-  "id":"durga_aarti",
-  "title":"श्री दुर्गा जी की आरती",
-  "slug":"durga-aarti",
-  "category":"aarti",
-  "deity":{"id":"durga","name":"Maa Durga","type":"goddess"},
-  "language":"hindi",
-  "lyrics":"जय अम्बे गौरी, मैया जय श्यामा गौरी...",
-  "audio":{"enabled":false,"file":"","duration":0},
-  "media":{"image":"durga.png","icon":"durga_icon.png"},
-  "days":["friday"],
-  "tags":["durga","navratri","shakti"],
-  "isFeatured":true,
-  "isPopular":true,
-  "order":5,
-  "createdAt":"static",
-  "updatedAt":"static"
+    "id": "durga_aarti",
+    "title": "श्री दुर्गा जी की आरती",
+    "slug": "durga-aarti",
+    "category": "aarti",
+    "deity": {
+      "id": "durga",
+      "name": "Maa Durga",
+      "type": "goddess"
+    },
+    "language": "hindi",
+    "lyrics": "जय अंबे गौरी, मैया जय श्यामा गौरी।\nतुमको निशिदिन ध्यावत, हरि ब्रह्मा शिवरी॥\nओम जय अंबे गौरी॥\n\nमांग सिन्दूर विराजत, टीको मृगमद को।\nउज्जवल से दो‌उ नैना, चन्द्रवदन नीको॥\nओम जय अंबे गौरी॥\n\nकनक समान कलेवर, रक्ताम्बर राजै।\nरक्तपुष्प गल माला, कण्ठन पर साजै॥\nओम जय अंबे गौरी॥\n\nकेहरि वाहन राजत, खड्ग खप्परधारी।\nसुर-नर-मुनि-जन सेवत, तिनके दुखहारी॥\nओम जय अंबे गौरी॥\n\nकानन कुण्डल शोभित, नासाग्रे मोती।\nकोटिक चन्द्र दिवाकर, सम राजत ज्योति॥\nओम जय अंबे गौरी॥\n\nशुम्भ-निशुम्भ बिदारे, महिषासुर घाती।\nधूम्र विलोचन नैना, निशिदिन मदमाती॥\nओम जय अंबे गौरी॥\n\nचण्ड-मुण्ड संहारे, शोणित बीज हरे।\nमधु-कैटभ दो‌उ मारे, सुर भयहीन करे॥\nओम जय अंबे गौरी॥\n\nब्रहमाणी रुद्राणी तुम कमला रानी।\nआगम-निगम-बखानी, तुम शिव पटरानी॥\nओम जय अंबे गौरी॥\n\nचौंसठ योगिनी मंगल गावत, नृत्य करत भैरूं।\nबाजत ताल मृदंगा, अरु बाजत डमरु॥\nओम जय अंबे गौरी॥\n\nतुम ही जग की माता, तुम ही हो भरता।\nभक्‍तन की दु:ख हरता, सुख सम्पत्ति करता॥\nओम जय अंबे गौरी॥\n\nभुजा चार अति शोभित, वर-मुद्रा धारी।\nमनवान्छित फल पावत, सेवत नर-नारी॥\nओम जय अंबे गौरी॥\n\nकंचन थाल विराजत, अगर कपूर बाती।\nश्रीमालकेतु में राजत, कोटि रतन ज्योति॥\nओम जय अंबे गौरी॥\n\nश्री अम्बेजी की आरती, जो को‌ई नर गावै।\nकहत शिवानन्द स्वामी, सुख सम्पत्ति पावै॥\nओम जय अंबे गौरी, ओम जय अंबे गौरी॥\n\nजोर से बोलो जय माता दी, सारे बोले जय माता दी।\nबोल सांचे दरबार की जय।\nजयकारा शेरावाली का बोल सांचे दरबार की जय॥",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "durga.png",
+      "icon": "durga_icon.png"
+    },
+    "days": [
+      "friday"
+    ],
+    "tags": [
+      "durga",
+      "navratri",
+      "shakti"
+    ],
+    "isFeatured": true,
+    "isPopular": true,
+    "order": 5,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
-  "id":"krishna_aarti",
-  "title":"श्री कृष्ण जी की आरती",
-  "slug":"krishna-aarti",
-  "category":"aarti",
-  "deity":{"id":"krishna","name":"Lord Krishna","type":"god"},
-  "language":"hindi",
-  "lyrics":"आरती कुंज बिहारी की...",
-  "audio":{"enabled":false,"file":"","duration":0},
-  "media":{"image":"krishna.png","icon":"krishna_icon.png"},
-  "days":["wednesday"],
-  "tags":["krishna","radha","bhakti"],
-  "isFeatured":true,
-  "isPopular":true,
-  "order":6,
-  "createdAt":"static",
-  "updatedAt":"static"
+    "id": "krishna_aarti",
+    "title": "श्री कृष्ण जी की आरती",
+    "slug": "krishna-aarti",
+    "category": "aarti",
+    "deity": {
+      "id": "krishna",
+      "name": "Lord Krishna",
+      "type": "god"
+    },
+    "language": "hindi",
+    "lyrics": "आरती कुंजबिहारी की, श्री गिरिधर कृष्ण मुरारी की।\nगले में बैजंती माला, बजावै मुरली मधुर बाला।\nश्रवण में कुण्डल झलकाला, नंद के आनंद नंदलाला॥\n\nआरती कुंजबिहारी की, श्री गिरिधर कृष्ण मुरारी की॥\n\nगगन सम अंग कांति काली, राधिका चमक रही आली।\nलतन में ठाढ़े बनमाली;\nभ्रमर सी अलक, कस्तूरी तिलक,\nचंद्र सी झलक, ललित छवि श्यामा प्यारी की॥\nश्री गिरिधर कृष्ण मुरारी की॥\n\nआरती कुंजबिहारी की, श्री गिरिधर कृष्ण मुरारी की॥\n\nकनकमय मोर मुकुट बिलसै, देवता दरसन को तरसैं।\nगगन सों सुमन रासि बरसै;\nबजे मुरचंग, मधुर मिरदंग,\nग्वालिन संग; अतुल रति गोप कुमारी की॥\nश्री गिरिधर कृष्ण मुरारी की॥\n\nआरती कुंजबिहारी की, श्री गिरिधर कृष्ण मुरारी की॥\n\nजहां ते प्रकट भई गंगा, कलुष कलि हारिणि श्रीगंगा।\nस्मरन ते होत मोह भंगा;\nबसी सिव सीस, जटा के बीच,\nहरै अघ कीच; चरन छवि श्रीबनवारी की॥\nश्री गिरिधर कृष्ण मुरारी की॥\n\nआरती कुंजबिहारी की, श्री गिरिधर कृष्ण मुरारी की॥\n\nचमकती उज्ज्वल तट रेनू, बज रही वृंदावन बेनू।\nचहुं दिसि गोपि ग्वाल धेनू;\nहंसत मृदु मंद, चांदनी चंद,\nकटत भव फंद; टेर सुन दीन भिखारी की॥\nश्री गिरिधर कृष्ण मुरारी की॥\n\nआरती कुंजबिहारी की, श्री गिरिधर कृष्ण मुरारी की॥\n\nआरती कुंजबिहारी की, श्री गिरिधर कृष्ण मुरारी की॥\nआरती कुंजबिहारी की, श्री गिरिधर कृष्ण मुरारी की॥",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "krishna.png",
+      "icon": "krishna_icon.png"
+    },
+    "days": [
+      "wednesday"
+    ],
+    "tags": [
+      "krishna",
+      "radha",
+      "bhakti"
+    ],
+    "isFeatured": true,
+    "isPopular": true,
+    "order": 6,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
-  "id":"ram_aarti",
-  "title":"श्री राम जी की आरती",
-  "slug":"ram-aarti",
-  "category":"aarti",
-  "deity":{"id":"ram","name":"Lord Rama","type":"god"},
-  "language":"hindi",
-  "lyrics":"श्री रामचन्द्र कृपालु भज मन...",
-  "audio":{"enabled":false,"file":"","duration":0},
-  "media":{"image":"ram.png","icon":"ram_icon.png"},
-  "days":["sunday"],
-  "tags":["ram","ayodhya","maryada"],
-  "isFeatured":false,
-  "isPopular":true,
-  "order":7,
-  "createdAt":"static",
-  "updatedAt":"static"
+    "id": "ram_aarti",
+    "title": "श्री राम जी की आरती",
+    "slug": "ram-aarti",
+    "category": "aarti",
+    "deity": {
+      "id": "ram",
+      "name": "Lord Rama",
+      "type": "god"
+    },
+    "language": "hindi",
+    "lyrics": "श्री राम चंद्र कृपालु भजमन हरण भव भय दारुणम्।\nनवकंज लोचन कंज मुखकर, कंज पद कन्जारुणम्।।\n\nकंदर्प अगणित अमित छवी नव नील नीरज सुन्दरम्।\nपट्पीत मानहु तडित रूचि शुचि नौमी जनक सुतावरम्।।\n\nभजु दीन बंधु दिनेश दानव दैत्य वंश निकंदनम्।\nरघुनंद आनंद कंद कौशल चंद दशरथ नन्दनम्।।\n\nसिर मुकुट कुण्डल तिलक चारु उदारू अंग विभूषणं।\nआजानु भुज शर चाप धर संग्राम जित खर-धूषणं।।\n\nइति वदति तुलसीदास शंकर शेष मुनि मन रंजनम्।\nमम ह्रदय कुंज निवास कुरु कामादी खल दल गंजनम्।।\n\nमनु जाहिं राचेऊ मिलिहि सो बरु सहज सुंदर सावरों।\nकरुना निधान सुजान सिलू सनेहू जानत रावरो।।\n\nएही भांती गौरी असीस सुनी सिय सहित हिय हरषी अली।\nतुलसी भवानी पूजि पूनी पूनी मुदित मन मंदिर चली।।\n\nदोहा-\nजानि गौरी अनुकूल सिय हिय हरषु न जाइ कहि।\nमंजुल मंगल मूल वाम अंग फरकन लगे।।",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "ram.png",
+      "icon": "ram_icon.png"
+    },
+    "days": [
+      "sunday"
+    ],
+    "tags": [
+      "ram",
+      "ayodhya",
+      "maryada"
+    ],
+    "isFeatured": false,
+    "isPopular": true,
+    "order": 7,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
-  "id":"saraswati_aarti",
-  "title":"श्री सरस्वती माता की आरती",
-  "slug":"saraswati-aarti",
-  "category":"aarti",
-  "deity":{"id":"saraswati","name":"Maa Saraswati","type":"goddess"},
-  "language":"hindi",
-  "lyrics":"जय सरस्वती माता...",
-  "audio":{"enabled":false,"file":"","duration":0},
-  "media":{"image":"saraswati.png","icon":"saraswati_icon.png"},
-  "days":["thursday"],
-  "tags":["education","vidya","saraswati"],
-  "isFeatured":false,
-  "isPopular":true,
-  "order":8,
-  "createdAt":"static",
-  "updatedAt":"static"
+    "id": "saraswati_aarti",
+    "title": "श्री सरस्वती माता की आरती",
+    "slug": "saraswati-aarti",
+    "category": "aarti",
+    "deity": {
+      "id": "saraswati",
+      "name": "Maa Saraswati",
+      "type": "goddess"
+    },
+    "language": "hindi",
+    "lyrics": "ओम जय सरस्वती माता, जय जय सरस्वती माता।\nसद्गुण वैभव शालिनी, त्रिभुवन विख्याता॥\n\nचंद्रवदनी पद्मासिनी, धृति मंगलकारी।\nसोहे शुभ हंस सवारी, अतुल तेजधारी॥\nजय…\n\nबाएँ कर में वीणा धरे, दाएँ कर माला।\nशीश मुकुट मणि सोहे, गले मोतियन माला॥\nजय…\n\nदेवी शरण जो आए, उनका उद्धार किया।\nपैठी मंथरा दासी, रावण संहार किया॥\nजय…\n\nविद्या दायिनी ज्ञान प्रदान कर, ज्ञान का दीप जलाओ।\nभ्रम, अज्ञान और अंधकार, जग से दूर भगाओ॥\nजय…\n\nधूप, दीप, फल-मेवा, मां स्वीकार करो।\nज्ञान चक्षु दे माता, जग का उद्धार करो॥\nजय…\n\nमां सरस्वती की आरती, जो कोई जन गावे।\nसुख, समृद्धि, विद्या, भक्ति सहज पावे॥\nजय…\n\nजय सरस्वती माता, जय जय सरस्वती माता।\nसद्गुण वैभव शालिनी, त्रिभुवन विख्याता॥\n\nजय जय सरस्वती माता॥",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "saraswati.png",
+      "icon": "saraswati_icon.png"
+    },
+    "days": [
+      "thursday"
+    ],
+    "tags": [
+      "education",
+      "vidya",
+      "saraswati"
+    ],
+    "isFeatured": false,
+    "isPopular": true,
+    "order": 8,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
-  "id":"sai_aarti",
-  "title":"श्री साईं बाबा की आरती",
-  "slug":"sai-aarti",
-  "category":"aarti",
-  "deity":{"id":"sai","name":"Sai Baba","type":"saint"},
-  "language":"hindi",
-  "lyrics":"आरती श्री साईं गुरु वर की...",
-  "audio":{"enabled":false,"file":"","duration":0},
-  "media":{"image":"sai.png","icon":"sai_icon.png"},
-  "days":["thursday"],
-  "tags":["sai","shirdi","guru"],
-  "isFeatured":false,
-  "isPopular":true,
-  "order":9,
-  "createdAt":"static",
-  "updatedAt":"static"
+    "id": "sai_aarti",
+    "title": "श्री साईं बाबा की आरती",
+    "slug": "sai-aarti",
+    "category": "aarti",
+    "deity": {
+      "id": "sai",
+      "name": "Sai Baba",
+      "type": "saint"
+    },
+    "language": "hindi",
+    "lyrics": "ओम जय साईं हरे, बाबा शिरडी साईं हरे।\nभक्तजनों के कारण, उनके कष्ट निवारण॥\nशिरडी में अवतरे, ओम जय साईं हरे॥\nओम जय साईं हरे॥\n\nदुखियन के सब कष्टन काजे, शिरडी में प्रभु आप विराजे।\nफूलों की गल माला राजे, कफनी, शैला सुन्दर साजे॥\nकारज सब के करें, ओम जय साईं हरे॥\nओम जय...॥\n\nकाकड़ आरत भक्तन गावें, गुरु शयन को चावड़ी जावें।\nसब रोगों को उदी भगावे, गुरु फकीरा हमको भावे॥\nभक्तन भक्ति करें, ओम जय साईं हरे॥\nओम जय...॥\n\nहिन्दु मुस्लिम सिक्ख इसाईं, बौद्ध जैन सब भाई भाई।\nरक्षा करते बाबा साईं, शरण गहे जब द्वारिकामाई॥\nअविरल धूनि जरे, ओम जय साईं हरे॥\nओम जय...॥\n\nभक्तों में प्रिय शामा भावे, हेमडजी से चरित लिखावे।\nगुरुवार की संध्या आवे, शिव, साईं के दोहे गावे॥\nअंखियन प्रेम झरे, ओम जय साईं हरे॥\nओम जय साईं हरे, बाबा शिरडी साईं हरे॥\n\nओम जय साईं हरे, बाबा शिरडी साईं हरे।\nशिरडी साईं हरे, बाबा ओम जय साईं हरे॥\n\nश्री सद्गुरु साईंनाथ महाराज की जय॥",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "sai.png",
+      "icon": "sai_icon.png"
+    },
+    "days": [
+      "thursday"
+    ],
+    "tags": [
+      "sai",
+      "shirdi",
+      "guru"
+    ],
+    "isFeatured": false,
+    "isPopular": true,
+    "order": 9,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
-  "id":"shani_aarti",
-  "title":"श्री शनि देव की आरती",
-  "slug":"shani-aarti",
-  "category":"aarti",
-  "deity":{"id":"shani","name":"Shani Dev","type":"god"},
-  "language":"hindi",
-  "lyrics":"जय जय श्री शनि देव...",
-  "audio":{"enabled":false,"file":"","duration":0},
-  "media":{"image":"shani.png","icon":"shani_icon.png"},
-  "days":["saturday"],
-  "tags":["shani","karma","justice"],
-  "isFeatured":false,
-  "isPopular":true,
-  "order":10,
-  "createdAt":"static",
-  "updatedAt":"static"
+    "id": "shani_aarti",
+    "title": "श्री शनि देव की आरती",
+    "slug": "shani-aarti",
+    "category": "aarti",
+    "deity": {
+      "id": "shani",
+      "name": "Shani Dev",
+      "type": "god"
+    },
+    "language": "hindi",
+    "lyrics": "जय जय श्री शनिदेव भक्तन हितकारी।\nसूरज के पुत्र प्रभु छाया महतारी।।\n\nजय जय श्री शनिदेव भक्तन हितकारी।\nश्याम अंक वक्र दृष्ट चतुर्भुज धारी।\nनीलांबर धार नाथ गज की आसवारी।।\n\nजय जय श्री शनिदेव भक्तन हितकारी।\n\nक्रीट मुकुट शीश रजित दिपत है लिलारी।\nमुक्तन की माला गले शोभित बलिहारी।।\n\nजय जय श्री शनिदेव भक्तन हितकारी।\n\nमोदक मिष्टान पान चढ़त है सुपारी।\nलोहा तिल तेल उड़द महिषी अति प्यारी।।\n\nजय जय श्री शनिदेव भक्तन हितकारी।\n\nदेव दनुज ऋषि मुनि सुमरित हर नारी।\nविश्वनाथ धरत ध्यान शरण है तुम्हारी।।\n\nजय जय श्री शनिदेव भक्तन हितकारी।\n\nजय शनि देव महाराज की।",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "shani.png",
+      "icon": "shani_icon.png"
+    },
+    "days": [
+      "saturday"
+    ],
+    "tags": [
+      "shani",
+      "karma",
+      "justice"
+    ],
+    "isFeatured": false,
+    "isPopular": true,
+    "order": 10,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
-  "id":"surya_aarti",
-  "title":"श्री सूर्य देव की आरती",
-  "slug":"surya-aarti",
-  "category":"aarti",
-  "deity":{"id":"surya","name":"Surya Dev","type":"god"},
-  "language":"hindi",
-  "lyrics":"जय आदित्य देव, जय भानु प्रभु...",
-  "audio":{"enabled":false,"file":"","duration":0},
-  "media":{"image":"surya.png","icon":"surya_icon.png"},
-  "days":["sunday"],
-  "tags":["sun","health","energy"],
-  "isFeatured":false,
-  "isPopular":false,
-  "order":11,
-  "createdAt":"static",
-  "updatedAt":"static"
+    "id": "surya_aarti",
+    "title": "श्री सूर्य देव की आरती",
+    "slug": "surya-aarti",
+    "category": "aarti",
+    "deity": {
+      "id": "surya",
+      "name": "Surya Dev",
+      "type": "god"
+    },
+    "language": "hindi",
+    "lyrics": "जय कश्यप-नन्दन, ओम जय अदिति-नन्दन।\nत्रिभुवनतिमिरनिकन्दन भक्तहृदय चन्दन।।\nटेक।।\n\nसप्तअश्वरथ राजित एक चक्रधारी।\nदुःखहारी सुखकारी, मानस मलहारी।।\n\nओम जय कश्यप-नन्दन।।\nओम जय अदिति-नन्दन।।\n\nसुरमुनिभूसुरवन्दित विमल विभवशाली।\nअघदलदलन दिवाकर दिव्य किरणमाली।।\nओम जय कश्यप-नन्दन।।\n\nसकलसुकर्मप्रसविता सविता शुभकारी।\nविश्वविलोचन मोचन भवबन्धनभारी।।\nओम जय कश्यप-नन्दन।।\nओम जय अदिति-नन्दन।।\n\nकमलसमूहविनाशक नाशक रूम तापा।\nसेवत सहज हरत अति मनसिज सन्तापा।।\nओम जय कश्यप-नन्दन।।\nओम जय अदिति-नन्दन।।\n\nनेत्र व्याधिहर सुरवर भू-पीड़ाहारी।\nवृष्टिविमोचन सन्तत परहित व्रतधारी।।\nओम जय कश्यप-नन्दन।।\nओम जय अदिति-नन्दन।।\n\nसूर्यदेव करुणाकर अब करुणा कीजै।\nहर अज्ञानमोह सब तत्त्वज्ञान दीजै।।\nओम जय कश्यप-नन्दन।।\nओम जय अदिति-नन्दन।।",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "surya.png",
+      "icon": "surya_icon.png"
+    },
+    "days": [
+      "sunday"
+    ],
+    "tags": [
+      "sun",
+      "health",
+      "energy"
+    ],
+    "isFeatured": false,
+    "isPopular": false,
+    "order": 11,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
-  "id":"ganga_aarti",
-  "title":"श्री गंगा माता की आरती",
-  "slug":"ganga-aarti",
-  "category":"aarti",
-  "deity":{"id":"ganga","name":"Maa Ganga","type":"goddess"},
-  "language":"hindi",
-  "lyrics":"जय गंगे माता...",
-  "audio":{"enabled":false,"file":"","duration":0},
-  "media":{"image":"ganga.png","icon":"ganga_icon.png"},
-  "days":["daily"],
-  "tags":["ganga","river","holy"],
-  "isFeatured":false,
-  "isPopular":false,
-  "order":12,
-  "createdAt":"static",
-  "updatedAt":"static"
+    "id": "ganga_aarti",
+    "title": "श्री गंगा माता की आरती",
+    "slug": "ganga-aarti",
+    "category": "aarti",
+    "deity": {
+      "id": "ganga",
+      "name": "Maa Ganga",
+      "type": "goddess"
+    },
+    "language": "hindi",
+    "lyrics": "ओम जय गंगे माता, श्री जय गंगे माता।\nजो नर तुमको ध्याता, मनवांछित फल पाता॥\n\nचंद्र सी जोत तुम्हारी, जल निर्मल आता।\nशरण पडें जो तेरी, सो नर तर जाता॥\n॥ ओम जय गंगे माता॥\n\nपुत्र सगर के तारे, सब जग को ज्ञाता।\nकृपा दृष्टि तुम्हारी, त्रिभुवन सुख दाता॥\n॥ ओम जय गंगे माता॥\n\nएक ही बार जो तेरी, शारणागति आता।\nयम की त्रास मिटा कर, परमगति पाता॥\n॥ ओम जय गंगे माता॥\n\nआरती मात तुम्हारी, जो जन नित्य गाता।\nदास वही सहज में, मुक्ति को पाता॥\n॥ ओम जय गंगे माता॥\n\nओम जय गंगे माता, श्री जय गंगे माता।\nजो नर तुमको ध्याता, मनवांछित फल पाता॥\n\nओम जय गंगे माता, श्री जय गंगे माता॥",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "ganga.png",
+      "icon": "ganga_icon.png"
+    },
+    "days": [
+      "daily"
+    ],
+    "tags": [
+      "ganga",
+      "river",
+      "holy"
+    ],
+    "isFeatured": false,
+    "isPopular": false,
+    "order": 12,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
-  "id":"yamuna_aarti",
-  "title":"श्री यमुना जी की आरती",
-  "slug":"yamuna-aarti",
-  "category":"aarti",
-  "deity":{"id":"yamuna","name":"Yamuna Ji","type":"goddess"},
-  "language":"hindi",
-  "lyrics":"जय यमुना माता...",
-  "audio":{"enabled":false,"file":"","duration":0},
-  "media":{"image":"yamuna.png","icon":"yamuna_icon.png"},
-  "days":["daily"],
-  "tags":["yamuna","river","holy"],
-  "isFeatured":false,
-  "isPopular":false,
-  "order":13,
-  "createdAt":"static",
-  "updatedAt":"static"
+    "id": "yamuna_aarti",
+    "title": "श्री यमुना जी की आरती",
+    "slug": "yamuna-aarti",
+    "category": "aarti",
+    "deity": {
+      "id": "yamuna",
+      "name": "Yamuna Ji",
+      "type": "goddess"
+    },
+    "language": "hindi",
+    "lyrics": "ओम जय यमुना माता, हरि जय यमुना माता।\nजो नहावे फल पावे सुख दुःख की दाता।।\nओम जय यमुना माता…\n\nपावन श्रीयमुना जल अगम बहै धारा।\nजो जन शरण में आया कर दिया निस्तारा।।\nओम जय यमुना माता…\n\nजो जन प्रातः ही उठकर नित्य स्नान करे।\nयम के त्रास न पावे जो नित्य ध्यान करे।।\nओम जय यमुना माता…\n\nकलिकाल में महिमा तुम्हारी अटल रही।\nतुम्हारा बड़ा महातम चारो वेद कही।।\nओम जय यमुना माता…\n\nआन तुम्हारे माता प्रभु अवतार लियो।\nनित्य निर्मल जल पीकर कंस को मार दियो।।\nओम जय यमुना माता…\n\nनमो मात भय हरणी शुभ मंगल करणी।\nमन बेचैन भया हैं तुम बिन वैतरणी।।\nओम जय यमुना माता…",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "yamuna.png",
+      "icon": "yamuna_icon.png"
+    },
+    "days": [
+      "daily"
+    ],
+    "tags": [
+      "yamuna",
+      "river",
+      "holy"
+    ],
+    "isFeatured": false,
+    "isPopular": false,
+    "order": 13,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
-  "id":"tulsi_aarti",
-  "title":"श्री तुलसी माता की आरती",
-  "slug":"tulsi-aarti",
-  "category":"aarti",
-  "deity":{"id":"tulsi","name":"Tulsi Mata","type":"goddess"},
-  "language":"hindi",
-  "lyrics":"जय तुलसी माता...",
-  "audio":{"enabled":false,"file":"","duration":0},
-  "media":{"image":"tulsi.png","icon":"tulsi_icon.png"},
-  "days":["daily"],
-  "tags":["tulsi","home","puja"],
-  "isFeatured":false,
-  "isPopular":false,
-  "order":14,
-  "createdAt":"static",
-  "updatedAt":"static"
+    "id": "tulsi_aarti",
+    "title": "श्री तुलसी माता की आरती",
+    "slug": "tulsi-aarti",
+    "category": "aarti",
+    "deity": {
+      "id": "tulsi",
+      "name": "Tulsi Mata",
+      "type": "goddess"
+    },
+    "language": "hindi",
+    "lyrics": "जय जय तुलसी माता, मैय्या जय तुलसी माता।\nसब जग की सुख दाता, सबकी वर माता।।\nमैय्या जय तुलसी माता।।\n\nसब योगों से ऊपर, सब रोगों से ऊपर।\nरज से रक्ष करके, सबकी भव त्राता।\nमैय्या जय तुलसी माता।।\n\nबटु पुत्री है श्यामा, सूर बल्ली है ग्राम्या।\nविष्णुप्रिय जो नर तुमको सेवे, सो नर तर जाता।\nमैय्या जय तुलसी माता।।\n\nहरि के शीश विराजत, त्रिभुवन से हो वंदित।\nपतित जनों की तारिणी, तुम हो विख्याता।\nमैय्या जय तुलसी माता।।\n\nलेकर जन्म विजन में, आई दिव्य भवन में।\nमानव लोक तुम्हीं से, सुख-संपति पाता।\nमैय्या जय तुलसी माता।।\n\nहरि को तुम अति प्यारी, श्याम वर्ण सुकुमारी।\nप्रेम अजब है उनका, तुमसे कैसा नाता।\nहमारी विपद हरो तुम, कृपा करो माता।\nमैय्या जय तुलसी माता।।\n\nजय जय तुलसी माता, मैय्या जय तुलसी माता।\nसब जग की सुख दाता, सबकी वर माता॥\nमैय्या जय तुलसी माता।।",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "tulsi.png",
+      "icon": "tulsi_icon.png"
+    },
+    "days": [
+      "daily"
+    ],
+    "tags": [
+      "tulsi",
+      "home",
+      "puja"
+    ],
+    "isFeatured": false,
+    "isPopular": false,
+    "order": 14,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
-  "id":"vishwakarma_aarti",
-  "title":"श्री विश्वकर्मा जी की आरती",
-  "slug":"vishwakarma-aarti",
-  "category":"aarti",
-  "deity":{"id":"vishwakarma","name":"Lord Vishwakarma","type":"god"},
-  "language":"hindi",
-  "lyrics":"जय विश्वकर्मा प्रभु...",
-  "audio":{"enabled":false,"file":"","duration":0},
-  "media":{"image":"vishwakarma.png","icon":"vishwakarma_icon.png"},
-  "days":["thursday"],
-  "tags":["craft","engineer","tools"],
-  "isFeatured":false,
-  "isPopular":false,
-  "order":15,
-  "createdAt":"static",
-  "updatedAt":"static"
+    "id": "vishwakarma_aarti",
+    "title": "श्री विश्वकर्मा जी की आरती",
+    "slug": "vishwakarma-aarti",
+    "category": "aarti",
+    "deity": {
+      "id": "vishwakarma",
+      "name": "Lord Vishwakarma",
+      "type": "god"
+    },
+    "language": "hindi",
+    "lyrics": "ओम जय श्री विश्वकर्मा, प्रभु जय श्री विश्वकर्मा।\nसकल सृष्टि के कर्ता, रक्षक स्तुति धर्मा।। 1।।\nओम जय श्री विश्वकर्मा, प्रभु जय श्री विश्वकर्मा।।\n\nआदि सृष्टि में विधि को, श्रुति उपदेश दिया।\nजीव मात्र का जग में, ज्ञान विकास किया।। 2।।\nओम जय श्री विश्वकर्मा, प्रभु जय श्री विश्वकर्मा।।\n\nऋषि अंगिरा ने तप से, शांति नहीं पाई।\nध्यान किया जब प्रभु का, सकल सिद्ध आई।। 3।।\nओम जय श्री विश्वकर्मा, प्रभु जय श्री विश्वकर्मा।।\n\nरोग ग्रस्त राजा ने जब आश्रय लीना।\nसंकट मोचन बन कर दूर दुःख कीना।। 4।।\nओम जय श्री विश्वकर्मा, प्रभु जय श्री विश्वकर्मा।।\n\nजब रथकार दम्पति, तुम्हारी टेर करी।\nसुनकर दीन प्रार्थना, विपत्ति हरी सगरी।। 5।।\nओम जय श्री विश्वकर्मा, प्रभु जय श्री विश्वकर्मा।।\n\nएकानन चतुरानन, पंचानन राजे।\nद्विभुज, चतुर्भुज, दसभुज, सकल रूप साजे।। 6।।\nओम जय श्री विश्वकर्मा, प्रभु जय श्री विश्वकर्मा।।\n\nध्यान धरे जब पद का, सकल सिद्धि आवे।\nमन दुविधा मिट जाये, अटल शांति पावे।। 7।।\nओम जय श्री विश्वकर्मा, प्रभु जय श्री विश्वकर्मा।।\n\nश्री विश्वकर्मा जी की आरती जो कोई जन गावे।\nकहत गजानन्द स्वामी, सुख सम्पत्ति पावे।। 8।।\nओम जय श्री विश्वकर्मा, प्रभु जय श्री विश्वकर्मा।।",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "vishwakarma.png",
+      "icon": "vishwakarma_icon.png"
+    },
+    "days": [
+      "thursday"
+    ],
+    "tags": [
+      "craft",
+      "engineer",
+      "tools"
+    ],
+    "isFeatured": false,
+    "isPopular": false,
+    "order": 15,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
-  "id":"parvati_aarti",
-  "title":"श्री पार्वती माता की आरती",
-  "slug":"parvati-aarti",
-  "category":"aarti",
-  "deity":{"id":"parvati","name":"Maa Parvati","type":"goddess"},
-  "language":"hindi",
-  "lyrics":"जय पार्वती माता, जय गिरिराज दुलारी...",
-  "audio":{"enabled":false,"file":"","duration":0},
-  "media":{"image":"parvati.png","icon":"parvati_icon.png"},
-  "days":["monday"],
-  "tags":["parvati","shiv","mata"],
-  "isFeatured":false,
-  "isPopular":false,
-  "order":16,
-  "createdAt":"static",
-  "updatedAt":"static"
+    "id": "parvati_aarti",
+    "title": "श्री पार्वती माता की आरती",
+    "slug": "parvati-aarti",
+    "category": "aarti",
+    "deity": {
+      "id": "parvati",
+      "name": "Maa Parvati",
+      "type": "goddess"
+    },
+    "language": "hindi",
+    "lyrics": "ब्रह्म सनातन देवी शुभ फल की दाता॥\nजय पार्वती माता॥\n\nअरिकुल पद्म विनाशिनि जय सेवक त्राता।\nजग जीवन जगदंबा, हरिहर गुण गाता॥\nजय पार्वती माता॥\n\nसिंह को वाहन साजे, कुण्डल हैं साथा।\nदेव वधू जस गावत, नृत्य करत ताथा॥\nजय पार्वती माता॥\n\nसतयुग रूपशील अतिसुन्दर, नाम सती कहलाता।\nहेमांचल घर जन्मी, सखियन संग राता॥\nजय पार्वती माता॥\n\nशुम्भ-निशुम्भ विदारे, हेमांचल स्थाता।\nसहस्त्र भुजा तनु धरि के, चक्र लियो हाथा॥\nजय पार्वती माता॥\n\nसृष्टि रूप तुही है जननी शिवसंग रंगराता।\nनन्दी भृंगी बीन लही सारा जग मदमाता॥\nजय पार्वती माता॥\n\nदेवन अरज करत हम चित को लाता।\nगावत दे दे ताली, मन में रंगराता॥\nजय पार्वती माता॥\n\nश्री प्रताप आरती मैया की, जो कोई गाता।\nसदासुखी नित रहता सुख सम्पत्ति पाता॥\nजय पार्वती माता॥",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "parvati.png",
+      "icon": "parvati_icon.png"
+    },
+    "days": [
+      "monday"
+    ],
+    "tags": [
+      "parvati",
+      "shiv",
+      "mata"
+    ],
+    "isFeatured": false,
+    "isPopular": false,
+    "order": 16,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
-  "id":"kali_aarti",
-  "title":"श्री काली माता की आरती",
-  "slug":"kali-aarti",
-  "category":"aarti",
-  "deity":{"id":"kali","name":"Maa Kali","type":"goddess"},
-  "language":"hindi",
-  "lyrics":"जय काली माता, जय महाकाली...",
-  "audio":{"enabled":false,"file":"","duration":0},
-  "media":{"image":"kali.png","icon":"kali_icon.png"},
-  "days":["saturday"],
-  "tags":["kali","shakti","protection"],
-  "isFeatured":false,
-  "isPopular":true,
-  "order":17,
-  "createdAt":"static",
-  "updatedAt":"static"
+    "id": "kali_aarti",
+    "title": "श्री काली माता की आरती",
+    "slug": "kali-aarti",
+    "category": "aarti",
+    "deity": {
+      "id": "kali",
+      "name": "Maa Kali",
+      "type": "goddess"
+    },
+    "language": "hindi",
+    "lyrics": "अम्बे तू है जगदम्बे काली, जय दुर्गे खप्पर वाली।\nतेरे ही गुण गावें भारती, ओ मैया हम सब उतारे तेरी आरती॥\n\nतेरे भक्त जनो पर माता भीर पड़ी है भारी।\nदानव दल पर टूट पड़ो माँ करके सिंह सवारी॥\nसौ-सौ सिहों से है बलशाली, अष्ट भुजाओं वाली, दुष्टों को तू ही ललकारती।\nओ मैया हम सब उतारे तेरी आरती॥\n\nमाँ-बेटे का है इस जग में बड़ा ही निर्मल नाता।\nपूत-कपूत सुने है पर ना माता सुनी कुमाता॥\nसब पे करूणा दर्शाने वाली, अमृत बरसाने वाली, दुखियों के दुखड़े निवारती।\nओ मैया हम सब उतारे तेरी आरती॥\n\nनहीं मांगते धन और दौलत, न चांदी न सोना।\nहम तो मांगें तेरे चरणों में छोटा सा कोना॥\nसबकी बिगड़ी बनाने वाली, लाज बचाने वाली, सतियों के सत को संवारती।\nओ मैया हम सब उतारे तेरी आरती॥\n\nचरण शरण में खड़े तुम्हारी, ले पूजा की थाली।\nवरद हस्त सर पर रख दो माँ संकट हरने वाली॥\nमैया भर दो भक्ति रस प्याली, अष्ट भुजाओं वाली, भक्तों के कारज तू ही सारती।\nओ मैया हम सब उतारे तेरी आरती, हम सब उतारे तेरी आरती॥",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "kali.png",
+      "icon": "kali_icon.png"
+    },
+    "days": [
+      "saturday"
+    ],
+    "tags": [
+      "kali",
+      "shakti",
+      "protection"
+    ],
+    "isFeatured": false,
+    "isPopular": true,
+    "order": 17,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
-  "id":"annapurna_aarti",
-  "title":"श्री अन्नपूर्णा माता की आरती",
-  "slug":"annapurna-aarti",
-  "category":"aarti",
-  "deity":{"id":"annapurna","name":"Maa Annapurna","type":"goddess"},
-  "language":"hindi",
-  "lyrics":"जय अन्नपूर्णा माता, जय अन्नदाता...",
-  "audio":{"enabled":false,"file":"","duration":0},
-  "media":{"image":"annapurna.png","icon":"annapurna_icon.png"},
-  "days":["daily"],
-  "tags":["food","blessing","mata"],
-  "isFeatured":false,
-  "isPopular":false,
-  "order":18,
-  "createdAt":"static",
-  "updatedAt":"static"
+    "id": "annapurna_aarti",
+    "title": "श्री अन्नपूर्णा माता की आरती",
+    "slug": "annapurna-aarti",
+    "category": "aarti",
+    "deity": {
+      "id": "annapurna",
+      "name": "Maa Annapurna",
+      "type": "goddess"
+    },
+    "language": "hindi",
+    "lyrics": "बारम्बार प्रणाम,\nमैया बारम्बार प्रणाम।\n\nजो नहीं ध्यावे तुम्हें अम्बिके,\nकहां उसे विश्राम।\nअन्नपूर्णा देवी नाम तिहारो,\nलेत होत सब काम॥\n\nबारम्बार प्रणाम,\nमैया बारम्बार प्रणाम।\n\nप्रलय युगान्तर और जन्मान्तर,\nकालान्तर तक नाम।\nसुर सुरों की रचना करती,\nकहाँ कृष्ण कहाँ राम॥\n\nबारम्बार प्रणाम,\nमैया बारम्बार प्रणाम।\n\nचूमहि चरण चतुर चतुरानन,\nचारु चक्रधर श्याम।\nचंद्रचूड़ चन्द्रानन चाकर,\nशोभा लखहि ललाम॥\n\nबारम्बार प्रणाम,\nमैया बारम्बार प्रणाम।\n\nदेवि देव! दयनीय दशा में,\nदया-दया तब नाम।\nत्राहि-त्राहि शरणागत वत्सल,\nशरण रूप तब धाम॥\n\nबारम्बार प्रणाम,\nमैया बारम्बार प्रणाम।\n\nश्रीं, ह्रीं श्रद्धा श्री ऐ विद्या,\nश्री क्लीं कमला काम।\nकांति, भ्रांतिमयी, कांति शांतिमयी,\nवर दे तू निष्काम॥\n\nबारम्बार प्रणाम,\nमैया बारम्बार प्रणाम।\n\n॥ माता अन्नपूर्णा की जय ॥",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "annapurna.png",
+      "icon": "annapurna_icon.png"
+    },
+    "days": [
+      "daily"
+    ],
+    "tags": [
+      "food",
+      "blessing",
+      "mata"
+    ],
+    "isFeatured": false,
+    "isPopular": false,
+    "order": 18,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
-  "id":"satyanarayan_aarti",
-  "title":"श्री सत्यनारायण भगवान की आरती",
-  "slug":"satyanarayan-aarti",
-  "category":"aarti",
-  "deity":{"id":"satyanarayan","name":"Lord Satyanarayan","type":"god"},
-  "language":"hindi",
-  "lyrics":"जय लक्ष्मी रमणा, सत्यनारायण स्वामी...",
-  "audio":{"enabled":false,"file":"","duration":0},
-  "media":{"image":"satyanarayan.png","icon":"satyanarayan_icon.png"},
-  "days":["thursday"],
-  "tags":["satyanarayan","vrat","vishnu"],
-  "isFeatured":false,
-  "isPopular":true,
-  "order":19,
-  "createdAt":"static",
-  "updatedAt":"static"
+    "id": "satyanarayan_aarti",
+    "title": "श्री सत्यनारायण भगवान की आरती",
+    "slug": "satyanarayan-aarti",
+    "category": "aarti",
+    "deity": {
+      "id": "satyanarayan",
+      "name": "Lord Satyanarayan",
+      "type": "god"
+    },
+    "language": "hindi",
+    "lyrics": "ओम जय लक्ष्मी रमणा, स्वामी जय लक्ष्मी रमणा।\nसत्यनारायण स्वामी जन पातक हरणा॥\n\nओम जय लक्ष्मी रमणा, स्वामी जय लक्ष्मी रमणा॥\n\nरत्न जड़ित सिंहासन अद्भुत छवि राजै।\nनारद करत निराजन घंटा ध्वनि बाजै॥\n\nओम जय लक्ष्मी रमणा, स्वामी जय लक्ष्मी रमणा॥\n\nप्रकट भये कलि कारण द्विज को दर्श दियो।\nबूढ़ा ब्राह्मण बनकर कांचन महल कियो॥\n\nओम जय लक्ष्मी रमणा, स्वामी जय लक्ष्मी रमणा॥\n\nदुर्बल भील कठारो, जिन पर कृपा करी।\nचन्द्रचूड़ एक राजा तिनकी विपत्ति हरी॥\n\nओम जय लक्ष्मी रमणा, स्वामी जय लक्ष्मी रमणा॥\n\nवैश्य मनोरथ पायो श्रद्धा तज दीन्हों।\nसो फल भोग्यो प्रभु जी फिर-स्तुति कीन्हीं॥\n\nओम जय लक्ष्मी रमणा, स्वामी जय लक्ष्मी रमणा॥\n\nभाव भक्ति के कारण छिन-छिन रूप धरयो।\nश्रद्धा धारण कीनी, तिनको काज सरयो॥\n\nओम जय लक्ष्मी रमणा, स्वामी जय लक्ष्मी रमणा॥\n\nग्वाल बाल संग राजा वन में भक्ति करी।\nमनवांछित फल दीन्हों दीनदयाल हरी॥\n\nओम जय लक्ष्मी रमणा, स्वामी जय लक्ष्मी रमणा॥\n\nचढ़त प्रसाद सवायो कदली फल, मेवा।\nधूप दीप तुलसी से राजी सत्य देवा॥\n\nओम जय लक्ष्मी रमणा, स्वामी जय लक्ष्मी रमणा॥\n\nश्री सत्यनारायण जी की आरती जो कोई नर गावै।\nभगतदास तन-मन सुख सम्पत्ति मनवांछित फल पावै॥\n\nओम जय लक्ष्मी रमणा, स्वामी जय लक्ष्मी रमणा॥",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "satyanarayan.png",
+      "icon": "satyanarayan_icon.png"
+    },
+    "days": [
+      "thursday"
+    ],
+    "tags": [
+      "satyanarayan",
+      "vrat",
+      "vishnu"
+    ],
+    "isFeatured": false,
+    "isPopular": true,
+    "order": 19,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
-  "id":"balaji_aarti",
-  "title":"श्री बालाजी महाराज की आरती",
-  "slug":"balaji-aarti",
-  "category":"aarti",
-  "deity":{"id":"balaji","name":"Balaji Maharaj","type":"god"},
-  "language":"hindi",
-  "lyrics":"जय बालाजी देवा, संकट हरना...",
-  "audio":{"enabled":false,"file":"","duration":0},
-  "media":{"image":"balaji.png","icon":"balaji_icon.png"},
-  "days":["tuesday","saturday"],
-  "tags":["balaji","hanuman","temple"],
-  "isFeatured":false,
-  "isPopular":true,
-  "order":20,
-  "createdAt":"static",
-  "updatedAt":"static"
+    "id": "balaji_aarti",
+    "title": "श्री बालाजी महाराज की आरती",
+    "slug": "balaji-aarti",
+    "category": "aarti",
+    "deity": {
+      "id": "balaji",
+      "name": "Balaji Maharaj",
+      "type": "god"
+    },
+    "language": "hindi",
+    "lyrics": "ओम जय हनुमत वीरा,\nस्वामी जय हनुमत वीरा।\nसंकट मोचन स्वामी,\nतुम हो रनधीरा॥\n॥ ओम जय हनुमत वीरा..॥\n\nपवन पुत्र अंजनी सूत,\nमहिमा अति भारी।\nदुख दरिद्र मिटाओ,\nसंकट सब हारी॥\n॥ ओम जय हनुमत वीरा..॥\n\nबाल समय में तुमने,\nरवि को भक्ष लियो।\nदेवन स्तुति किन्ही,\nतुरतहिं छोड़ दियो॥\n॥ ओम जय हनुमत वीरा..॥\n\nकपि सुग्रीव राम संग,\nमैत्री करवाई।\nअभिमानी बलि मेटयो,\nकीर्ति रही छाई॥\n॥ ओम जय हनुमत वीरा..॥\n\nजारि लंक सिय-सुधि ले आए,\nवानर हर्षाये।\nकारज कठिन सुधारे,\nरघुबर मन भाये॥\n॥ ओम जय हनुमत वीरा..॥\n\nशक्ति लगी लक्ष्मण को,\nभारी सोच भयो।\nलाय संजीवन बूटी,\nदुःख सब दूर कियो॥\n॥ ओम जय हनुमत वीरा..॥\n\nरामहि ले अहिरावण,\nजब पाताल गयो।\nताहि मारी प्रभु लाय,\nजय जयकार भयो॥\n॥ ओम जय हनुमत वीरा..॥\n\nराजत मेहंदीपुर में,\nदर्शन सुखकारी।\nमंगल और शनिश्चर,\nमेला है जारी॥\n॥ ओम जय हनुमत वीरा..॥\n\nश्री बालाजी की आरती,\nजो कोई नर गावे।\nकहत इन्द्र हर्षित,\nमनवांछित फल पावे॥\n॥ ओम जय हनुमत वीरा..॥",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "balaji.png",
+      "icon": "balaji_icon.png"
+    },
+    "days": [
+      "tuesday",
+      "saturday"
+    ],
+    "tags": [
+      "balaji",
+      "hanuman",
+      "temple"
+    ],
+    "isFeatured": false,
+    "isPopular": true,
+    "order": 20,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
-  "id":"khatu_shyam_aarti",
-  "title":"श्री खाटू श्याम जी की आरती",
-  "slug":"khatu-shyam-aarti",
-  "category":"aarti",
-  "deity":{"id":"khatu_shyam","name":"Khatu Shyam Ji","type":"god"},
-  "language":"hindi",
-  "lyrics":"आरती श्री श्याम जी की, कीजै मन से...",
-  "audio":{"enabled":false,"file":"","duration":0},
-  "media":{"image":"khatu_shyam.png","icon":"khatu_shyam_icon.png"},
-  "days":["sunday"],
-  "tags":["shyam","krishna","bhakti"],
-  "isFeatured":false,
-  "isPopular":true,
-  "order":21,
-  "createdAt":"static",
-  "updatedAt":"static"
+    "id": "khatu_shyam_aarti",
+    "title": "श्री खाटू श्याम जी की आरती",
+    "slug": "khatu-shyam-aarti",
+    "category": "aarti",
+    "deity": {
+      "id": "khatu_shyam",
+      "name": "Khatu Shyam Ji",
+      "type": "god"
+    },
+    "language": "hindi",
+    "lyrics": "ओम जय श्री श्याम हरे, बाबा जय श्री श्याम हरे।\nखाटू धाम विराजत, अनुपम रूप धरे।।\nओम जय श्री श्याम हरे.. बाबा जय श्री श्याम हरे।।\n\nरतन जड़ित सिंहासन, सिर पर चंवर ढुरे।\nतन केसरिया बागो, कुण्डल श्रवण पड़े।।\nओम जय श्री श्याम हरे.. बाबा जय श्री श्याम हरे।।\n\nगल पुष्पों की माला, सिर पार मुकुट धरे।\nखेवत धूप अग्नि पर, दीपक ज्योति जले।।\nओम जय श्री श्याम हरे.. बाबा जय श्री श्याम हरे।।\n\nमोदक खीर चूरमा, सुवरण थाल भरे।\nसेवक भोग लगावत, सेवा नित्य करे।।\nओम जय श्री श्याम हरे.. बाबा जय श्री श्याम हरे।।\n\nझांझ कटोरा और घडियावल, शंख मृदंग घुरे।\nभक्त आरती गावे, जय-जयकार करे।।\nओम जय श्री श्याम हरे.. बाबा जय श्री श्याम हरे।।\n\nजो ध्यावे फल पावे, सब दुःख से उबरे।\nसेवक जन निज मुख से, श्री श्याम-श्याम उचरे।।\nओम जय श्री श्याम हरे.. बाबा जय श्री श्याम हरे।।\n\nश्री श्याम बिहारी जी की आरती, जो कोई नर गावे।\nकहत भक्त-जन, मनवांछित फल पावे।।\nओम जय श्री श्याम हरे.. बाबा जय श्री श्याम हरे।।\n\nजय श्री श्याम हरे, बाबा जी श्री श्याम हरे।\nनिज भक्तों के तुमने, पूरण काज करे।।\nओम जय श्री श्याम हरे.. बाबा जय श्री श्याम हरे।।\n\nओम जय श्री श्याम हरे, बाबा जय श्री श्याम हरे।\nखाटू धाम विराजत, अनुपम रूप धरे।।\nओम जय श्री श्याम हरे.. बाबा जय श्री श्याम हरे।।",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "khatu_shyam.png",
+      "icon": "khatu_shyam_icon.png"
+    },
+    "days": [
+      "sunday"
+    ],
+    "tags": [
+      "shyam",
+      "krishna",
+      "bhakti"
+    ],
+    "isFeatured": false,
+    "isPopular": true,
+    "order": 21,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
-  "id":"vaishno_devi_aarti",
-  "title":"श्री वैष्णो देवी माता की आरती",
-  "slug":"vaishno-devi-aarti",
-  "category":"aarti",
-  "deity":{"id":"vaishno_devi","name":"Maa Vaishno Devi","type":"goddess"},
-  "language":"hindi",
-  "lyrics":"जय वैष्णो माता, जय जय दुर्गे...",
-  "audio":{"enabled":false,"file":"","duration":0},
-  "media":{"image":"vaishno.png","icon":"vaishno_icon.png"},
-  "days":["friday"],
-  "tags":["vaishno","durga","mata"],
-  "isFeatured":false,
-  "isPopular":true,
-  "order":22,
-  "createdAt":"static",
-  "updatedAt":"static"
+    "id": "vaishno_devi_aarti",
+    "title": "श्री वैष्णो देवी माता की आरती",
+    "slug": "vaishno-devi-aarti",
+    "category": "aarti",
+    "deity": {
+      "id": "vaishno_devi",
+      "name": "Maa Vaishno Devi",
+      "type": "goddess"
+    },
+    "language": "hindi",
+    "lyrics": "जय वैष्णवी माता,\nमैया जय वैष्णवी माता।\nहाथ जोड़ तेरे आगे,\nआरती मैं गाता॥\n॥ जय वैष्णवी माता..॥\n\nशीश पे छत्र विराजे,\nमूरतिया प्यारी।\nगंगा बहती चरनन,\nज्योति जगे न्यारी॥\n॥ जय वैष्णवी माता..॥\n\nब्रह्मा वेद पढ़े नित द्वारे,\nशंकर ध्यान धरे।\nसेवक चंवर डुलावत,\nनारद नृत्य करे॥\n॥ जय वैष्णवी माता..॥\n\nसुन्दर गुफा तुम्हारी,\nमन को अति भावे।\nबार-बार देखन को,\nऐ माँ मन चावे॥\n॥ जय वैष्णवी माता..॥\n\nभवन पे झण्डे झूलें,\nघंटा ध्वनि बाजे।\nऊँचा पर्वत तेरा,\nमाता प्रिय लागे॥\n॥ जय वैष्णवी माता..॥\n\nपान सुपारी ध्वजा नारियल,\nभेंट पुष्प मेवा।\nदास खड़े चरणों में,\nदर्शन दो देवा॥\n॥ जय वैष्णवी माता..॥\n\nजो जन निश्चय करके,\nद्वार तेरे आवे।\nउसकी इच्छा पूरण,\nमाता हो जावे॥\n॥ जय वैष्णवी माता..॥\n\nइतनी स्तुति निश-दिन,\nजो नर भी गावे।\nकहते सेवक ध्यानू,\nसुख सम्पत्ति पावे॥\n\nजय वैष्णवी माता,\nमैया जय वैष्णवी माता।\nहाथ जोड़ तेरे आगे,\nआरती मैं गाता॥",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "vaishno.png",
+      "icon": "vaishno_icon.png"
+    },
+    "days": [
+      "friday"
+    ],
+    "tags": [
+      "vaishno",
+      "durga",
+      "mata"
+    ],
+    "isFeatured": false,
+    "isPopular": true,
+    "order": 22,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
-  "id":"jagannath_aarti",
-  "title":"श्री जगन्नाथ जी की आरती",
-  "slug":"jagannath-aarti",
-  "category":"aarti",
-  "deity":{"id":"jagannath","name":"Lord Jagannath","type":"god"},
-  "language":"hindi",
-  "lyrics":"जय जगन्नाथ स्वामी, नयन पथ गामी...",
-  "audio":{"enabled":false,"file":"","duration":0},
-  "media":{"image":"jagannath.png","icon":"jagannath_icon.png"},
-  "days":["daily"],
-  "tags":["jagannath","vishnu","puri"],
-  "isFeatured":false,
-  "isPopular":false,
-  "order":23,
-  "createdAt":"static",
-  "updatedAt":"static"
+    "id": "jagannath_aarti",
+    "title": "श्री जगन्नाथ जी की आरती",
+    "slug": "jagannath-aarti",
+    "category": "aarti",
+    "deity": {
+      "id": "jagannath",
+      "name": "Lord Jagannath",
+      "type": "god"
+    },
+    "language": "hindi",
+    "lyrics": "आरती श्री जगन्नाथ मंगलकारी,\nआरती श्री बैकुंठ मंगलकारी॥\n\nमंगलकारी नाथ आपदा हरि,\nकंचन को धुप दीप ज्योत जगमगी।\nअगर कपूर बाटी भव से धारी,\nआरती श्री जगन्नाथ मंगलकारी,\nआरती श्री बैकुंठ मंगलकारी॥\n\nघर घरन बजता बाजे बंसुरी,\nघर घरन बजता बाजे बंसुरी।\nझांझ या मृदंग बाजे, ताल खनजरी,\nआरती श्री जगन्नाथ मंगलकारी,\nआरती श्री बैकुंठ मंगलकारी॥\n\nनिरखत मुखारविंद परसोत चरनारविन्द आपदा हरि,\nजगन्नाथ स्वामी के अताको चढे वेद की धुवानी।\nजगन्नाथ स्वामी के भोग लागो बैकुंठपुरी,\nआरती श्री जगन्नाथ मंगलकारी,\nआरती श्री बैकुंठ मंगलकारी॥\n\nइंद्र दमन सिंह गजे रोहिणी खड़ी,\nइंद्र दमन सिंह गजे रोहिणी खड़ी।\nमार्कंडेय स्व गंगा आनंद भरि,\nआरती श्री जगन्नाथ मंगलकारी,\nआरती श्री बैकुंठ मंगलकारी॥\n\nसरनार मुनि द्वारे तदे ब्रह्म वेद भानी,\nसरनार मुनि द्वारे तदे ब्रह्म वेद भानी।\nधन धन ओह सुर स्वामी आनंद गढ़ी,\nआरती श्री जगन्नाथ मंगलकारी,\nआरती श्री बैकुंठ मंगलकारी॥\n\nमंगलकारी नाथ आपदा हरि,\nकंचन को धुप दीप ज्योत जगमगी।\nअगर कपूर बाटी भव से धारी,\nआरती श्री जगन्नाथ मंगलकारी,\nआरती श्री बैकुंठ मंगलकारी॥",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "jagannath.png",
+      "icon": "jagannath_icon.png"
+    },
+    "days": [
+      "daily"
+    ],
+    "tags": [
+      "jagannath",
+      "vishnu",
+      "puri"
+    ],
+    "isFeatured": false,
+    "isPopular": false,
+    "order": 23,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
-  "id":"dwarkadhish_aarti",
-  "title":"श्री द्वारकाधीश जी की आरती",
-  "slug":"dwarkadhish-aarti",
-  "category":"aarti",
-  "deity":{"id":"dwarkadhish","name":"Dwarkadhish Krishna","type":"god"},
-  "language":"hindi",
-  "lyrics":"जय द्वारकाधीश प्रभु, जय नंदलाल...",
-  "audio":{"enabled":false,"file":"","duration":0},
-  "media":{"image":"dwarkadhish.png","icon":"dwarkadhish_icon.png"},
-  "days":["wednesday"],
-  "tags":["krishna","dwarka","bhakti"],
-  "isFeatured":false,
-  "isPopular":false,
-  "order":24,
-  "createdAt":"static",
-  "updatedAt":"static"
+    "id": "banke_bihari_aarti",
+    "title": "श्री बाँके बिहारी जी की आरती",
+    "slug": "banke-bihari-aarti",
+    "category": "aarti",
+    "deity": {
+      "id": "banke_bihari",
+      "name": "Banke Bihari",
+      "type": "god"
+    },
+    "language": "hindi",
+    "lyrics": "श्री बांके बिहारी तेरी आरती गाऊं,\nहे गिरिधर तेरी आरती गाऊं।\nआरती गाऊं प्यारे आपको रिझाऊं,\nश्याम सुन्दर तेरी आरती गाऊं।\n॥ श्री बांके बिहारी तेरी आरती गाऊं..॥\n\nमोर मुकुट प्यारे शीश पे सोहे,\nप्यारी बंसी मेरो मन मोहे।\nदेख छवि बलिहारी मैं जाऊं।\n॥ श्री बांके बिहारी तेरी आरती गाऊं..॥\n\nचरणों से निकली गंगा प्यारी,\nजिसने सारी दुनिया तारी।\nमैं उन चरणों के दर्शन पाऊं।\n॥ श्री बांके बिहारी तेरी आरती गाऊं..॥\n\nदास अनाथ के नाथ आप हो,\nदुःख सुख जीवन प्यारे साथ आप हो।\nहरी चरणों में शीश झुकाऊं।\n॥ श्री बांके बिहारी तेरी आरती गाऊं..॥\n\nश्री हरीदास के प्यारे तुम हो।\nमेरे मोहन जीवन धन हो।\nदेख युगल छवि बलि बलि जाऊं।\n॥ श्री बांके बिहारी तेरी आरती गाऊं..॥\n\nश्री बांके बिहारी तेरी आरती गाऊं,\nहे गिरिधर तेरी आरती गाऊं।\nआरती गाऊं प्यारे आपको रिझाऊं,\nश्याम सुन्दर तेरी आरती गाऊं।",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "banke_bihari.png",
+      "icon": "banke_bihari_icon.png"
+    },
+    "days": [
+      "wednesday"
+    ],
+    "tags": [
+      "krishna",
+      "vrindavan",
+      "bhakti"
+    ],
+    "isFeatured": false,
+    "isPopular": true,
+    "order": 25,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
-  "id":"banke_bihari_aarti",
-  "title":"श्री बाँके बिहारी जी की आरती",
-  "slug":"banke-bihari-aarti",
-  "category":"aarti",
-  "deity":{"id":"banke_bihari","name":"Banke Bihari","type":"god"},
-  "language":"hindi",
-  "lyrics":"आरती श्री बाँके बिहारी की...",
-  "audio":{"enabled":false,"file":"","duration":0},
-  "media":{"image":"banke_bihari.png","icon":"banke_bihari_icon.png"},
-  "days":["wednesday"],
-  "tags":["krishna","vrindavan","bhakti"],
-  "isFeatured":false,
-  "isPopular":true,
-  "order":25,
-  "createdAt":"static",
-  "updatedAt":"static"
+    "id": "radha_krishna_aarti",
+    "title": "श्री राधा कृष्ण जी की आरती",
+    "slug": "radha-krishna-aarti",
+    "category": "aarti",
+    "deity": {
+      "id": "radha_krishna",
+      "name": "Radha Krishna",
+      "type": "god"
+    },
+    "language": "hindi",
+    "lyrics": "ॐ जय श्रीराधा, जय श्रीकृष्ण,\nश्रीराधाकृष्णाय नम:।।\n\nचंद्रमुखी चंचल चितचोरी। (राधा)\nसुघर सांवरा सूरत भोरी। (कृष्ण)\nश्यामा-श्याम एक-सी जोरी। (राधाकृष्ण)\nश्रीराधाकृष्णाय नम:।।\n\nॐ जय श्रीराधा, जय श्रीकृष्ण,\nश्रीराधाकृष्णाय नम:।।\n\nपंचरंग चूनर केसर न्यारी। (राधा)\nपट पीतांबर कामर कारी। (कृष्ण)\nएकरूप अनुपम छबि प्यारी। (राधाकृष्ण)\nश्रीराधाकृष्णाय नम:।।\n\nॐ जय श्रीराधा, जय श्रीकृष्ण,\nश्रीराधाकृष्णाय नम:।।\n\nचंद्र-चंद्रिका चमचम चमकै। (राधा)\nमोर मुकुट सिर दमदम दमकै। (कृष्ण)\nयुगल-प्रेम रस झमझम झमकै। (राधाकृष्ण)\nश्रीराधाकृष्णाय नम:।।\n\nॐ जय श्रीराधा, जय श्रीकृष्ण,\nश्रीराधाकृष्णाय नम:।।\n\nकस्तूरी कुंकुम जुत बिंदा। (राधा)\nचंदन चारु तिलक ब्रज चंदा। (कृष्ण)\nसुहृद-लाड़ली लाल सुनंदा। (राधाकृष्ण)\nश्रीराधाकृष्णाय नम:।।\n\nॐ जय श्रीराधा, जय श्रीकृष्ण,\nश्रीराधाकृष्णाय नम:।।\n\nघूंमघुमारो घांघर सोहै। (राधा)\nकटिकछनी कमलापति सोहै। (कृष्ण)\nकमलासन सुर-मुनि-मन मोहै। (राधाकृष्ण)\nश्रीराधाकृष्णाय नम:।।\n\nॐ जय श्रीराधा, जय श्रीकृष्ण,\nश्रीराधाकृष्णाय नम:।।\n\nरत्नजटित आभूषण सुंदर। (राधा)\nकौस्तुभमणि कमलांकित नटवर। (कृष्ण)\nरणत्क्वणत् मुरली-ध्वनि मनहर। (राधाकृष्ण)\nश्रीराधाकृष्णाय नम:।।\n\nॐ जय श्रीराधा, जय श्रीकृष्ण,\nश्रीराधाकृष्णाय नम:।।\n\nमंद हंसन मतवारे नैना। (राधा)\nमनमोहन मन हारे सैना। (कृष्ण)\nमृदु मुसुकावनि मीठे बैना। (राधाकृष्ण)\nश्रीराधाकृष्णाय नम:।।\n\nॐ जय श्रीराधा, जय श्रीकृष्ण,\nश्रीराधाकृष्णाय नम:।।\n\nश्रीराधा भव-बाधा-हारी। (राधा)\nसंकट-मोचन कृष्ण मुरारी। (कृष्ण)\nएक शक्ति, एकहि आधारी। (राधाकृष्ण)\nश्रीराधाकृष्णाय नम:।।\n\nजगज्ज्योति जगजननी माता। (राधा)\nजगजीवन, जग-पितु जग-दाता।। (कृष्ण)\nजगदाधार, जगद्विख्याता। (राधाकृष्ण)\nश्रीराधाकृष्णाय नम:।।\n\nॐ जय श्रीराधा, जय श्रीकृष्ण,\nश्रीराधाकृष्णाय नम:।।\n\nराधा राधा कृष्ण कन्हैया। (राधा)\nभव-भय सागर पार लगैया। (कृष्ण)\nमंगल-मूरति, मोक्ष-करैया। (राधाकृष्ण)\nश्रीराधाकृष्णाय नम:।।\n\nॐ जय श्रीराधा, जय श्रीकृष्ण,\nश्रीराधाकृष्णाय नम:।।\n\nसर्वेश्वरी सर्व-दुख-दाहन। (राधा)\nत्रिभुवनपति, त्रयताप-नसावन।। (कृष्ण)\nपरम देवि, परमेश्वर पावन। (राधाकृष्ण)\nश्रीराधाकृष्णाय नम:।।\n\nॐ जय श्रीराधा, जय श्रीकृष्ण,\nश्रीराधाकृष्णाय नम:।।\n\nत्रिसमय युगलचरण चित ध्यावै। (राधा)\nसो नर जगत परमपद पावै। (कृष्ण)\nराधाकृष्ण 'छैल' मन भावै। (राधाकृष्ण)\nश्रीराधाकृष्णाय नम:।।\n\nॐ जय श्रीराधा, जय श्रीकृष्ण,\nश्रीराधाकृष्णाय नम:।।",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "radha_krishna.png",
+      "icon": "radha_krishna_icon.png"
+    },
+    "days": [
+      "daily"
+    ],
+    "tags": [
+      "radha",
+      "krishna",
+      "prem"
+    ],
+    "isFeatured": false,
+    "isPopular": true,
+    "order": 26,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
-  "id":"radha_krishna_aarti",
-  "title":"श्री राधा कृष्ण जी की आरती",
-  "slug":"radha-krishna-aarti",
-  "category":"aarti",
-  "deity":{"id":"radha_krishna","name":"Radha Krishna","type":"god"},
-  "language":"hindi",
-  "lyrics":"जय राधा माधव, कुंज बिहारी...",
-  "audio":{"enabled":false,"file":"","duration":0},
-  "media":{"image":"radha_krishna.png","icon":"radha_krishna_icon.png"},
-  "days":["daily"],
-  "tags":["radha","krishna","prem"],
-  "isFeatured":false,
-  "isPopular":true,
-  "order":26,
-  "createdAt":"static",
-  "updatedAt":"static"
+    "id": "bhairav_aarti",
+    "title": "श्री काल भैरव जी की आरती",
+    "slug": "bhairav-aarti",
+    "category": "aarti",
+    "deity": {
+      "id": "bhairav",
+      "name": "Kaal Bhairav",
+      "type": "god"
+    },
+    "language": "hindi",
+    "lyrics": "जय भैरव देवा, प्रभु जय भैरव देवा।\nजय काली और गौर देवी कृत सेवा।।\nप्रभु जय भैरव देवा।।\n\nतुम्ही पाप उद्धारक दुःख सिंधु तारक।\nभक्तों के सुख कारक भीषण वपु धारक।।\nजय भैरव देवा।।\n\nवाहन श्वान विराजत कर त्रिशूल धारी।\nमहिमा अमित तुम्हारी जय जय भयहारी।।\nजय भैरव देवा।।\n\nतुम बिन देवा, सेवा सफल नहीं होवे।\nचौमुख दीपक दर्शन से सब दुःख खोवे॥\nजय भैरव देवा।।\n\nतेल चटकी दधि मिश्रित भाषावाली तेरी।\nकृपा कीजिये भैरवजी, करिए नहीं देरी।।\nजय भैरव देवा।।\n\nपांव घुंघरू बाजत अरु डमरू दमकावत।\nबटुकनाथ बन बालक जल मन हरषावत।।\nजय भैरव देवा।।\n\nकालभैरवजी की आरती जो कोई जन गावे।\nकहे धरनी धर मानुष मनवांछित फल पावे।।\nजय भैरव देवा।।",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "bhairav.png",
+      "icon": "bhairav_icon.png"
+    },
+    "days": [
+      "sunday"
+    ],
+    "tags": [
+      "bhairav",
+      "shiv",
+      "protection"
+    ],
+    "isFeatured": false,
+    "isPopular": false,
+    "order": 27,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
-  "id":"bhairav_aarti",
-  "title":"श्री काल भैरव जी की आरती",
-  "slug":"bhairav-aarti",
-  "category":"aarti",
-  "deity":{"id":"bhairav","name":"Kaal Bhairav","type":"god"},
-  "language":"hindi",
-  "lyrics":"जय काल भैरव देवा...",
-  "audio":{"enabled":false,"file":"","duration":0},
-  "media":{"image":"bhairav.png","icon":"bhairav_icon.png"},
-  "days":["sunday"],
-  "tags":["bhairav","shiv","protection"],
-  "isFeatured":false,
-  "isPopular":false,
-  "order":27,
-  "createdAt":"static",
-  "updatedAt":"static"
+    "id": "navdurga_aarti",
+    "title": "श्री नवदुर्गा माता की आरती",
+    "slug": "navdurga-aarti",
+    "category": "aarti",
+    "deity": {
+      "id": "navdurga",
+      "name": "Navdurga Mata",
+      "type": "goddess"
+    },
+    "language": "hindi",
+    "lyrics": "जय अंबे गौरी, मैया जय श्यामा गौरी।\nतुमको निशिदिन ध्यावत, हरि ब्रह्मा शिवरी॥\nओम जय अंबे गौरी॥\n\nमांग सिन्दूर विराजत, टीको मृगमद को।\nउज्जवल से दो‌उ नैना, चन्द्रवदन नीको॥\nओम जय अंबे गौरी॥\n\nकनक समान कलेवर, रक्ताम्बर राजै।\nरक्तपुष्प गल माला, कण्ठन पर साजै॥\nओम जय अंबे गौरी॥\n\nकेहरि वाहन राजत, खड्ग खप्परधारी।\nसुर-नर-मुनि-जन सेवत, तिनके दुखहारी॥\nओम जय अंबे गौरी॥\n\nकानन कुण्डल शोभित, नासाग्रे मोती।\nकोटिक चन्द्र दिवाकर, सम राजत ज्योति॥\nओम जय अंबे गौरी॥\n\nशुम्भ-निशुम्भ बिदारे, महिषासुर घाती।\nधूम्र विलोचन नैना, निशिदिन मदमाती॥\nओम जय अंबे गौरी॥\n\nचण्ड-मुण्ड संहारे, शोणित बीज हरे।\nमधु-कैटभ दो‌उ मारे, सुर भयहीन करे॥\nओम जय अंबे गौरी॥\n\nब्रहमाणी रुद्राणी तुम कमला रानी।\nआगम-निगम-बखानी, तुम शिव पटरानी॥\nओम जय अंबे गौरी॥\n\nचौंसठ योगिनी मंगल गावत, नृत्य करत भैरूं।\nबाजत ताल मृदंगा, अरु बाजत डमरु॥\nओम जय अंबे गौरी॥\n\nतुम ही जग की माता, तुम ही हो भरता।\nभक्‍तन की दु:ख हरता, सुख सम्पत्ति करता॥\nओम जय अंबे गौरी॥\n\nभुजा चार अति शोभित, वर-मुद्रा धारी।\nमनवान्छित फल पावत, सेवत नर-नारी॥\nओम जय अंबे गौरी॥\n\nकंचन थाल विराजत, अगर कपूर बाती।\nश्रीमालकेतु में राजत, कोटि रतन ज्योति॥\nओम जय अंबे गौरी॥\n\nश्री अम्बेजी की आरती, जो कोई नर गावै।\nकहत शिवानन्द स्वामी, सुख सम्पत्ति पावै॥\nओम जय अंबे गौरी, ओम जय अंबे गौरी॥\n\nजोर से बोलो जय माता दी, सारे बोले जय माता दी।\nबोल सांचे दरबार की जय।\nजयकारा शेरावाली का बोल सांचे दरबार की जय॥",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "navdurga.png",
+      "icon": "navdurga_icon.png"
+    },
+    "days": [
+      "friday"
+    ],
+    "tags": [
+      "navratri",
+      "durga",
+      "mata"
+    ],
+    "isFeatured": false,
+    "isPopular": true,
+    "order": 28,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
-  "id":"navdurga_aarti",
-  "title":"श्री नवदुर्गा माता की आरती",
-  "slug":"navdurga-aarti",
-  "category":"aarti",
-  "deity":{"id":"navdurga","name":"Navdurga Mata","type":"goddess"},
-  "language":"hindi",
-  "lyrics":"जय नवदुर्गे माता...",
-  "audio":{"enabled":false,"file":"","duration":0},
-  "media":{"image":"navdurga.png","icon":"navdurga_icon.png"},
-  "days":["friday"],
-  "tags":["navratri","durga","mata"],
-  "isFeatured":false,
-  "isPopular":true,
-  "order":28,
-  "createdAt":"static",
-  "updatedAt":"static"
+    "id": "chintpurni_aarti",
+    "title": "श्री चिंतपूर्णी माता की आरती",
+    "slug": "chintpurni-aarti",
+    "category": "aarti",
+    "deity": {
+      "id": "chintpurni",
+      "name": "Maa Chintpurni",
+      "type": "goddess"
+    },
+    "language": "hindi",
+    "lyrics": "चिंतपूर्णी चिंता दूर करनी,\nजग को तारो भोली माँ॥\n\nजन को तारो भोली माँ,\nकाली दा पुत्र पवन दा घोड़ा॥\n॥ भोली माँ ॥\n\nसिन्हा पर भाई असवार,\nभोली माँ, चिंतपूर्णी चिंता दूर॥\n॥ भोली माँ ॥\n\nएक हाथ खड़ग दूजे में खांडा,\nतीजे त्रिशूल सम्भालो॥\n॥ भोली माँ ॥\n\nचौथे हाथ चक्कर गदा,\nपाँचवे-छठे मुण्ड़ो की माला॥\n॥ भोली माँ ॥\n\nसातवे से रुण्ड मुण्ड बिदारे,\nआठवे से असुर संहारो॥\n॥ भोली माँ ॥\n\nचम्पे का बाग़ लगा अति सुन्दर,\nबैठी दीवान लगाये॥\n॥ भोली माँ ॥\n\nहरी ब्रम्हा तेरे भवन विराजे,\nलाल चंदोया बैठी तान॥\n॥ भोली माँ ॥\n\nऔखी घाटी विकटा पैंडा,\nतले बहे दरिया॥\n॥ भोली माँ ॥\n\nसुमन चरण ध्यानु जस गावे,\nभक्तां दी पज निभाओ॥\n॥ भोली माँ ॥\n\nचिंतपूर्णी चिंता दूर करनी,\nजग को तारो भोली माँ॥",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "chintpurni.png",
+      "icon": "chintpurni_icon.png"
+    },
+    "days": [
+      "friday"
+    ],
+    "tags": [
+      "mata",
+      "durga",
+      "shakti"
+    ],
+    "isFeatured": false,
+    "isPopular": false,
+    "order": 29,
+    "createdAt": "static",
+    "updatedAt": "static"
   },
   {
-  "id":"chintpurni_aarti",
-  "title":"श्री चिंतपूर्णी माता की आरती",
-  "slug":"chintpurni-aarti",
-  "category":"aarti",
-  "deity":{"id":"chintpurni","name":"Maa Chintpurni","type":"goddess"},
-  "language":"hindi",
-  "lyrics":"जय चिंतपूर्णी माता...",
-  "audio":{"enabled":false,"file":"","duration":0},
-  "media":{"image":"chintpurni.png","icon":"chintpurni_icon.png"},
-  "days":["friday"],
-  "tags":["mata","durga","shakti"],
-  "isFeatured":false,
-  "isPopular":false,
-  "order":29,
-  "createdAt":"static",
-  "updatedAt":"static"
-  },
-  {
-  "id":"santoshi_mata_aarti",
-  "title":"श्री संतोषी माता की आरती",
-  "slug":"santoshi-mata-aarti",
-  "category":"aarti",
-  "deity":{"id":"santoshi","name":"Maa Santoshi","type":"goddess"},
-  "language":"hindi",
-  "lyrics":"जय संतोषी माता...",
-  "audio":{"enabled":false,"file":"","duration":0},
-  "media":{"image":"santoshi.png","icon":"santoshi_icon.png"},
-  "days":["friday"],
-  "tags":["mata","vrat","shakti"],
-  "isFeatured":false,
-  "isPopular":true,
-  "order":30,
-  "createdAt":"static",
-  "updatedAt":"static"
+    "id": "santoshi_mata_aarti",
+    "title": "श्री संतोषी माता की आरती",
+    "slug": "santoshi-mata-aarti",
+    "category": "aarti",
+    "deity": {
+      "id": "santoshi",
+      "name": "Maa Santoshi",
+      "type": "goddess"
+    },
+    "language": "hindi",
+    "lyrics": "जय संतोषी माता, मैया जय संतोषी माता।\nअपने सेवक जन को, सुख संपत्ति दाता।।\nजय संतोषी माता, मैया जय संतोषी माता..\n\nसुंदर, चीर सुनहरी, मां धारण कीन्हो।\nहीरा पन्ना दमके, तन श्रृंगार लीन्हो।।\nजय संतोषी माता, मैया जय संतोषी माता..\n\nगेरू लाल छटा छवि, बदन कमल सोहे।\nमंद हंसत करूणामयी, त्रिभुवन जन मोहे।।\nजय संतोषी माता, मैया जय संतोषी माता..\n\nस्वर्ण सिंहासन बैठी, चंवर ढुरे प्यारे।\nधूप, दीप, मधुमेवा, भोग धरें न्यारे।।\nजय संतोषी माता, मैया जय संतोषी माता..\n\nगुड़ अरु चना परमप्रिय, तामे संतोष कियो।\nसंतोषी कहलाई, भक्तन वैभव दियो।।\nजय संतोषी माता, मैया जय संतोषी माता..\n\nजय शुक्रवार प्रिय मानत, आज दिवस सोही।\nभक्त मण्डली छाई, कथा सुनत मोही।।\nजय संतोषी माता, मैया जय संतोषी माता..\n\nमंदिर जगमग ज्योति, मंगल ध्वनि छाई।\nविनय करें हम बालक, चरनन सिर नाई।।\nजय संतोषी माता, मैया जय संतोषी माता..\n\nभक्ति भावमय पूजा, अंगीकृत कीजै।\nजो मन बसे हमारे, इच्छा फल दीजै।।\nजय संतोषी माता, मैया जय संतोषी माता..\n\nदुखी, दरिद्री, रोगी, संकटमुक्त किए।\nबहु धनधान्य भरे घर, सुख सौभाग्य दिए।।\nजय संतोषी माता, मैया जय संतोषी माता..\n\nध्यान धर्यो जिस जन ने, मनवांछित फल पायो।\nपूजा कथा श्रवण कर, घर आनंद आयो।।\nजय संतोषी माता, मैया जय संतोषी माता..\n\nशरण गहे की लज्जा, राखियो जगदंबे।\nसंकट तू ही निवारे, दयामयी अंबे।।\nजय संतोषी माता, मैया जय संतोषी माता..\n\nसंतोषी मां की आरती, जो कोई नर गावे।\nऋद्धि सिद्धि सुख संपत्ति, जी भरकर पावे।।\nजय संतोषी माता, मैया जय संतोषी माता..",
+    "audio": {
+      "enabled": false,
+      "file": "",
+      "duration": 0
+    },
+    "media": {
+      "image": "santoshi.png",
+      "icon": "santoshi_icon.png"
+    },
+    "days": [
+      "friday"
+    ],
+    "tags": [
+      "mata",
+      "vrat",
+      "shakti"
+    ],
+    "isFeatured": false,
+    "isPopular": true,
+    "order": 30,
+    "createdAt": "static",
+    "updatedAt": "static"
   }
-  
-  ]
+]

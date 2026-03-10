@@ -27,7 +27,7 @@ export default function DetailListScreen() {
           <Pressable onPress={() => navigation.goBack()} className="p-2">
             <ChevronLeft color={colors.text} size={28} />
           </Pressable>
-          <Text className="text-xl font-bold flex-1 ml-4" style={{ color: colors.text }} numberOfLines={1}>{title}</Text>
+          <Text className="text-xl font-bold flex-1 ml-4" style={{ color: colors.text }} numberOfLines={1}>{title} cdcd</Text>
           {item && (
             <Pressable onPress={() => toggle({ ...item, timestamp: Date.now() })} className="p-2">
               <Bookmark

@@ -1,10 +1,10 @@
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { ChevronLeft, Heart, Share2, Type } from 'lucide-react-native';
 import React, { useState } from 'react';
-import { View, Text, ScrollView, Pressable, StyleSheet } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import ScreenWrapper from '../components/ScreenWrapper';
-import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
-import { useBookmarks } from '../hooks/useBookmarks';
 import { useTheme } from '../context/ThemeContext';
-import { Bookmark, ChevronLeft, Type, Share2 } from 'lucide-react-native';
+import { useBookmarks } from '../hooks/useBookmarks';
 import { RootStackParamList } from '../types';
 
 type DetailScreenRouteProp = RouteProp<RootStackParamList, 'Detail'>;
@@ -31,33 +31,53 @@ const ContentDetailScreen = () => {
         <ScreenWrapper>
             <View style={[styles.container, { backgroundColor: colors.background }]}>
                 {/* Header */}
-                <View style={[styles.header, { backgroundColor: colors.headerBg, borderBottomColor: colors.border }]}>
-                    <Pressable onPress={() => navigation.goBack()} hitSlop={10} className="w-10 h-10 items-center justify-center rounded-xl" style={{ backgroundColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.02)' }}>
-                        <ChevronLeft color={colors.headerText} size={28} />
-                    </Pressable>
+                <View
+                    style={[
+                        styles.header,
+                        { backgroundColor: colors.headerBg, borderBottomColor: colors.border },
+                    ]}
+                >
+                    {/* Left Side */}
+                    <View style={styles.headerLeft}>
+                        <Pressable
+                            onPress={() => navigation.goBack()}
+                            hitSlop={10}
+                            style={[
+                                styles.backBtn,
+                                { backgroundColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.02)' },
+                            ]}
+                        >
+                            <ChevronLeft color={colors.headerText} size={28} />
+                        </Pressable>
 
-                    <Text style={[styles.headerTitle, { color: colors.text }]} numberOfLines={1}>
-                        {item.title}
-                    </Text>
+                        <Text
+                            style={[styles.headerTitle, { color: "#F7F6E5" }]}
+                            numberOfLines={1}
+                        >
+                            {item.title}
+                        </Text>
+                    </View>
 
+                    {/* Right Side */}
                     <View style={styles.headerActions}>
                         <Pressable onPress={() => toggle({ ...item, timestamp: Date.now() })} style={styles.iconBtn}>
-                            <Bookmark
-                                color={bookmarked ? colors.saffron : colors.text}
+                            <Heart
+                                color={bookmarked ? colors.saffron : "#F7F6E5"}
                                 fill={bookmarked ? colors.saffron : 'none'}
                                 size={24}
                             />
                         </Pressable>
+
                         <Pressable style={styles.iconBtn}>
-                            <Share2 color={colors.text} size={22} />
+                            <Share2 color={"#F7F6E5"} size={22} />
                         </Pressable>
                     </View>
                 </View>
 
                 {/* Content Area */}
                 <ScrollView contentContainerStyle={styles.contentScroll} showsVerticalScrollIndicator={false}>
-                    <View className="items-center mb-8">
-                        <View className="w-20 h-1 bg-saffron/20 rounded-full mb-6" style={{ backgroundColor: colors.saffron + '33' }} />
+                    <View className="items-center mb-0">
+                        <View className="w-20 h-1 bg-saffron/20 rounded-full mb-4" style={{ backgroundColor: colors.saffron + '50' }} />
 
                         <View className="flex-row items-center justify-center mb-10 w-full px-10">
                             <Pressable onPress={decreaseFont} className="p-2">
@@ -87,25 +107,40 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: 16,
-        paddingTop: 10,
+        padding: 8,
         borderBottomWidth: 1,
         elevation: 2,
     },
-    headerTitle: {
-        fontSize: 18,
-        fontWeight: 'bold',
+
+    headerLeft: {
+        flexDirection: 'row',
+        alignItems: 'center',
         flex: 1,
-        marginLeft: 15,
-        textAlign: 'center'
     },
+
+    backBtn: {
+        width: 40,
+        height: 40,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 12,
+    },
+
+    headerTitle: {
+        fontSize: 15,
+        fontWeight: 'bold',
+        marginLeft: 10,
+        flexShrink: 1,
+    },
+
     headerActions: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 10,
     },
+
     iconBtn: {
         padding: 8,
+        marginLeft: 6,
     },
     contentScroll: {
         padding: 24,
