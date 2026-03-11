@@ -90,13 +90,11 @@ export default function BrowseCategoryScreen() {
         <ScreenWrapper>
             <View style={{ flex: 1, backgroundColor: colors.background }}>
                 {/* Header */}
-                <View className="flex-row items-center px-2 py-2" style={{ backgroundColor: colors.headerBg }}>
-                    <Pressable onPress={() => navigation.goBack()} className="p-2">
-                        <ChevronLeft color={colors.headerText} size={24} />
+                <View className="flex-row items-center px-4 py-3" style={{ backgroundColor: colors.headerBg }}>
+                    <Pressable onPress={() => navigation.goBack()} className="mr-3">
+                        <ChevronLeft color={colors.headerText} size={28} />
                     </Pressable>
-                    <Text className="text-xl font-bold ml-2" style={{ color: colors.headerText }}>
-                        {title}
-                    </Text>
+                    <Text className="text-xl font-bold" style={{ color: colors.headerText }}>{title}</Text>
                 </View>
 
                 <FlatList

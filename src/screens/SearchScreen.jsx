@@ -56,13 +56,14 @@ const SearchScreen = () => {
     }, [searchQuery, allContent]);
 
     return (
-        <ScreenWrapper edges={['top']}>
+        <ScreenWrapper>
             <View style={[styles.container, { backgroundColor: colors.background }]}>
-                {/* Search Header */}
-                <View style={[styles.header, { backgroundColor: colors.headerBg }]}>
+                {/* Header */}
+                <View className="px-4 py-3 flex-row items-center" style={{ backgroundColor: colors.headerBg }}>
                     <Pressable onPress={() => navigation.goBack()} style={styles.backButton}>
                         <ArrowLeft size={24} color={colors.headerText} />
                     </Pressable>
+
                     <View style={[styles.searchBar, { backgroundColor: colors.white + '22' }]}>
                         <SearchIcon size={20} color={colors.headerText} style={styles.searchIcon} />
                         <TextInput

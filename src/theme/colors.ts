@@ -14,7 +14,7 @@ export const LIGHT_COLORS = {
   purple: '#6A0DAD',
 
   // Semantic Tokens
-  headerBg: '#FF7F11',      // Header background (Purple)
+  headerBg: '#FF7F11',      // Header background
   headerText: '#ffffff',    // Header text/icon color
   statusBarBg: '#F2B50B',   // Status bar background (Deep Red)
 

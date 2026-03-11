@@ -26,7 +26,7 @@ export function BhaktiHeader() {
 
             <View className="flex-row items-center">
                 <Pressable className="flex-row items-center p-1" onPress={() => navigation.navigate(ROUTES.BOOKMARKS)}>
-                    <Heart size={22} color={colors.headerText} />
+                    <Heart size={22} color={colors.headerText || 'white'} />
                     <View className="absolute top-0 right-0 bg-white rounded-full w-4 h-4 items-center justify-center border border-gray-100">
                         <Text className="text-[8px] font-bold" style={{ color: colors.text }}>0</Text>
                     </View>
@@ -38,35 +38,34 @@ export function BhaktiHeader() {
                     className="p-1 ml-1"
                     onPress={() => navigation.navigate(ROUTES.SEARCH)}
                 >
-                    <Search size={22} color={colors.headerText} />
+                    <Search size={22} color={colors.headerText || 'white'} />
                 </Pressable>
                 <Pressable
                     className="p-1 ml-1"
                     onPress={() => navigation.navigate(ROUTES.SETTINGS)}
                 >
-                    <Settings size={22} color={colors.headerText} />
+                    <Settings size={22} color={colors.headerText || 'white'} />
                 </Pressable>
-
             </View>
         </View>
     );
 }
 
-// export function SpecialTicker() {
-//     const { colors } = useTheme();
+export function SpecialTicker() {
+    const { colors } = useTheme();
 
-//     return (
-//         <View className="flex-row items-center bg-white border-b border-gray-100" style={{ height: 40 }}>
-//             <View className="h-full px-3 items-center justify-center" style={{ backgroundColor: colors.orange || '#E65100' }}>
-//                 <Text className="text-white text-[12px] font-bold text-center leading-4">आज का{"\n"}विशेष</Text>
-//             </View>
-//             <View className="flex-1 px-4">
-//                 <Text className="text-[14px] font-medium" numberOfLines={1}>
-//                     <Text style={{ color: colors.orange || '#E65100' }}>विष्णु भजन</Text>
-//                     <Text style={{ color: '#999' }}>  |  </Text>
-//                     <Text style={{ color: colors.orange || '#E65100' }}>भजन: तुने मुझे बुलाया शेरा वालिए</Text>
-//                 </Text>
-//             </View>
-//         </View>
-//     );
-// }
+    return (
+        <View className="flex-row items-center bg-white border-b border-gray-100" style={{ height: 40 }}>
+            <View className="h-full px-3 items-center justify-center" style={{ backgroundColor: colors.orange || '#E65100' }}>
+                <Text className="text-white text-[12px] font-bold text-center leading-4">आज का{"\n"}विशेष</Text>
+            </View>
+            <View className="flex-1 px-4">
+                <Text className="text-[14px] font-medium" numberOfLines={1}>
+                    <Text style={{ color: colors.orange || '#E65100' }}>विष्णु भजन</Text>
+                    <Text style={{ color: '#999' }}>  |  </Text>
+                    <Text style={{ color: colors.orange || '#E65100' }}>भजन: तुने मुझे बुलाया शेरा वालिए</Text>
+                </Text>
+            </View>
+        </View>
+    );
+}

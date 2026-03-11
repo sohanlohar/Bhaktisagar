@@ -3,14 +3,16 @@ import { View, ScrollView, FlatList, Text, Pressable } from 'react-native';
 import ScreenWrapper from '../components/ScreenWrapper';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../context/ThemeContext';
-import { BhaktiHeader, SpecialTicker } from '../components/home/BhaktiHeader';
+import { SpecialTicker } from '../components/home/BhaktiHeader';
 import { IconTile } from '../components/IconTile';
 import CategoryPill from '../components/CategoryPill';
 import { GridListItem, SubCategoryChip } from '../components/home/HomeComponents';
 import ItemCard from '../components/ItemCard';
 import { Search, Music, Zap, Star, Flame, Sun, Ghost, ScrollText, Heart, Wind, Sunrise, Sunset, Clock, Sparkles, Smile } from 'lucide-react-native';
+import PanchangSection from '../components/PanchangSection';
 import { getTodayPanchang } from '../services/panchangApi';
 import { getHomePageContent } from '../utils/homeContentUtils';
+import { BhaktiHeader } from '../components/home/BhaktiHeader';
 
 const HOME_CATEGORIES = [
   { id: '1', title: 'मंत्र', icon: '🙏', kind: 'mantra' },
@@ -127,53 +129,7 @@ export default function HomeScreen() {
           {/* Quick Pills */}
           <SectionHeader title="आज का पंचांग" />
           {panchang ? (
-            <View className="px-4">
-              <Pressable
-                onPress={() => navigation.navigate('Panchang')}
-                className="rounded-3xl p-5 border shadow-sm"
-                style={{ backgroundColor: colors.cardBg, borderColor: colors.border }}
-              >
-                <View className="flex-row justify-between items-center mb-4">
-                  <View className="flex-row gap-2 items-center">
-                    <Sun size={20} color={colors.saffron} />
-                    <Text className="text-lg font-bold" style={{ color: colors.text }}>
-                      {panchang.tithi}
-                    </Text>
-                  </View>
-                  <Text style={{ color: colors.textLight, fontSize: 13 }}>{panchang.date}</Text>
-                </View>
-
-                {/* Tithi & Rahukal */}
-                <View className="flex-row justify-between mb-4">
-                  <View className="flex-row gap-2 items-center">
-                    <Wind size={16} color={colors.textLight} />
-                    <Text style={{ color: colors.text }}>नक्षत्र: <Text className="font-bold" style={{ color: colors.text }}>{panchang.nakshatra}</Text></Text>
-                  </View>
-                  <View className="flex-row gap-2 items-center">
-                    <Clock size={16} color={colors.pillRed} />
-                    <Text style={{ color: colors.text }}>राहुकाल: <Text className="font-bold" style={{ color: colors.text }}>{panchang.rahukal}</Text></Text>
-                  </View>
-                </View>
-
-                {/* Shubh Muhurat */}
-                <View className="flex-row gap-2 items-center mb-4 rounded-2xl">
-                  <Sparkles size={18} color={colors.saffron} />
-                  <Text style={{ color: colors.text }}>शुभ मुहूर्त: <Text className="font-bold">{panchang.shubh_muhurat}</Text></Text>
-                </View>
-
-                <View className="flex-row justify-between pt-3 border-t" style={{ borderTopColor: colors.border + '55' }}>
-                  <View className="flex-row gap-2 items-center">
-                    <Sunrise size={14} color={colors.orange} />
-                    <Text style={{ color: colors.textLight, fontSize: 12 }}>{panchang.sunrise}</Text>
-                  </View>
-                  <View className="flex-row gap-2 items-center">
-                    <Sunset size={14} color={colors.orange} />
-                    <Text style={{ color: colors.textLight, fontSize: 12 }}>{panchang.sunset}</Text>
-                  </View>
-                  <Text className="font-bold" style={{ color: colors.saffron }}>विस्तृत पंचांग ›</Text>
-                </View>
-              </Pressable>
-            </View>
+            <PanchangSection panchang={panchang} />
           ) : (
             <View className="mt-4 flex-row justify-center px-4 flex-wrap">
               <CategoryPill label="तिथि" color={colors.pillYellow} />

@@ -51,7 +51,7 @@ const ContentDetailScreen = () => {
                         </Pressable>
 
                         <Text
-                            style={[styles.headerTitle, { color: "#F7F6E5" }]}
+                            style={[styles.headerTitle, { color: colors.headerText || "#F7F6E5" }]}
                             numberOfLines={1}
                         >
                             {item.title}
@@ -62,14 +62,14 @@ const ContentDetailScreen = () => {
                     <View style={styles.headerActions}>
                         <Pressable onPress={() => toggle({ ...item, timestamp: Date.now() })} style={styles.iconBtn}>
                             <Heart
-                                color={bookmarked ? colors.saffron : "#F7F6E5"}
+                                color={bookmarked ? colors.saffron : colors.headerText || "#F7F6E5"}
                                 fill={bookmarked ? colors.saffron : 'none'}
                                 size={24}
                             />
                         </Pressable>
 
                         <Pressable style={styles.iconBtn}>
-                            <Share2 color={"#F7F6E5"} size={22} />
+                            <Share2 color={colors.headerText || "#F7F6E5"} size={22} />
                         </Pressable>
                     </View>
                 </View>

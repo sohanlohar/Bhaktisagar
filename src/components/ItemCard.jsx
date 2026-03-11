@@ -30,7 +30,8 @@ export default function ItemCard({ id, title, onPress, item }) {
         shadowRadius: 16,
         elevation: 4,
         borderWidth: 1,
-        borderColor: colors.border
+        borderColor: colors.border,
+        marginBottom: 10,
       }}
     >
       <View className="flex-row items-center justify-between flex-wrap">

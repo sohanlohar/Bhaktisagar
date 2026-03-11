@@ -11,6 +11,7 @@ import ContentDetailScreen from '../screens/ContentDetailScreen';
 import { Home, Bookmark, CalendarDays, CloudSun, Heart } from 'lucide-react-native';
 import { useTheme } from '../context/ThemeContext';
 import { ROUTES } from '../constants';
+import { BhaktiHeader } from '../components/home/BhaktiHeader';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -70,14 +71,6 @@ const MainTabs = () => {
           tabBarIcon: renderIcon(CalendarDays),
         }}
       />
-      {/* <Tab.Screen
-        name={ROUTES.WEATHER}
-        component={WeatherScreen}
-        options={{
-          title: 'Weather',
-          tabBarIcon: renderIcon(CloudSun),
-        }}
-      /> */}
     </Tab.Navigator>
   );
 };

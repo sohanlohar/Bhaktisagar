@@ -33,29 +33,29 @@ const ProfileScreen = () => {
   return (
     <ScreenWrapper>
       <View style={{ flex: 1, backgroundColor: colors.background }} className="p-5">
-      <View className="flex-row items-center mb-8">
-        <Pressable
-          onPress={() => navigation.goBack()}
-          className="w-10 h-10 rounded-full items-center justify-center mr-3"
-          style={{ backgroundColor: colors.cardBg }}
-        >
-          <ChevronLeft size={22} color={colors.text} />
-        </Pressable>
-        <Text className="text-3xl font-bold" style={{ color: colors.text }}>सेटिंग्स</Text>
-      </View>
+        <View className="flex-row items-center mb-8">
+          <Pressable
+            onPress={() => navigation.goBack()}
+            className="w-10 h-10 rounded-full items-center justify-center mr-3"
+            style={{ backgroundColor: colors.cardBg }}
+          >
+            <ChevronLeft size={22} color={colors.text} />
+          </Pressable>
+          <Text className="text-3xl font-bold" style={{ color: colors.text }}>सेटिंग्स</Text>
+        </View>
 
-      <MenuItem
-        icon={isDarkMode ? Moon : Sun}
-        label="Dark Mode"
-        type="switch"
-        value={isDarkMode}
-        onValueChange={toggleTheme}
-      />
-      <MenuItem icon={Bell} label="नोटिफिकेशन" />
-      <MenuItem icon={Shield} label="प्राइवेसी" />
-      <MenuItem icon={Info} label="हमारे बारे में" />
+        <MenuItem
+          icon={isDarkMode ? Moon : Sun}
+          label="Dark Mode"
+          type="switch"
+          value={isDarkMode}
+          onValueChange={toggleTheme}
+        />
+        <MenuItem icon={Bell} label="नोटिफिकेशन" />
+        <MenuItem icon={Shield} label="प्राइवेसी" />
+        <MenuItem icon={Info} label="हमारे बारे में" />
 
-      <Text className="text-center mt-10" style={{ color: colors.textLight, fontSize: 12 }}>Version 0.0.1</Text>
+        <Text className="text-center mt-10" style={{ color: colors.textLight, fontSize: 12 }}>Version 0.0.1</Text>
       </View>
     </ScreenWrapper>
   );

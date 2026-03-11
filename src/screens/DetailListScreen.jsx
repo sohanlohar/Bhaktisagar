@@ -12,26 +12,35 @@ export default function DetailListScreen() {
   const { colors, isDarkMode } = useTheme();
   const { toggle, isBookmarked } = useBookmarks();
 
-  // Handle both { item } and { title, items } formats for robustness
   const item = params?.item;
   const title = params?.title || item?.title || 'Bhakti';
   const content = item?.content || item?.lyrics || 'सामग्री शीघ्र ही उपलब्ध होगी।';
-
   const bookmarked = item ? isBookmarked(item.id) : false;
 
   return (
     <ScreenWrapper>
       <View style={{ flex: 1, backgroundColor: colors.background }}>
         {/* Header */}
-        <View className="flex-row items-center justify-between px-5 py-4 border-b" style={{ backgroundColor: colors.headerBg, borderBottomColor: colors.border }}>
-          <Pressable onPress={() => navigation.goBack()} className="p-2">
-            <ChevronLeft color={colors.text} size={28} />
-          </Pressable>
-          <Text className="text-xl font-bold flex-1 ml-4" style={{ color: colors.text }} numberOfLines={1}>{title} cdcd</Text>
+        <View
+          className="flex-row items-center justify-between px-4 py-3"
+          style={{ backgroundColor: colors.headerBg }}
+        >
+          <View className="flex-row items-center">
+            <Pressable onPress={() => navigation.goBack()} className="mr-3">
+              <ChevronLeft color={colors.headerText || colors.text} size={28} />
+            </Pressable>
+            <Text
+              className="text-xl font-bold"
+              style={{ color: colors.headerText || colors.text }}
+            >
+              {title}
+            </Text>
+          </View>
+
           {item && (
             <Pressable onPress={() => toggle({ ...item, timestamp: Date.now() })} className="p-2">
               <Bookmark
-                color={bookmarked ? colors.saffron : colors.text}
+                color={bookmarked ? colors.saffron : colors.headerText || colors.text}
                 fill={bookmarked ? colors.saffron : 'none'}
                 size={24}
               />

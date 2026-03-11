@@ -13,7 +13,6 @@ interface ScreenWrapperProps {
 
 /**
  * Universal ScreenWrapper to handle SafeArea and StatusBar consistently.
- * Now simplified to rely on root SafeAreaProvider.
  */
 const ScreenWrapper: React.FC<ScreenWrapperProps> = ({
     children,

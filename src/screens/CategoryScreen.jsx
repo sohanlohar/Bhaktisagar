@@ -26,7 +26,6 @@ export default function CategoryScreen() {
           <Text className="text-3xl font-bold" style={{ color: colors.headerText }}>{title}</Text>
           <Text className="text-[14px] mt-1" style={{ color: colors.headerText, opacity: 0.8 }}>वर्ग चुनें</Text>
         </View>
-
         <FlatList
           data={SUBS}
           keyExtractor={(item) => item.id}

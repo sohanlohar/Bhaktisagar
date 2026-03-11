@@ -10,31 +10,26 @@ import ContentDetailScreen from '../../screens/ContentDetailScreen';
 const Stack = createNativeStackNavigator();
 export default function HomeStack() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen
         name="Home"
         component={HomeScreen}
-        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="BrowseCategory"
         component={BrowseCategoryScreen}
-        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="Category"
         component={CategoryScreen}
-        options={({ route }) => ({ title: route.params.title })}
       />
       <Stack.Screen
         name="Subcategory"
         component={SubcategoryScreen}
-        options={({ route }) => ({ title: route.params.title })}
       />
       <Stack.Screen
         name="DetailList"
         component={DetailListScreen}
-        options={({ route }) => ({ title: route.params.title })}
       />
     </Stack.Navigator>
   );
