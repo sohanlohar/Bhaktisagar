@@ -1,4 +1,4 @@
-import React, { useEffect, useState, memo } from 'react';
+import React, { useEffect, useState, memo, useCallback } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 import ScreenWrapper from '../components/ScreenWrapper';
 import { getMonthPanchang, getTodayPanchang } from '../services/panchangApi';
@@ -34,55 +34,58 @@ export default function PanchangScreen({ navigation }) {
   }, [displayDate]);
 
   // Load month data
-  const loadMonthData = async () => {
-    setLoading(true);
+  const loadMonthData = useCallback(async () => {
     const year = displayDate.getFullYear();
     const month = displayDate.getMonth();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-    // 1. Generate simple grid dates INSTANTLY (structural only)
     const basicGridData = [];
+
     for (let i = 1; i <= daysInMonth; i++) {
       basicGridData.push({
         fullDateObj: new Date(year, month, i)
       });
     }
 
-    // 2. Fetch current day's details IMMEDIATELY (critical path)
     const now = new Date();
+
     let initialSelectedDate = basicGridData[0].fullDateObj;
+
     if (month === now.getMonth() && year === now.getFullYear()) {
       initialSelectedDate = now;
     }
 
-    // Fetch detail first to ensure we have content before hiding main loader
     await fetchDetailedDay(initialSelectedDate);
 
     setMonthData(basicGridData);
     setLoading(false);
 
-    // 3. Defer background month caching
-    requestIdleCallback(() => {
+    InteractionManager.runAfterInteractions(() => {
       getMonthPanchang(year, month);
     });
-  };
 
-  const fetchDetailedDay = async (date) => {
+  }, [displayDate]);
+
+  const fetchDetailedDay = useCallback(async (date) => {
     setDetailLoading(true);
     setSelectedDateObj(date);
+
     const data = await getTodayPanchang(date);
+
     setSelectedData(data);
     setDetailLoading(false);
-  };
+  }, []);
 
-  const handleSelectDate = (item) => {
+  const handleSelectDate = useCallback((item) => {
     fetchDetailedDay(item.fullDateObj);
-  };
+  }, [fetchDetailedDay]);
 
   const changeMonth = (offset) => {
-    const newDate = new Date(displayDate);
-    newDate.setMonth(displayDate.getMonth() + offset);
-    setDisplayDate(newDate);
+    setDisplayDate(prev => {
+      const newDate = new Date(prev);
+      newDate.setMonth(prev.getMonth() + offset);
+      return newDate;
+    });
   };
 
   return (

@@ -41,72 +41,76 @@ const KARANA_HINDI = {
   "Kimstughna": "किंस्तुघ्न"
 };
 
-// Helper to format Date to hh:mm A
+const observer = new Observer(28.6139, 77.2090, 0);
+
+const timeFormatter = new Intl.DateTimeFormat('en-US', {
+  hour: '2-digit',
+  minute: '2-digit',
+  hour12: true
+});
+
 const formatTime = (date) => {
   if (!date) return '--:--';
-  return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+  return timeFormatter.format(date);
 };
 
 const panchangCache = {};
 const dayCache = {};
 
-export async function getTodayPanchang(inputDate) {
-  const date = inputDate || new Date();
-  const cacheKey = date.toISOString().split('T')[0]; // Cache by YYYY-MM-DD
+export function getTodayPanchang(inputDate) {
 
-  if (dayCache[cacheKey]) {
-    return dayCache[cacheKey];
-  }
+  const date = inputDate || new Date();
+  const cacheKey = date.toISOString().split('T')[0];
+
+  if (dayCache[cacheKey]) return dayCache[cacheKey];
 
   try {
-    const observer = new Observer(28.6139, 77.2090, 0);
+
     const result = getPanchangam(date, observer);
-    const paksha = result.tithi < 15 ? 'शुक्ल' : 'कृष्ण';
-    const isPurnimaOrAmavasya = result.tithi === 14 || result.tithi === 29;
-    const tithiText = isPurnimaOrAmavasya
-      ? TITHI_HINDI[result.tithi]
-      : `${paksha} ${TITHI_HINDI[result.tithi]}`;
+
+    const paksha = result.tithi < 15 ? 'शुक्ल ' : 'कृष्ण ';
+    const isSpecial = result.tithi === 14 || result.tithi === 29;
 
     const data = {
       date: date.toLocaleDateString('hi-IN', { day: 'numeric', month: 'long', year: 'numeric' }),
       shortDate: date.toLocaleDateString('en-IN', { day: '2-digit', month: 'short' }),
       dayName: date.toLocaleDateString('hi-IN', { weekday: 'short' }),
       fullDateObj: date,
-      tithi: tithiText,
+
+      tithi: isSpecial
+        ? TITHI_HINDI[result.tithi]
+        : paksha + TITHI_HINDI[result.tithi],
+
       nakshatra: NAKSHATRA_HINDI[result.nakshatra] || '--',
-      yoga: result.yoga !== undefined ? (YOGA_HINDI[result.yoga] || '--') : '--',
-      karana: result.karana ? (KARANA_HINDI[result.karana] || result.karana) : '--',
+
+      yoga: YOGA_HINDI[result.yoga] || '--',
+
+      karana: KARANA_HINDI[result.karana] || result.karana || '--',
+
       rahukal: result.rahuKalamStart && result.rahuKalamEnd
         ? `${formatTime(result.rahuKalamStart)} - ${formatTime(result.rahuKalamEnd)}`
         : '--:--',
+
       sunrise: formatTime(result.sunrise),
       sunset: formatTime(result.sunset),
+
       shubh_muhurat: result.abhijitMuhurta
         ? `${formatTime(result.abhijitMuhurta.start)} - ${formatTime(result.abhijitMuhurta.end)}`
         : '--:--',
+
       rashifal: '--',
       originalData: result
     };
 
     dayCache[cacheKey] = data;
+
     return data;
+
   } catch (error) {
+
     console.error("Error calculating panchang:", error);
-    const fallbackDate = inputDate || new Date();
-    return {
-      date: fallbackDate.toLocaleDateString('hi-IN', { day: 'numeric', month: 'long', year: 'numeric' }),
-      shortDate: fallbackDate.toLocaleDateString('en-IN', { day: '2-digit', month: 'short' }),
-      dayName: fallbackDate.toLocaleDateString('hi-IN', { weekday: 'short' }),
-      fullDateObj: fallbackDate,
-      tithi: 'उपलब्ध नहीं',
-      nakshatra: '--',
-      yoga: '--',
-      karana: '--',
-      rahukal: '--:--',
-      sunrise: '--:--',
-      sunset: '--:--',
-      shubh_muhurat: '--:--'
-    };
+
+    return null;
   }
 }
 
