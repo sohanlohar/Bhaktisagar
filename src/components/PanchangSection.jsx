@@ -26,7 +26,7 @@ export default function PanchangSection({ panchang }) {
                             {panchang.tithi}
                         </Text>
                     </View>
-                    <Text className="text-md font-bold">{panchang.dayName} var - {panchang.date}</Text>
+                    <Text className="text-md font-bold">{panchang.dayName}वार - {panchang.date}</Text>
                 </View>
 
                 {/* Nakshatra & Rahukal */}

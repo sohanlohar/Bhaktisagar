@@ -18,7 +18,7 @@ export function BhaktiHeader() {
             <View className="flex-row items-center">
                 <View className="rounded-full overflow-hidden bg-white items-center justify-center border border-orange-100 shadow-sm">
                     <Image
-                        source={require('../../assets/app_icon.png')}
+                        source={require('../../assets/app_icon.webp')}
                         style={{ width: 35, height: 35, resizeMode: 'contain' }}
                     />
                 </View>
