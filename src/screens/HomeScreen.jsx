@@ -8,11 +8,13 @@ import { IconTile } from '../components/IconTile';
 import CategoryPill from '../components/CategoryPill';
 import { GridListItem, SubCategoryChip } from '../components/home/HomeComponents';
 import ItemCard from '../components/ItemCard';
-import { Search, Music, Zap, Star, Flame, Sun, Ghost, ScrollText, Heart, Wind, Sunrise, Sunset, Clock, Sparkles, Smile } from 'lucide-react-native';
+import { Music, Star, ScrollText, Heart, Sparkles, Zap } from 'lucide-react-native';
 import PanchangSection from '../components/PanchangSection';
 import { getTodayPanchang } from '../services/panchangApi';
 import { getHomePageContent } from '../utils/homeContentUtils';
 import { BhaktiHeader } from '../components/home/BhaktiHeader';
+import { ROUTES } from '../constants';
+import BhaktiLoader from '../components/BhaktiLoader';
 
 const HOME_CATEGORIES = [
   { id: '1', title: 'मंत्र', icon: '🙏', kind: 'mantra' },
@@ -74,6 +76,7 @@ export default function HomeScreen() {
   const { colors } = useTheme();
   const navigation = useNavigation();
   const [panchang, setPanchang] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
   const [homeContent, setHomeContent] = React.useState({
     todaysDevotion: [],
     dailyPicks: [],
@@ -82,16 +85,30 @@ export default function HomeScreen() {
 
   React.useEffect(() => {
     (async () => {
-      const data = await getTodayPanchang();
-      setPanchang(data);
+      setLoading(true);
+      try {
+        const panchangData = await getTodayPanchang();
+        setPanchang(panchangData);
+        // Load dynamic home content
+        const content = getHomePageContent();
+        setHomeContent(content);
+      } catch (error) {
+        console.error("Error loading home data:", error);
+      } finally {
+        // Add a tiny delay for smoother transition
+        setTimeout(() => setLoading(false), 300);
+      }
     })();
   }, []);
 
-  React.useEffect(() => {
-    // Load dynamic home content
-    const content = getHomePageContent();
-    setHomeContent(content);
-  }, []);
+  if (loading) {
+    return (
+      <ScreenWrapper>
+        <BhaktiHeader />
+        <BhaktiLoader message="जय श्री राम..." />
+      </ScreenWrapper>
+    );
+  }
 
   return (
     <ScreenWrapper>
@@ -115,7 +132,7 @@ export default function HomeScreen() {
                   isNew={item.isNew}
                   onPress={() => {
                     if (item.kind) {
-                      navigation.navigate('BrowseCategory', {
+                      navigation.navigate(ROUTES.BROWSE_CATEGORY || 'BrowseCategory', {
                         kind: item.kind,
                         title: item.title,
                       });

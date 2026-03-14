@@ -6,12 +6,30 @@ import { useTheme } from '../context/ThemeContext';
 import ItemCard from '../components/ItemCard';
 import { useNavigation } from '@react-navigation/native';
 import { BhaktiHeader } from '../components/home/BhaktiHeader';
+import BhaktiLoader from '../components/BhaktiLoader';
 
 const BookmarksScreen = () => {
   const { bookmarks } = useBookmarks();
   const { colors } = useTheme();
   const nav = useNavigation();
+  const [loading, setLoading] = React.useState(true);
 
+  React.useEffect(() => {
+    setLoading(true);
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 600);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return (
+      <ScreenWrapper>
+        <BhaktiHeader />
+        <BhaktiLoader message="पसंदीदा सामग्री लोड हो रही है..." />
+      </ScreenWrapper>
+    );
+  }
   return (
     <ScreenWrapper>
       <View style={{ flex: 1, backgroundColor: colors.background }}>

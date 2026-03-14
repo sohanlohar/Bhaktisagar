@@ -3,7 +3,10 @@ import { View, FlatList, Text } from 'react-native';
 import ScreenWrapper from '../components/ScreenWrapper';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useTheme } from '../context/ThemeContext';
+import { ChevronLeft } from 'lucide-react-native';
 import ItemCard from '../components/ItemCard';
+import BhaktiLoader from '../components/BhaktiLoader';
+import { Pressable } from 'react-native';
 
 import mantras from '../data/mantras.json';
 import chalisas from '../data/chalisas.json';
@@ -15,6 +18,29 @@ export default function SubcategoryScreen() {
   const route = useRoute();
   const { colors } = useTheme();
   const { subId, kind, title } = route.params;
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    setLoading(true);
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [subId, kind]);
+
+  if (loading) {
+    return (
+      <ScreenWrapper>
+        <View className="flex-row items-center px-5 py-4" style={{ backgroundColor: colors.headerBg }}>
+          <Pressable onPress={() => nav.goBack()} className="mr-3">
+            <ChevronLeft color={colors.headerText} size={28} />
+          </Pressable>
+          <Text className="text-3xl font-bold" style={{ color: colors.headerText }}>{title}</Text>
+        </View>
+        <BhaktiLoader />
+      </ScreenWrapper>
+    );
+  }
 
   const allData = {
     mantra: mantras,
@@ -34,7 +60,10 @@ export default function SubcategoryScreen() {
     <ScreenWrapper>
       <View style={{ flex: 1, backgroundColor: colors.background }}>
         {/* Header */}
-        <View className="px-5 py-4" style={{ backgroundColor: colors.headerBg }}>
+        <View className="flex-row items-center px-5 py-4" style={{ backgroundColor: colors.headerBg }}>
+          <Pressable onPress={() => nav.goBack()} className="mr-3">
+            <ChevronLeft color={colors.headerText} size={28} />
+          </Pressable>
           <Text className="text-3xl font-bold" style={{ color: colors.headerText }}>{title}</Text>
           <Text className="text-[14px] mt-1" style={{ color: colors.headerText, opacity: 0.8 }}>सूची</Text>
         </View>

@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import ScreenWrapper from '../components/ScreenWrapper';
 import { useTheme } from '../context/ThemeContext';
 import ItemCard from '../components/ItemCard';
+import BhaktiLoader from '../components/BhaktiLoader';
 import aartis from '../data/aartis.json';
 import chalisas from '../data/chalisas.json';
 import bhajans from '../data/bhajans.json';
@@ -16,7 +17,7 @@ const SearchScreen = () => {
     const navigation = useNavigation();
     const [searchQuery, setSearchQuery] = useState('');
     const [results, setResults] = useState([]);
-
+    const [searching, setSearching] = useState(false);
     // Combine and sanitize all data once
     const allContent = useMemo(() => [
         ...aartis.map(item => ({ ...item, kind: 'aarti' })),
@@ -29,30 +30,39 @@ const SearchScreen = () => {
         const query = searchQuery.trim().toLowerCase();
         if (query === '') {
             setResults([]);
+            setSearching(false);
             return;
         }
 
-        const filtered = allContent.filter(item => {
-            if (!item || !item.title) return false;
+        setSearching(true);
+        
+        // Debounce search a bit or just simulate a small process
+        const timer = setTimeout(() => {
+            const filtered = allContent.filter(item => {
+                if (!item || !item.title) return false;
 
-            const titleMatch = item.title.toLowerCase().includes(query);
-            const tagMatch = item.tags && item.tags.some(tag =>
-                tag.toLowerCase() === query || tag.toLowerCase().startsWith(query)
-            );
+                const titleMatch = item.title.toLowerCase().includes(query);
+                const tagMatch = item.tags && item.tags.some(tag =>
+                    tag.toLowerCase() === query || tag.toLowerCase().startsWith(query)
+                );
 
-            return titleMatch || tagMatch;
-        });
+                return titleMatch || tagMatch;
+            });
 
-        // Sort results: title matches first
-        const sorted = [...filtered].sort((a, b) => {
-            const aTitleMatch = a.title.toLowerCase().includes(query);
-            const bTitleMatch = b.title.toLowerCase().includes(query);
-            if (aTitleMatch && !bTitleMatch) return -1;
-            if (!aTitleMatch && bTitleMatch) return 1;
-            return 0;
-        });
+            // Sort results: title matches first
+            const sorted = [...filtered].sort((a, b) => {
+                const aTitleMatch = a.title.toLowerCase().includes(query);
+                const bTitleMatch = b.title.toLowerCase().includes(query);
+                if (aTitleMatch && !bTitleMatch) return -1;
+                if (!aTitleMatch && bTitleMatch) return 1;
+                return 0;
+            });
 
-        setResults(sorted);
+            setResults(sorted);
+            setSearching(false);
+        }, 300);
+
+        return () => clearTimeout(timer);
     }, [searchQuery, allContent]);
 
     return (
@@ -83,7 +93,11 @@ const SearchScreen = () => {
                 </View>
 
                 {/* Content */}
-                {searchQuery.trim() === '' ? (
+                {searching ? (
+                    <View className="flex-1">
+                        <BhaktiLoader message="खोज जारी है..." />
+                    </View>
+                ) : searchQuery.trim() === '' ? (
                     <View style={styles.emptyContainer}>
                         <SearchIcon size={64} color={colors.border} />
                         <Text style={[styles.emptyText, { color: colors.textLight }]}>

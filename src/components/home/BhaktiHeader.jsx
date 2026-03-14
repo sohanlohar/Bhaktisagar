@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { Bell, Heart, Search, Settings } from 'lucide-react-native';
+import { Bell, Heart, Search } from 'lucide-react-native';
 import React from 'react';
 import { Image, Pressable, Text, View } from 'react-native';
 import { ROUTES } from '../../constants';
@@ -40,12 +40,12 @@ export function BhaktiHeader() {
                 >
                     <Search size={22} color={colors.headerText || 'white'} />
                 </Pressable>
-                <Pressable
+                {/* <Pressable
                     className="p-1 ml-1"
                     onPress={() => navigation.navigate(ROUTES.SETTINGS)}
                 >
                     <Settings size={22} color={colors.headerText || 'white'} />
-                </Pressable>
+                </Pressable> */}
             </View>
         </View>
     );

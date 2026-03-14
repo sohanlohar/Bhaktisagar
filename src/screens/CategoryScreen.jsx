@@ -3,7 +3,8 @@ import { View, Text, FlatList, Pressable } from 'react-native';
 import ScreenWrapper from '../components/ScreenWrapper';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { useTheme } from '../context/ThemeContext';
-import { ChevronRight } from 'lucide-react-native';
+import { ChevronRight, ChevronLeft } from 'lucide-react-native';
+import BhaktiLoader from '../components/BhaktiLoader';
 
 const SUBS = [
   { id: 'hanuman', title: 'हनुमान', icon: '🙏' },
@@ -17,12 +18,38 @@ export default function CategoryScreen() {
   const route = useRoute();
   const { colors } = useTheme();
   const { kind, title } = route.params;
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    setLoading(true);
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 400);
+    return () => clearTimeout(timer);
+  }, [kind]);
+
+  if (loading) {
+    return (
+      <ScreenWrapper>
+        <View className="flex-row items-center px-5 py-4" style={{ backgroundColor: colors.headerBg }}>
+          <Pressable onPress={() => nav.goBack()} className="mr-3">
+            <ChevronLeft color={colors.headerText} size={28} />
+          </Pressable>
+          <Text className="text-3xl font-bold" style={{ color: colors.headerText }}>{title}</Text>
+        </View>
+        <BhaktiLoader message={`${title} की श्रेणियां...`} />
+      </ScreenWrapper>
+    );
+  }
 
   return (
     <ScreenWrapper>
       <View style={{ flex: 1, backgroundColor: colors.background }}>
         {/* Header */}
-        <View className="px-5 py-4" style={{ backgroundColor: colors.headerBg }}>
+        <View className="flex-row items-center px-5 py-4" style={{ backgroundColor: colors.headerBg }}>
+          <Pressable onPress={() => nav.goBack()} className="mr-3">
+            <ChevronLeft color={colors.headerText} size={28} />
+          </Pressable>
           <Text className="text-3xl font-bold" style={{ color: colors.headerText }}>{title}</Text>
           <Text className="text-[14px] mt-1" style={{ color: colors.headerText, opacity: 0.8 }}>वर्ग चुनें</Text>
         </View>

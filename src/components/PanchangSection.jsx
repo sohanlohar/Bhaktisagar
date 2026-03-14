@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../context/ThemeContext';
+import { ROUTES } from '../constants';
 import { Sun, Wind, Clock, Sparkles, Sunrise, Sunset, Moon, Activity } from 'lucide-react-native';
 
 export default function PanchangSection({ panchang }) {
@@ -15,7 +16,7 @@ export default function PanchangSection({ panchang }) {
     return (
         <View className="px-4">
             <Pressable
-                onPress={() => navigation.navigate('Panchang')}
+                onPress={() => navigation.navigate(ROUTES.PANCHANG)}
                 className="rounded-3xl p-5 border shadow-sm"
                 style={{ backgroundColor: colors.cardBg, borderColor: colors.border }}
             >

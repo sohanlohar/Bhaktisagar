@@ -5,6 +5,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { useTheme } from '../context/ThemeContext';
 import { Search, ChevronLeft, Bookmark, Heart } from 'lucide-react-native';
 import { useBookmarks } from '../hooks/useBookmarks';
+import BhaktiLoader from '../components/BhaktiLoader';
 
 // Import data
 import mantras from '../data/mantras.json';
@@ -25,8 +26,32 @@ export default function BrowseCategoryScreen() {
     const { colors } = useTheme();
     const { kind, title } = route.params;
     const { isBookmarked, toggle } = useBookmarks();
+    const [loading, setLoading] = React.useState(true);
 
     const data = useMemo(() => BROWSE_DATA[kind] || [], [kind]);
+
+    React.useEffect(() => {
+        setLoading(true);
+        // Simulate a small delay for premium feel and structural stability
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 500);
+        return () => clearTimeout(timer);
+    }, [kind]);
+
+    if (loading) {
+        return (
+            <ScreenWrapper>
+                <View className="flex-row items-center px-4 py-3" style={{ backgroundColor: colors.headerBg }}>
+                    <Pressable onPress={() => navigation.goBack()} className="mr-3">
+                        <ChevronLeft color={colors.headerText} size={28} />
+                    </Pressable>
+                    <Text className="text-xl font-bold" style={{ color: colors.headerText }}>{title}</Text>
+                </View>
+                <BhaktiLoader message={`${title} लोड हो रहा है...`} />
+            </ScreenWrapper>
+        );
+    }
 
     const renderItem = ({ item }) => {
         const bookmarked = isBookmarked(item.id);

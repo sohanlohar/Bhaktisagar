@@ -3,10 +3,10 @@ export const ROUTES = {
   HOME_TAB: 'HomeTab',
   BOOKMARKS: 'Bookmarks',
   PANCHANG: 'Panchang',
-  WEATHER: 'Weather',
   SETTINGS: 'Settings',
   DETAIL: 'Detail',
   SEARCH: 'Search',
+  BROWSE_CATEGORY: 'BrowseCategory',
 };
 
 export const STORAGE_KEYS = {

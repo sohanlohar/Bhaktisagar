@@ -5,6 +5,7 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import ScreenWrapper from '../components/ScreenWrapper';
 import { useTheme } from '../context/ThemeContext';
 import { useBookmarks } from '../hooks/useBookmarks';
+import BhaktiLoader from '../components/BhaktiLoader';
 import { RootStackParamList } from '../types';
 
 type DetailScreenRouteProp = RouteProp<RootStackParamList, 'Detail'>;
@@ -20,9 +21,41 @@ const ContentDetailScreen = () => {
 
     // Local State
     const [fontSize, setFontSize] = useState(18);
+    const [loading, setLoading] = useState(true);
     const bookmarked = isBookmarked(item?.id);
 
-    if (!item) return null;
+    React.useEffect(() => {
+        setLoading(true);
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 300);
+        return () => clearTimeout(timer);
+    }, [item?.id]);
+
+    if (!item) return <BhaktiLoader message="सामग्री खोजी जा रही है..." />;
+    
+    if (loading) {
+        return (
+            <ScreenWrapper>
+                <View
+                    style={[
+                        styles.header,
+                        { backgroundColor: colors.headerBg, borderBottomColor: colors.border },
+                    ]}
+                >
+                    <View style={styles.headerLeft}>
+                        <Pressable onPress={() => navigation.goBack()} style={styles.backBtn}>
+                            <ChevronLeft color={colors.headerText} size={28} />
+                        </Pressable>
+                        <Text style={[styles.headerTitle, { color: colors.headerText || "#F7F6E5" }]}>
+                            {item.title}
+                        </Text>
+                    </View>
+                </View>
+                <BhaktiLoader />
+            </ScreenWrapper>
+        );
+    }
 
     const increaseFont = () => setFontSize(p => Math.min(p + 2, 30));
     const decreaseFont = () => setFontSize(p => Math.max(p - 2, 14));
