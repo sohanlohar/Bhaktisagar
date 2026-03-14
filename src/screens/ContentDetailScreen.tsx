@@ -33,7 +33,7 @@ const ContentDetailScreen = () => {
     }, [item?.id]);
 
     if (!item) return <BhaktiLoader message="सामग्री खोजी जा रही है..." />;
-    
+
     if (loading) {
         return (
             <ScreenWrapper>
@@ -95,15 +95,15 @@ const ContentDetailScreen = () => {
                     <View style={styles.headerActions}>
                         <Pressable onPress={() => toggle({ ...item, timestamp: Date.now() })} style={styles.iconBtn}>
                             <Heart
-                                color={bookmarked ? colors.saffron : colors.headerText || "#F7F6E5"}
-                                fill={bookmarked ? colors.saffron : 'none'}
+                                color={bookmarked ? colors.primary : colors.headerText || "#F7F6E5"}
+                                fill={bookmarked ? colors.primary : 'none'}
                                 size={24}
                             />
                         </Pressable>
 
-                        <Pressable style={styles.iconBtn}>
+                        {/* <Pressable style={styles.iconBtn}>
                             <Share2 color={colors.headerText || "#F7F6E5"} size={22} />
-                        </Pressable>
+                        </Pressable> */}
                     </View>
                 </View>
 

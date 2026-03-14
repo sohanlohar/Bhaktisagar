@@ -29,12 +29,10 @@ export const CalendarGrid = ({ loading, monthData, selectedDateObj, onSelectDate
 
           {/* Calendar Grid */}
           <View className="flex-row flex-wrap">
-            {/* Empty slots for the first day of the month */}
             {monthData.length > 0 && Array.from({ length: monthData[0].fullDateObj.getDay() }).map((_, idx) => (
               <View key={`empty-${idx}`} style={{ width: '14.28%', aspectRatio: 1, borderColor: colors.border + '50' }} className="border-r border-b" />
             ))}
 
-            {/* Actual Days */}
             {monthData.map((item, index) => (
               <CalendarDay
                 key={index.toString()}

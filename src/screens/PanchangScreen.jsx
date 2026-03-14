@@ -7,6 +7,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react-native';
 import { BhaktiHeader } from '../components/home/BhaktiHeader';
 import { CalendarGrid } from '../components/panchang/CalendarGrid';
 import { PanchangDetails } from '../components/panchang/PanchangDetails';
+import BhaktiLoader from '../components/BhaktiLoader';
 
 const HINDI_MONTHS = [
   'जनवरी', 'फरवरी', 'मार्च', 'अप्रैल', 'मई', 'जून',
@@ -25,6 +26,7 @@ export default function PanchangScreen({ navigation }) {
 
   // Load month data
   useEffect(() => {
+    setLoading(true); // Show loader immediately on month change
     const handle = requestIdleCallback(() => {
       loadMonthData();
     });
@@ -88,10 +90,7 @@ export default function PanchangScreen({ navigation }) {
       <View style={{ flex: 1, backgroundColor: colors.background }}>
         <BhaktiHeader navigation={navigation} />
         {loading ? (
-          <View className="flex-1 items-center justify-center">
-            <ActivityIndicator size="large" color={colors.saffron} />
-            <Text className="mt-4 text-sm font-bold" style={{ color: colors.textLight }}>आज का पंचांग लोड हो रहा है...</Text>
-          </View>
+          <BhaktiLoader message="पंचांग लोड हो रहा है..." />
         ) : (
           <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 40 }}>
             <View className="px-5 py-2">
