@@ -3,7 +3,7 @@ import { View, Text, FlatList, Pressable, Image, StyleSheet } from 'react-native
 import ScreenWrapper from '../components/ScreenWrapper';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useTheme } from '../context/ThemeContext';
-import { Search, ChevronLeft, Bookmark } from 'lucide-react-native';
+import { Search, ChevronLeft, Bookmark, Heart } from 'lucide-react-native';
 import { useBookmarks } from '../hooks/useBookmarks';
 
 // Import data
@@ -55,8 +55,8 @@ export default function BrowseCategoryScreen() {
                             className="absolute top-2 right-2 p-2 rounded-full"
                             style={{ backgroundColor: 'rgba(255,255,255,0.8)' }}
                         >
-                            <Bookmark
-                                size={16}
+                            <Heart
+                                size={20}
                                 color={bookmarked ? colors.saffron : colors.textLight}
                                 fill={bookmarked ? colors.saffron : 'none'}
                             />

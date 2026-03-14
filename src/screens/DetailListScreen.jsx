@@ -3,7 +3,7 @@ import { ScrollView, Text, View, Pressable } from 'react-native';
 import ScreenWrapper from '../components/ScreenWrapper';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { useBookmarks } from '../hooks/useBookmarks';
-import { Bookmark, ChevronLeft } from 'lucide-react-native';
+import { Bookmark, ChevronLeft, Heart } from 'lucide-react-native';
 import { useTheme } from '../context/ThemeContext';
 
 export default function DetailListScreen() {
@@ -39,7 +39,7 @@ export default function DetailListScreen() {
 
           {item && (
             <Pressable onPress={() => toggle({ ...item, timestamp: Date.now() })} className="p-2">
-              <Bookmark
+              <Heart
                 color={bookmarked ? colors.saffron : colors.headerText || colors.text}
                 fill={bookmarked ? colors.saffron : 'none'}
                 size={24}

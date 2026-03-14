@@ -48,11 +48,17 @@ const formatTime = (date) => {
 };
 
 const panchangCache = {};
+const dayCache = {};
 
 export async function getTodayPanchang(inputDate) {
-  // Logic remains the same...
+  const date = inputDate || new Date();
+  const cacheKey = date.toISOString().split('T')[0]; // Cache by YYYY-MM-DD
+
+  if (dayCache[cacheKey]) {
+    return dayCache[cacheKey];
+  }
+
   try {
-    const date = inputDate || new Date();
     const observer = new Observer(28.6139, 77.2090, 0);
     const result = getPanchangam(date, observer);
     const paksha = result.tithi < 15 ? 'शुक्ल' : 'कृष्ण';
@@ -61,7 +67,7 @@ export async function getTodayPanchang(inputDate) {
       ? TITHI_HINDI[result.tithi]
       : `${paksha} ${TITHI_HINDI[result.tithi]}`;
 
-    return {
+    const data = {
       date: date.toLocaleDateString('hi-IN', { day: 'numeric', month: 'long', year: 'numeric' }),
       shortDate: date.toLocaleDateString('en-IN', { day: '2-digit', month: 'short' }),
       dayName: date.toLocaleDateString('hi-IN', { weekday: 'short' }),
@@ -81,6 +87,9 @@ export async function getTodayPanchang(inputDate) {
       rashifal: '--',
       originalData: result
     };
+
+    dayCache[cacheKey] = data;
+    return data;
   } catch (error) {
     console.error("Error calculating panchang:", error);
     const fallbackDate = inputDate || new Date();

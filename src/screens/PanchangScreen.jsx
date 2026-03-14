@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo, memo } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 import ScreenWrapper from '../components/ScreenWrapper';
 import { getMonthPanchang, getTodayPanchang } from '../services/panchangApi';
@@ -18,8 +18,8 @@ const isSameDate = (d1, d2) => {
     d1.getFullYear() === d2.getFullYear();
 };
 
-// Load month data
-const InfoCard = ({ icon: Icon, label, value, color, colors }) => (
+// Memoized InfoCard to prevent re-renders when other parts of the screen update
+const InfoCard = memo(({ icon: Icon, label, value, color, colors }) => (
   <View className="flex-1 rounded-3xl p-4 border m-1 items-center justify-center shadow-sm" style={{ backgroundColor: colors.cardBg, borderColor: colors.border }}>
     <View className="w-12 h-12 rounded-full items-center justify-center mb-3" style={{ backgroundColor: color + '15' }}>
       <Icon size={22} color={color} />
@@ -27,7 +27,36 @@ const InfoCard = ({ icon: Icon, label, value, color, colors }) => (
     <Text className="text-md font-bold tracking-widest mb-1 uppercase" style={{ color: colors.textLight }}>{label}</Text>
     <Text className="text-md font-bold text-center" style={{ color: colors.text }}>{value}</Text>
   </View>
-);
+));
+
+// Memoized Day component for the calendar grid
+const CalendarDay = memo(({ date, isSelected, isSunday, onPress, colors }) => (
+  <TouchableOpacity
+    onPress={onPress}
+    style={{
+      width: '14.28%',
+      aspectRatio: 1,
+      backgroundColor: isSelected ? colors.saffron + '20' : 'transparent',
+      borderColor: colors.border + '50',
+      borderRightWidth: 1,
+      borderBottomWidth: 1,
+    }}
+    className="items-center justify-center p-1"
+  >
+    <View className="w-8 h-8 rounded-full items-center justify-center" style={{ backgroundColor: isSelected ? colors.saffron : 'transparent' }}>
+      <Text
+        className="font-bold text-lg"
+        style={{
+          color: isSelected
+            ? '#FFFFFF'
+            : (isSunday ? colors.pillRed : colors.text)
+        }}
+      >
+        {date}
+      </Text>
+    </View>
+  </TouchableOpacity>
+));
 
 export default function PanchangScreen({ navigation }) {
   const { colors } = useTheme();
@@ -41,36 +70,44 @@ export default function PanchangScreen({ navigation }) {
 
   // Load month data
   useEffect(() => {
-    loadMonthData();
+    const handle = requestIdleCallback(() => {
+      loadMonthData();
+    });
+    return () => cancelIdleCallback(handle);
   }, [displayDate]);
 
+  // Load month data
   const loadMonthData = async () => {
-    // Generate simple grid dates INSTANTLY
+    setLoading(true);
     const year = displayDate.getFullYear();
     const month = displayDate.getMonth();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
 
+    // 1. Generate simple grid dates INSTANTLY (structural only)
     const basicGridData = [];
     for (let i = 1; i <= daysInMonth; i++) {
       basicGridData.push({
         fullDateObj: new Date(year, month, i)
       });
     }
-    setMonthData(basicGridData);
-    setLoading(false);
 
-    // Now fetch details for the active date (Today if current month, else 1st)
+    // 2. Fetch current day's details IMMEDIATELY (critical path)
     const now = new Date();
     let initialSelectedDate = basicGridData[0].fullDateObj;
-
     if (month === now.getMonth() && year === now.getFullYear()) {
       initialSelectedDate = now;
     }
 
-    fetchDetailedDay(initialSelectedDate);
+    // Fetch detail first to ensure we have content before hiding main loader
+    await fetchDetailedDay(initialSelectedDate);
 
-    // Optionally: Pre-cache the rest of the month in the background 
-    getMonthPanchang(year, month);
+    setMonthData(basicGridData);
+    setLoading(false);
+
+    // 3. Defer background month caching
+    requestIdleCallback(() => {
+      getMonthPanchang(year, month);
+    });
   };
 
   const fetchDetailedDay = async (date) => {
@@ -95,9 +132,10 @@ export default function PanchangScreen({ navigation }) {
     <ScreenWrapper>
       <View style={{ flex: 1, backgroundColor: colors.background }}>
         <BhaktiHeader navigation={navigation} />
-        {loading && monthData.length === 0 ? (
+        {loading ? (
           <View className="flex-1 items-center justify-center">
             <ActivityIndicator size="large" color={colors.saffron} />
+            <Text className="mt-4 text-sm font-bold" style={{ color: colors.textLight }}>आज का पंचांग लोड हो रहा है...</Text>
           </View>
         ) : (
           <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 40 }}>
@@ -159,39 +197,16 @@ export default function PanchangScreen({ navigation }) {
                       ))}
 
                       {/* Actual Days */}
-                      {monthData.map((item, index) => {
-                        const isSelected = isSameDate(item.fullDateObj, selectedDateObj);
-                        const isSunday = item.fullDateObj.getDay() === 0;
-
-                        return (
-                          <TouchableOpacity
-                            key={index.toString()}
-                            onPress={() => handleSelectDate(item)}
-                            style={{
-                              width: '14.28%',
-                              aspectRatio: 1,
-                              backgroundColor: isSelected ? colors.saffron + '20' : 'transparent',
-                              borderColor: colors.border + '50',
-                              borderRightWidth: 1,
-                              borderBottomWidth: 1,
-                            }}
-                            className="items-center justify-center p-1"
-                          >
-                            <View className="w-8 h-8 rounded-full items-center justify-center" style={{ backgroundColor: isSelected ? colors.saffron : 'transparent' }}>
-                              <Text
-                                className="font-bold text-lg"
-                                style={{
-                                  color: isSelected
-                                    ? '#FFFFFF'
-                                    : (isSunday ? colors.pillRed : colors.text)
-                                }}
-                              >
-                                {item.fullDateObj.getDate()}
-                              </Text>
-                            </View>
-                          </TouchableOpacity>
-                        );
-                      })}
+                      {monthData.map((item, index) => (
+                        <CalendarDay
+                          key={index.toString()}
+                          date={item.fullDateObj.getDate()}
+                          isSelected={isSameDate(item.fullDateObj, selectedDateObj)}
+                          isSunday={item.fullDateObj.getDay() === 0}
+                          onPress={() => handleSelectDate(item)}
+                          colors={colors}
+                        />
+                      ))}
                     </View>
                   </View>
                 )}

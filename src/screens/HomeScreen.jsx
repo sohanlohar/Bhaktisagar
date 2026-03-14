@@ -19,8 +19,8 @@ const HOME_CATEGORIES = [
   { id: '2', title: 'चालीसा', icon: '🎶', kind: 'chalisa' },
   { id: '3', title: 'भजन', icon: '🎶', kind: 'bhajan' },
   { id: '4', title: 'आरती', icon: '🪔', kind: 'aarti' },
-  { id: '5', title: 'फोटो स्टोरीज', icon: '🖼️' },
-  { id: '6', title: 'चलचित्र', icon: '📽️', isNew: true },
+  // { id: '5', title: 'फोटो स्टोरीज', icon: '🖼️' },
+  // { id: '6', title: 'चलचित्र', icon: '📽️', isNew: true },
 ];
 
 /**

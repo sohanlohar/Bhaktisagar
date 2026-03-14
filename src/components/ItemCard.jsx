@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, Pressable } from 'react-native';
 import { useBookmarks } from '../hooks/useBookmarks';
-import { Bookmark } from 'lucide-react-native';
+import { Bookmark, Heart } from 'lucide-react-native';
 import { useTheme } from '../context/ThemeContext';
 import AnimatedPressable from './AnimatedPressable';
 
@@ -43,13 +43,13 @@ export default function ItemCard({ id, title, onPress, item }) {
         <Pressable
           onPress={handleBookmarkPress}
           hitSlop={20}
-          className="w-10 h-10 rounded-full items-center justify-center"
+          className="w-8 h-8 rounded-full items-center justify-center"
           style={{ backgroundColor: colors.background }}
         >
-          <Bookmark
+          <Heart
             fill={active ? colors.saffron : 'transparent'}
             color={active ? colors.saffron : colors.textLight}
-            size={18}
+            size={20}
             strokeWidth={2}
           />
         </Pressable>
