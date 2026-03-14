@@ -1,10 +1,10 @@
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { ChevronLeft } from 'lucide-react-native';
 import React from 'react';
-import { View, Text, FlatList, Pressable } from 'react-native';
-import ScreenWrapper from '../components/ScreenWrapper';
-import { useRoute, useNavigation } from '@react-navigation/native';
-import { useTheme } from '../context/ThemeContext';
-import { ChevronRight, ChevronLeft } from 'lucide-react-native';
+import { FlatList, Pressable, Text, View } from 'react-native';
 import BhaktiLoader from '../components/BhaktiLoader';
+import ScreenWrapper from '../components/ScreenWrapper';
+import { useTheme } from '../context/ThemeContext';
 
 const SUBS = [
   { id: 'hanuman', title: 'हनुमान', icon: '🙏' },

@@ -1,17 +1,17 @@
 import React, { useMemo } from 'react';
-import { View, Text, FlatList, Pressable, Image, StyleSheet } from 'react-native';
+import { View, Text, FlatList, Pressable } from 'react-native';
 import ScreenWrapper from '../components/ScreenWrapper';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useTheme } from '../context/ThemeContext';
-import { Search, ChevronLeft, Bookmark, Heart } from 'lucide-react-native';
-import { useBookmarks } from '../hooks/useBookmarks';
+import { ChevronLeft, Heart } from 'lucide-react-native';
 import BhaktiLoader from '../components/BhaktiLoader';
 
-// Import data
+// Data
 import mantras from '../data/mantras.json';
 import chalisas from '../data/chalisas.json';
 import bhajans from '../data/bhajans.json';
 import aartis from '../data/aartis.json';
+import { useBookmark } from '../hooks/useBookmarks';
 
 const BROWSE_DATA = {
     mantra: mantras,
@@ -24,18 +24,19 @@ export default function BrowseCategoryScreen() {
     const navigation = useNavigation();
     const route = useRoute();
     const { colors } = useTheme();
+    const { toggle, isBookmarked } = useBookmark();
     const { kind, title } = route.params;
-    const { isBookmarked, toggle } = useBookmarks();
+
     const [loading, setLoading] = React.useState(true);
 
     const data = useMemo(() => BROWSE_DATA[kind] || [], [kind]);
 
     React.useEffect(() => {
-        setLoading(true);
-        // Simulate a small delay for premium feel and structural stability
+
         const timer = setTimeout(() => {
             setLoading(false);
-        }, 500);
+        }, 400);
+
         return () => clearTimeout(timer);
     }, [kind]);
 
@@ -54,7 +55,13 @@ export default function BrowseCategoryScreen() {
     }
 
     const renderItem = ({ item }) => {
+
         const bookmarked = isBookmarked(item.id);
+
+        const handleBookmark = (e) => {
+            e.stopPropagation();
+            toggle({ ...item, kind });
+        };
 
         return (
             <Pressable
@@ -67,16 +74,16 @@ export default function BrowseCategoryScreen() {
                 }}
             >
                 <View className="flex-1">
-                    {/* Placeholder for Image */}
-                    <View className="flex-1 bg-saffron/10 items-center justify-center" style={{ backgroundColor: colors.saffron + '10' }}>
-                        {item.media?.icon ? (
-                            <Text className="text-4xl">🕉️</Text>
-                        ) : (
-                            <Text className="text-4xl">🕉️</Text>
-                        )}
+
+                    <View
+                        className="flex-1 items-center justify-center"
+                        style={{ backgroundColor: colors.saffron + '10' }}
+                    >
+
+                        <Text className="text-4xl">🕉️</Text>
 
                         <Pressable
-                            onPress={() => toggle({ ...item, kind })}
+                            onPress={handleBookmark}
                             className="absolute top-2 right-2 p-2 rounded-full"
                             style={{ backgroundColor: 'rgba(255,255,255,0.8)' }}
                         >
@@ -131,7 +138,9 @@ export default function BrowseCategoryScreen() {
                     showsVerticalScrollIndicator={false}
                     ListEmptyComponent={
                         <View className="flex-1 items-center justify-center mt-20">
-                            <Text style={{ color: colors.textLight }}>इस श्रेणी में कोई डेटा नहीं है।</Text>
+                            <Text style={{ color: colors.textLight }}>
+                                इस श्रेणी में कोई डेटा नहीं है।
+                            </Text>
                         </View>
                     }
                 />
@@ -139,13 +148,3 @@ export default function BrowseCategoryScreen() {
         </ScreenWrapper>
     );
 }
-
-const styles = StyleSheet.create({
-    cardShadow: {
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-        elevation: 3,
-    }
-});

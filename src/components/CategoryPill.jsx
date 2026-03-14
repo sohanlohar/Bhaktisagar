@@ -1,24 +1,48 @@
-import React from 'react';
-import { Pressable, Text } from 'react-native';
+import React, { memo, useMemo } from 'react';
+import { Pressable, Text, StyleSheet } from 'react-native';
 import { useTheme } from '../context/ThemeContext';
 
-export default function CategoryPill({ label, onPress, color }) {
+function CategoryPill({ label, onPress, color }) {
   const { colors } = useTheme();
 
+  const backgroundColor = color || colors.cardBg;
+
+  const textColor = useMemo(() => {
+    if (!color || color === colors.pillYellow) {
+      return colors.text;
+    }
+    return colors.white;
+  }, [color, colors]);
+
+  const containerStyle = useMemo(
+    () => [styles.container, { backgroundColor }],
+    [backgroundColor],
+  );
+
   return (
-    <Pressable
-      onPress={onPress}
-      className={`px-4 py-1.5 rounded-full mr-2 shadow-sm border border-gray-300`}
-      style={{
-        backgroundColor: color || colors.cardBg,
-      }}
-    >
-      <Text
-        className="text-[14px] font-bold"
-        style={{ color: color === colors.pillYellow || !color ? colors.text : colors.white }}
-      >
-        {label}
-      </Text>
+    <Pressable onPress={onPress} style={containerStyle}>
+      <Text style={[styles.text, { color: textColor }]}>{label}</Text>
     </Pressable>
   );
 }
+
+export default memo(CategoryPill);
+
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 16,
+    paddingVertical: 6,
+    borderRadius: 999,
+    marginRight: 8,
+    borderWidth: 1,
+    borderColor: '#D1D5DB',
+    shadowOpacity: 0.08,
+    shadowRadius: 2,
+    elevation: 1,
+  },
+
+  text: {
+    fontSize: 14,
+    fontWeight: '700',
+  },
+});

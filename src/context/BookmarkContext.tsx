@@ -5,79 +5,97 @@ import React, {
     useState,
     useCallback,
     ReactNode,
-} from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { STORAGE_KEYS } from '../constants';
-import { BookmarkItem } from '../types';
+} from "react";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { STORAGE_KEYS } from "../constants";
+
+export interface BookmarkItem {
+    id: string;
+    title: string;
+    kind?: string;
+    timestamp?: number;
+}
 
 interface BookmarkContextType {
     bookmarks: BookmarkItem[];
-    toggleOffset: (item: BookmarkItem) => void;
+    toggle: (item: BookmarkItem) => void;
     isBookmarked: (id: string) => boolean;
 }
 
-export const BookmarkContext = createContext<BookmarkContextType | null>(null);
+export const BookmarkContext = createContext<BookmarkContextType>({
+    bookmarks: [],
+    toggle: () => { },
+    isBookmarked: () => false,
+});
 
-interface BookmarkProviderProps {
+interface Props {
     children: ReactNode;
 }
 
-export const BookmarkProvider: React.FC<BookmarkProviderProps> = ({ children }) => {
+export const BookmarkProvider: React.FC<Props> = ({ children }) => {
     const [bookmarks, setBookmarks] = useState<BookmarkItem[]>([]);
 
-    // Load bookmarks
+    /* ---------- Load ---------- */
+
     useEffect(() => {
-        (async () => {
+        const load = async () => {
             try {
                 const raw = await AsyncStorage.getItem(STORAGE_KEYS.BOOKMARKS);
+
                 if (raw) {
                     setBookmarks(JSON.parse(raw));
                 }
             } catch (err) {
-                console.error('Error loading bookmarks:', err);
-            }
-        })();
-    }, []);
-
-    // Save bookmarks
-    useEffect(() => {
-        const save = async () => {
-            try {
-                await AsyncStorage.setItem(
-                    STORAGE_KEYS.BOOKMARKS,
-                    JSON.stringify(bookmarks),
-                );
-            } catch (err) {
-                console.error('Error saving bookmarks:', err);
+                console.log("Bookmark load error", err);
             }
         };
-        save();
+
+        load();
+    }, []);
+
+    /* ---------- Save ---------- */
+
+    useEffect(() => {
+        AsyncStorage.setItem(
+            STORAGE_KEYS.BOOKMARKS,
+            JSON.stringify(bookmarks)
+        );
     }, [bookmarks]);
 
-    const toggleOffset = useCallback((item: BookmarkItem) => {
+    /* ---------- Toggle ---------- */
+
+    const toggle = useCallback((item: BookmarkItem) => {
         setBookmarks(prev => {
             const exists = prev.find(b => b.id === item.id);
+
             if (exists) {
                 return prev.filter(b => b.id !== item.id);
-            } else {
-                return [...prev, { ...item, timestamp: Date.now() }];
             }
+
+            return [...prev, { ...item, timestamp: Date.now() }];
         });
     }, []);
 
+    /* ---------- Check ---------- */
+
     const isBookmarked = useCallback(
         (id: string) => bookmarks.some(b => b.id === id),
-        [bookmarks],
+        [bookmarks]
     );
 
     const value = useMemo(
         () => ({
             bookmarks,
-            toggleOffset,
+            toggle,
             isBookmarked,
         }),
-        [bookmarks, toggleOffset, isBookmarked],
+        [bookmarks, toggle, isBookmarked]
     );
 
-    return <BookmarkContext.Provider value={value}>{children}</BookmarkContext.Provider>;
+    return (
+        <BookmarkContext.Provider value={value}>
+            {children}
+        </BookmarkContext.Provider>
+    );
 };

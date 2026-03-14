@@ -1,32 +1,58 @@
-import React from 'react';
+import React, { memo, useMemo } from 'react';
 import { View, ActivityIndicator, Text, StyleSheet } from 'react-native';
 import { useTheme } from '../context/ThemeContext';
 
-export default function BhaktiLoader({ message = 'लोड हो रहा है...' }) {
+function BhaktiLoader({ message = 'लोड हो रहा है...', fullScreen = true }) {
   const { colors } = useTheme();
 
+  const containerStyle = useMemo(
+    () => [
+      fullScreen ? styles.fullContainer : styles.inlineContainer,
+      { backgroundColor: colors.background },
+    ],
+    [colors.background, fullScreen],
+  );
+
+  const textColor = colors.textLight || '#666';
+  const loaderColor = colors.saffron || '#FF9933';
+
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <View className="items-center justify-center">
-        <ActivityIndicator size="large" color={colors.saffron || '#FF9933'} />
-        {message && (
-          <Text 
-            className="mt-4 text-sm font-bold" 
-            style={{ color: colors.textLight || '#666' }}
-          >
-            {message}
-          </Text>
-        )}
+    <View style={containerStyle}>
+      <View style={styles.center}>
+        <ActivityIndicator size="large" color={loaderColor} />
+
+        {message ? (
+          <Text style={[styles.text, { color: textColor }]}>{message}</Text>
+        ) : null}
       </View>
     </View>
   );
 }
 
+export default memo(BhaktiLoader);
+
 const styles = StyleSheet.create({
-  container: {
+  fullContainer: {
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 999,
+  },
+
+  inlineContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 40,
+  },
+
+  center: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  text: {
+    marginTop: 16,
+    fontSize: 14,
+    fontWeight: '600',
   },
 });

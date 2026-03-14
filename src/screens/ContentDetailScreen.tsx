@@ -16,13 +16,13 @@ const ContentDetailScreen = () => {
     const { item } = route.params || {};
 
     // Hooks
-    const { isBookmarked, toggle } = useBookmarks();
+    const { toggle, isBookmarked } = useBookmarks();
+    const bookmarked = isBookmarked(item.id);
     const { colors, isDarkMode } = useTheme();
 
     // Local State
     const [fontSize, setFontSize] = useState(18);
     const [loading, setLoading] = useState(true);
-    const bookmarked = isBookmarked(item?.id);
 
     React.useEffect(() => {
         setLoading(true);
@@ -93,10 +93,13 @@ const ContentDetailScreen = () => {
 
                     {/* Right Side */}
                     <View style={styles.headerActions}>
-                        <Pressable onPress={() => toggle({ ...item, timestamp: Date.now() })} style={styles.iconBtn}>
+                        <Pressable
+                            onPress={() => toggle({ id: item.id, title: item.title })}
+                            style={styles.iconBtn}
+                        >
                             <Heart
                                 color={bookmarked ? colors.primary : colors.headerText || "#F7F6E5"}
-                                fill={bookmarked ? colors.primary : 'none'}
+                                fill={bookmarked ? colors.primary : "none"}
                                 size={24}
                             />
                         </Pressable>

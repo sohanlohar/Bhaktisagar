@@ -2,58 +2,106 @@ import React from 'react';
 import { ScrollView, Text, View, Pressable } from 'react-native';
 import ScreenWrapper from '../components/ScreenWrapper';
 import { useRoute, useNavigation } from '@react-navigation/native';
-import { useBookmarks } from '../hooks/useBookmarks';
-import { Bookmark, ChevronLeft, Heart } from 'lucide-react-native';
+import { ChevronLeft, Heart } from 'lucide-react-native';
+
 import { useTheme } from '../context/ThemeContext';
+import { useBookmark } from '../hooks/useBookmarks';
 
 export default function DetailListScreen() {
   const { params } = useRoute();
   const navigation = useNavigation();
-  const { colors, isDarkMode } = useTheme();
-  const { toggle, isBookmarked } = useBookmarks();
-
+  const { colors } = useTheme();
   const item = params?.item;
   const title = params?.title || item?.title || 'Bhakti';
-  const content = item?.content || item?.lyrics || 'सामग्री शीघ्र ही उपलब्ध होगी।';
-  const bookmarked = item ? isBookmarked(item.id) : false;
+
+  const content =
+    item?.content ||
+    item?.lyrics ||
+    'सामग्री शीघ्र ही उपलब्ध होगी।';
+
+  const { bookmarked, toggle } = useBookmark(
+    item?.id,
+    item?.title
+  );
 
   return (
     <ScreenWrapper>
+
       <View style={{ flex: 1, backgroundColor: colors.background }}>
+
         {/* Header */}
+
         <View
           className="flex-row items-center justify-between px-4 py-3"
           style={{ backgroundColor: colors.headerBg }}
         >
+
           <View className="flex-row items-center">
-            <Pressable onPress={() => navigation.goBack()} className="mr-3">
-              <ChevronLeft color={colors.headerText || colors.text} size={28} />
+
+            <Pressable
+              onPress={() => navigation.goBack()}
+              className="mr-3"
+            >
+              <ChevronLeft
+                color={colors.headerText || colors.text}
+                size={28}
+              />
             </Pressable>
+
             <Text
               className="text-xl font-bold"
               style={{ color: colors.headerText || colors.text }}
             >
               {title}
             </Text>
+
           </View>
 
           {item && (
-            <Pressable onPress={() => toggle({ ...item, timestamp: Date.now() })} className="p-2">
+
+            <Pressable
+              onPress={toggle}
+              className="p-2"
+            >
+
               <Heart
-                color={bookmarked ? colors.saffron : colors.headerText || colors.text}
+                color={
+                  bookmarked
+                    ? colors.saffron
+                    : colors.headerText || colors.text
+                }
                 fill={bookmarked ? colors.saffron : 'none'}
                 size={24}
               />
+
             </Pressable>
+
           )}
+
         </View>
 
-        <ScrollView className="flex-1 p-6" showsVerticalScrollIndicator={false}>
-          <Text style={{ fontSize: 18, lineHeight: 32, color: colors.text, textAlign: 'center' }}>
+        {/* Content */}
+
+        <ScrollView
+          className="flex-1 p-6"
+          showsVerticalScrollIndicator={false}
+        >
+
+          <Text
+            style={{
+              fontSize: 18,
+              lineHeight: 32,
+              color: colors.text,
+              textAlign: 'center',
+            }}
+          >
             {content}
           </Text>
+
         </ScrollView>
+
       </View>
+
     </ScreenWrapper>
   );
 }
