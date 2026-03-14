@@ -23,7 +23,7 @@ export const LIGHT_COLORS = {
   pillDarkGreen: '#1B4D3E',
   pillGreen: '#008000',
 
-  tabBarActive: '#B22222',
+  tabBarActive: '#FF7F11',
   tabBarInactive: '#777777',
   tabBarBorder: '#E0E0E0',
 };

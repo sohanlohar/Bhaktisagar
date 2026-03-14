@@ -118,7 +118,7 @@ export default function HomeScreen() {
 
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 40 }}>
           {/* Categories */}
-          <View className="mt-2">
+          <View className="mt-2 flex items-center">
             <FlatList
               data={HOME_CATEGORIES}
               horizontal

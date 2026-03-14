@@ -97,9 +97,9 @@ export default function PanchangScreen({ navigation }) {
             <View className="px-5 py-2">
 
               {/* Top Selected Date Header */}
-              <View className="mb-6 mt-2">
+              <View className="mb-6 mt-2 flex flex-row items-center justify-between">
                 <Text className="text-3xl font-bold" style={{ color: colors.text }}>पंचांग</Text>
-                <Text className="text-sm font-semibold mt-1" style={{ color: colors.saffron }}>
+                <Text className="text-md font-bold mt-1" style={{ color: colors.saffron }}>
                   {selectedData?.date}
                 </Text>
               </View>
