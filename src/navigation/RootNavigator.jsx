@@ -1,9 +1,9 @@
-import React, { Suspense, useMemo } from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import React, { useMemo } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { Home, CalendarDays, Heart } from 'lucide-react-native';
+
 import { useTheme } from '../context/ThemeContext';
 import { ROUTES } from '../constants';
 
@@ -19,39 +19,11 @@ const ContentDetailScreen = React.lazy(() => import('../screens/ContentDetailScr
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-/* ---------- Loader ---------- */
-
-const ScreenLoader = () => (
-  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    <ActivityIndicator size="large" />
-  </View>
-);
-
 /* ---------- Icon Renderer ---------- */
 
-const renderIcon = (IconComponent) =>
+const renderIcon = Icon =>
   ({ color, size }) =>
-    <IconComponent color={color} size={size} />;
-
-/* ---------- Suspense Wrappers ---------- */
-
-const HomeStackWrapper = () => (
-  <Suspense fallback={<ScreenLoader />}>
-    <HomeStack />
-  </Suspense>
-);
-
-const BookmarksWrapper = () => (
-  <Suspense fallback={<ScreenLoader />}>
-    <BookmarksScreen />
-  </Suspense>
-);
-
-const PanchangWrapper = () => (
-  <Suspense fallback={<ScreenLoader />}>
-    <PanchangScreen />
-  </Suspense>
-);
+    <Icon color={color} size={size} />;
 
 /* ---------- Tabs ---------- */
 
@@ -63,6 +35,8 @@ const MainTabs = React.memo(() => {
     headerShown: false,
 
     lazy: true,
+
+    freezeOnBlur: true,
 
     tabBarActiveTintColor: colors.tabBarActive,
     tabBarInactiveTintColor: colors.tabBarInactive,
@@ -84,7 +58,7 @@ const MainTabs = React.memo(() => {
 
       <Tab.Screen
         name={ROUTES.HOME_TAB}
-        component={HomeStackWrapper}
+        component={HomeStack}
         options={{
           title: 'Home',
           tabBarIcon: renderIcon(Home)
@@ -93,7 +67,7 @@ const MainTabs = React.memo(() => {
 
       <Tab.Screen
         name={ROUTES.BOOKMARKS}
-        component={BookmarksWrapper}
+        component={BookmarksScreen}
         options={{
           title: 'Favorites',
           tabBarIcon: renderIcon(Heart)
@@ -102,7 +76,7 @@ const MainTabs = React.memo(() => {
 
       <Tab.Screen
         name={ROUTES.PANCHANG}
-        component={PanchangWrapper}
+        component={PanchangScreen}
         options={{
           title: 'Panchang',
           tabBarIcon: renderIcon(CalendarDays)
@@ -123,33 +97,30 @@ const RootNavigator = () => {
 
   return (
 
-    <Suspense fallback={<ScreenLoader />}>
+    <Stack.Navigator screenOptions={stackOptions}>
 
-      <Stack.Navigator screenOptions={stackOptions}>
+      <Stack.Screen
+        name={ROUTES.ROOT_TABS}
+        component={MainTabs}
+      />
 
-        <Stack.Screen
-          name={ROUTES.ROOT_TABS}
-          component={MainTabs}
-        />
+      <Stack.Screen
+        name={ROUTES.SETTINGS}
+        component={ProfileScreen}
+      />
 
-        <Stack.Screen
-          name={ROUTES.SETTINGS}
-          component={ProfileScreen}
-        />
+      <Stack.Screen
+        name={ROUTES.SEARCH}
+        component={SearchScreen}
+      />
 
-        <Stack.Screen
-          name={ROUTES.SEARCH}
-          component={SearchScreen}
-        />
+      <Stack.Screen
+        name={ROUTES.DETAIL}
+        component={ContentDetailScreen}
+      />
 
-        <Stack.Screen
-          name={ROUTES.DETAIL}
-          component={ContentDetailScreen}
-        />
+    </Stack.Navigator>
 
-      </Stack.Navigator>
-
-    </Suspense>
   );
 };
 

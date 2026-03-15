@@ -105,7 +105,7 @@ export const CalendarGrid = memo(function CalendarGrid({
               }}
             >
               <Text
-                className="text-xs font-bold"
+                className="text-sm font-bold"
                 style={{
                   color: isSunday ? colors.pillRed : colors.textLight,
                 }}

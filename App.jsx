@@ -1,13 +1,13 @@
-import './global.css';
-import React, { useEffect, useMemo } from 'react';
 import {
-  NavigationContainer,
-  DefaultTheme,
   DarkTheme,
+  DefaultTheme,
+  NavigationContainer,
 } from '@react-navigation/native';
-import { View, InteractionManager } from 'react-native';
+import React, { useEffect, useMemo } from 'react';
+import { View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import './global.css';
 
 import { BookmarkProvider } from './src/context/BookmarkContext';
 import { ThemeProvider, useTheme } from './src/context/ThemeContext';
@@ -37,12 +37,16 @@ const AppContent = React.memo(() => {
 
   useEffect(() => {
 
-    const task = InteractionManager.runAfterInteractions(() => {
-      preCalculateYearPanchang();
-      preloadScreens();
-    });
+    const timer = setTimeout(() => {
 
-    return () => task.cancel();
+      // run heavy tasks after app UI loads
+      preCalculateYearPanchang(new Date().getFullYear());
+
+      // preloadScreens();
+
+    }, 2000); // delay so app opens instantly
+
+    return () => clearTimeout(timer);
 
   }, []);
 
