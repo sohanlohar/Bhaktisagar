@@ -5,7 +5,7 @@ import { useRoute, useNavigation } from '@react-navigation/native';
 import { ChevronLeft, Heart } from 'lucide-react-native';
 
 import { useTheme } from '../context/ThemeContext';
-import { useBookmark } from '../hooks/useBookmarks';
+import { useBookmarks } from '../hooks/useBookmarks';
 
 export default function DetailListScreen() {
   const { params } = useRoute();
@@ -19,7 +19,7 @@ export default function DetailListScreen() {
     item?.lyrics ||
     'सामग्री शीघ्र ही उपलब्ध होगी।';
 
-  const { bookmarked, toggle } = useBookmark(
+  const { bookmarked, toggle } = useBookmarks(
     item?.id,
     item?.title
   );

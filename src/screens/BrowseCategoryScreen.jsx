@@ -11,7 +11,7 @@ import mantras from '../data/mantras.json';
 import chalisas from '../data/chalisas.json';
 import bhajans from '../data/bhajans.json';
 import aartis from '../data/aartis.json';
-import { useBookmark } from '../hooks/useBookmarks';
+import { useBookmarks } from '../hooks/useBookmarks';
 
 const BROWSE_DATA = {
     mantra: mantras,
@@ -24,7 +24,7 @@ export default function BrowseCategoryScreen() {
     const navigation = useNavigation();
     const route = useRoute();
     const { colors } = useTheme();
-    const { toggle, isBookmarked } = useBookmark();
+    const { toggle, isBookmarked } = useBookmarks();
     const { kind, title } = route.params;
 
     const [loading, setLoading] = React.useState(true);
