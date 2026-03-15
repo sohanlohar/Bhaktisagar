@@ -1,9 +1,13 @@
-import { getPanchangam, Observer } from '@ishubhamx/panchangam-js';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getPanchangam, Observer } from "@ishubhamx/panchangam-js";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+/* ---------------- CONSTANTS ---------------- */
 
 const CACHE_KEY = "PANCHANG_YEAR_CACHE";
 
-/* -------------------- CONSTANTS -------------------- */
+const observer = new Observer(28.6139, 77.2090, 0);
+
+/* ---------------- TRANSLATIONS ---------------- */
 
 const TITHI_HINDI = [
   "प्रतिपदा", "द्वितीया", "तृतीया", "चतुर्थी", "पंचमी",
@@ -46,63 +50,82 @@ const KARANA_HINDI = {
   Kimstughna: "किंस्तुघ्न"
 };
 
-/* -------------------- CORE OBJECTS -------------------- */
-
-const observer = new Observer(28.6139, 77.2090, 0);
-
-const timeFormatter = new Intl.DateTimeFormat("en-US", {
-  hour: "2-digit",
-  minute: "2-digit",
-  hour12: true
-});
-
-const formatTime = (date) => {
-  if (!date) return "--:--";
-  return timeFormatter.format(date);
-};
-
-/* -------------------- MEMORY CACHE -------------------- */
+/* ---------------- MEMORY CACHE ---------------- */
 
 const dayCache = {};
 const monthCache = {};
 let yearCache = null;
 
-/* -------------------- DATE KEY -------------------- */
+/* ---------------- HELPERS ---------------- */
 
-const getKey = (date) => date.toISOString().split("T")[0];
+const formatTime = date => {
+  if (!date) return "--:--";
+  return date.toLocaleTimeString("en-IN", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true
+  });
+};
 
-/* -------------------- CORE PANCHANG CALC -------------------- */
+const normalizeDate = date => {
+  const d = new Date(date);
+  d.setHours(12, 0, 0, 0); // midday to avoid tithi switch
+  return d;
+};
+
+const getKey = date =>
+  normalizeDate(date).toISOString().split("T")[0];
+
+/* ---------------- CORE CALC ---------------- */
 
 function calculatePanchang(date) {
 
-  const result = getPanchangam(date, observer);
+  const calcDate = normalizeDate(date);
 
-  const paksha = result.tithi < 15 ? "शुक्ल " : "कृष्ण ";
-  const isSpecial = result.tithi === 14 || result.tithi === 29;
+  const result = getPanchangam(calcDate, observer);
+
+  const tithiIdx = result.tithi - 1;
+  const nakshatraIdx = result.nakshatra - 1;
+  const yogaIdx = result.yoga - 1;
+
+  const paksha = result.tithi <= 15 ? "शुक्ल " : "कृष्ण ";
+
+  const isSpecial =
+    result.tithi === 15 || result.tithi === 30;
 
   return {
 
-    date: date.toLocaleDateString("hi-IN", { day: "numeric", month: "long", year: "numeric" }),
+    date: calcDate.toLocaleDateString("hi-IN", {
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    }),
 
-    shortDate: date.toLocaleDateString("en-IN", { day: "2-digit", month: "short" }),
+    shortDate: calcDate.toLocaleDateString("en-IN", {
+      day: "2-digit",
+      month: "short"
+    }),
 
-    dayName: date.toLocaleDateString("hi-IN", { weekday: "short" }),
+    dayName: calcDate.toLocaleDateString("hi-IN", {
+      weekday: "short"
+    }),
 
-    fullDateObj: date,
+    fullDateObj: calcDate,
 
     tithi: isSpecial
-      ? TITHI_HINDI[result.tithi]
-      : paksha + TITHI_HINDI[result.tithi],
+      ? TITHI_HINDI[tithiIdx]
+      : paksha + TITHI_HINDI[tithiIdx],
 
-    nakshatra: NAKSHATRA_HINDI[result.nakshatra] || "--",
+    nakshatra: NAKSHATRA_HINDI[nakshatraIdx] || "--",
 
-    yoga: YOGA_HINDI[result.yoga] || "--",
+    yoga: YOGA_HINDI[yogaIdx] || "--",
 
     karana: KARANA_HINDI[result.karana] || result.karana || "--",
 
-    rahukal: result.rahuKalamStart && result.rahuKalamEnd
-      ? `${formatTime(result.rahuKalamStart)} - ${formatTime(result.rahuKalamEnd)}`
-      : "--:--",
+    rahukal:
+      result.rahuKalamStart && result.rahuKalamEnd
+        ? `${formatTime(result.rahuKalamStart)} - ${formatTime(result.rahuKalamEnd)}`
+        : "--:--",
 
     sunrise: formatTime(result.sunrise),
 
@@ -118,11 +141,10 @@ function calculatePanchang(date) {
   };
 }
 
-/* -------------------- TODAY PANCHANG -------------------- */
+/* ---------------- TODAY ---------------- */
 
-export async function getTodayPanchang(inputDate) {
+export async function getTodayPanchang(date = new Date()) {
 
-  const date = inputDate || new Date();
   const key = getKey(date);
 
   if (dayCache[key]) return dayCache[key];
@@ -139,25 +161,7 @@ export async function getTodayPanchang(inputDate) {
   return data;
 }
 
-/* -------------------- NEXT 7 DAYS -------------------- */
-
-export function getNext7DaysPanchang(startDate = new Date()) {
-
-  const result = [];
-
-  for (let i = 0; i < 7; i++) {
-
-    const d = new Date(startDate);
-
-    d.setDate(startDate.getDate() + i);
-
-    result.push(getTodayPanchang(d));
-  }
-
-  return Promise.all(result);
-}
-
-/* -------------------- MONTH PANCHANG -------------------- */
+/* ---------------- MONTH ---------------- */
 
 export async function getMonthPanchang(year, month) {
 
@@ -165,17 +169,17 @@ export async function getMonthPanchang(year, month) {
 
   if (monthCache[key]) return monthCache[key];
 
-  const daysCount = new Date(year, month + 1, 0).getDate();
+  const days = new Date(year, month + 1, 0).getDate();
 
   const result = [];
 
-  for (let i = 1; i <= daysCount; i++) {
-    const date = new Date(year, month, i);
-    const dayData = await getTodayPanchang(date);
-    result.push(dayData);
+  for (let i = 1; i <= days; i++) {
 
-    // Yield back to main thread after every day calc
-    await new Promise(resolve => setTimeout(resolve, 0));
+    const date = new Date(year, month, i);
+
+    const data = await getTodayPanchang(date);
+
+    result.push(data);
   }
 
   monthCache[key] = result;
@@ -183,41 +187,49 @@ export async function getMonthPanchang(year, month) {
   return result;
 }
 
-/* -------------------- PRECALCULATE YEAR -------------------- */
+/* ---------------- YEAR PRECALC ---------------- */
 
-export async function preCalculateYearPanchang(year = new Date().getFullYear()) {
+export async function preCalculateYearPanchang(year) {
 
   const stored = await AsyncStorage.getItem(CACHE_KEY);
 
   if (stored) {
+
     const parsed = JSON.parse(stored);
+
     if (parsed.year === year) {
+
       yearCache = parsed.data;
+
       return parsed.data;
     }
   }
 
+  const start = new Date(year, 0, 1);
+  const end = new Date(year, 11, 31);
+
   const data = {};
 
-  const calculateAllMonths = async () => {
-    for (let m = 0; m < 12; m++) {
-      const daysCount = new Date(year, m + 1, 0).getDate();
-      for (let i = 1; i <= daysCount; i++) {
-        const date = new Date(year, m, i);
-        const key = getKey(date);
-        data[key] = calculatePanchang(date);
-        // Yield after EVERY single day for maximum responsiveness
-        await new Promise(resolve => setTimeout(resolve, 0));
-      }
-    }
-    yearCache = data;
-    await AsyncStorage.setItem(
-      CACHE_KEY,
-      JSON.stringify({ year, data })
-    );
-  };
+  const current = new Date(start);
 
-  calculateAllMonths();
+  while (current <= end) {
+
+    const key = getKey(current);
+
+    data[key] = calculatePanchang(current);
+
+    current.setDate(current.getDate() + 1);
+  }
+
+  yearCache = data;
+
+  await AsyncStorage.setItem(
+    CACHE_KEY,
+    JSON.stringify({
+      year,
+      data
+    })
+  );
 
   return data;
 }
