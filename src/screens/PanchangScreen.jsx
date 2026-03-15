@@ -77,37 +77,30 @@ export default function PanchangScreen({ navigation }) {
 
   /* ---------- Load Month ---------- */
 
-  const loadMonthData = useCallback(async () => {
+  const loadMonthData = useCallback(async (force = false) => {
 
     const year = displayDate.getFullYear();
     const month = displayDate.getMonth();
 
+    // Skip if already loaded and not forced
+    if (!force && monthData.length > 0 && monthData[0].fullDateObj.getMonth() === month && monthData[0].fullDateObj.getFullYear() === year) {
+      return;
+    }
+
     const grid = generateMonthGrid(year, month);
-
     const today = new Date();
-
     let initialDate = grid[0].fullDateObj;
 
-    if (
-      month === today.getMonth() &&
-      year === today.getFullYear()
-    ) {
+    if (month === today.getMonth() && year === today.getFullYear()) {
       initialDate = today;
     }
 
+    // Batch updates
     setMonthData(grid);
-
     fetchDetailedDay(initialDate);
-
     setLoading(false);
 
-    /* Background pre-calculation */
-
-    setTimeout(() => {
-      getMonthPanchang(year, month);
-    }, 50);
-
-  }, [displayDate, generateMonthGrid, fetchDetailedDay]);
+  }, [displayDate, generateMonthGrid, fetchDetailedDay, monthData]);
 
   /* ---------- Load Month Effect ---------- */
 
@@ -115,19 +108,28 @@ export default function PanchangScreen({ navigation }) {
     useCallback(() => {
       let cancelled = false;
 
-      setLoading(true);
+      // Only show top-level loading if we don't have month data yet
+      const year = displayDate.getFullYear();
+      const month = displayDate.getMonth();
+      const isCorrectMonth = monthData.length > 0 &&
+        monthData[0].fullDateObj.getMonth() === month &&
+        monthData[0].fullDateObj.getFullYear() === year;
 
-      const timer = setTimeout(() => {
-        if (!cancelled) {
-          loadMonthData();
-        }
-      }, 100); // navigation settle होने दें
+      if (!isCorrectMonth) {
+        setLoading(true);
 
-      return () => {
-        cancelled = true;
-        clearTimeout(timer);
-      };
-    }, [loadMonthData])
+        const timer = setTimeout(() => {
+          if (!cancelled) {
+            loadMonthData();
+          }
+        }, 0);
+
+        return () => {
+          cancelled = true;
+          clearTimeout(timer);
+        };
+      }
+    }, [loadMonthData, monthData, displayDate])
   );
 
   /* ---------- Date Select ---------- */

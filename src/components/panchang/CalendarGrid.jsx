@@ -1,5 +1,5 @@
 import React, { memo, useMemo, useCallback } from 'react';
-import { View, Text, ActivityIndicator, FlatList } from 'react-native';
+import { View, Text, ActivityIndicator } from 'react-native';
 import { CalendarDay } from './PanchangComponents';
 
 const DAYS = ['रवि', 'सोम', 'मंगल', 'बुध', 'गुरु', 'शुक्र', 'शनि'];
@@ -39,13 +39,24 @@ export const CalendarGrid = memo(function CalendarGrid({
     return [...emptyCells, ...days];
   }, [monthData]);
 
-  /* ---------- Render Item ---------- */
+  /* ---------- Day Press Handler ---------- */
 
-  const renderItem = useCallback(
-    ({ item }) => {
+  const handleDayPress = useCallback((date) => {
+    // Find the item by date
+    const item = monthData.find(d => d.fullDateObj.getDate() === date);
+    if (item) {
+      onSelectDate(item);
+    }
+  }, [monthData, onSelectDate]);
+
+  /* ---------- Render Cells ---------- */
+
+  const cells = useMemo(() => {
+    return gridData.map((item, index) => {
       if (item.empty) {
         return (
           <View
+            key={`empty-${index}`}
             className="border-r border-b"
             style={{
               width: '14.28%',
@@ -57,25 +68,20 @@ export const CalendarGrid = memo(function CalendarGrid({
       }
 
       const dateObj = item.data.fullDateObj;
-
       const isSelected = dateObj.toDateString() === selectedKey;
 
       return (
         <CalendarDay
+          key={`day-${dateObj.getDate()}`}
           date={dateObj.getDate()}
           isSelected={isSelected}
           isSunday={dateObj.getDay() === 0}
-          onPress={() => onSelectDate(item.data)}
+          onPress={handleDayPress}
           colors={colors}
         />
       );
-    },
-    [selectedKey, onSelectDate, colors],
-  );
-
-  /* ---------- Key Extractor ---------- */
-
-  const keyExtractor = useCallback(item => item.id, []);
+    });
+  }, [gridData, selectedKey, handleDayPress, colors]);
 
   /* ---------- Header ---------- */
 
@@ -127,7 +133,7 @@ export const CalendarGrid = memo(function CalendarGrid({
   return (
     <View className="mb-8">
       <View
-        className="border rounded-2xl overflow-hidden shadow-sm"
+        className="border-l border-t rounded-2xl overflow-hidden shadow-sm"
         style={{
           backgroundColor: colors.cardBg,
           borderColor: colors.border,
@@ -135,22 +141,9 @@ export const CalendarGrid = memo(function CalendarGrid({
       >
         {header}
 
-        <FlatList
-          data={gridData}
-          renderItem={renderItem}
-          keyExtractor={keyExtractor}
-          numColumns={7}
-          scrollEnabled={false}
-          removeClippedSubviews
-          initialNumToRender={42}
-          maxToRenderPerBatch={42}
-          windowSize={5}
-          getItemLayout={(_, index) => ({
-            length: 50,
-            offset: 50 * index,
-            index,
-          })}
-        />
+        <View className="flex-row flex-wrap">
+          {cells}
+        </View>
       </View>
     </View>
   );

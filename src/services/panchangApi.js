@@ -165,15 +165,17 @@ export async function getMonthPanchang(year, month) {
 
   if (monthCache[key]) return monthCache[key];
 
-  const days = new Date(year, month + 1, 0).getDate();
+  const daysCount = new Date(year, month + 1, 0).getDate();
 
   const result = [];
 
-  for (let i = 1; i <= days; i++) {
-
+  for (let i = 1; i <= daysCount; i++) {
     const date = new Date(year, month, i);
+    const dayData = await getTodayPanchang(date);
+    result.push(dayData);
 
-    result.push(await getTodayPanchang(date));
+    // Yield back to main thread after every day calc
+    await new Promise(resolve => setTimeout(resolve, 0));
   }
 
   monthCache[key] = result;
@@ -188,42 +190,34 @@ export async function preCalculateYearPanchang(year = new Date().getFullYear()) 
   const stored = await AsyncStorage.getItem(CACHE_KEY);
 
   if (stored) {
-
     const parsed = JSON.parse(stored);
-
     if (parsed.year === year) {
-
       yearCache = parsed.data;
-
       return parsed.data;
     }
   }
 
-  const start = new Date(year, 0, 1);
-  const end = new Date(year, 11, 31);
-
   const data = {};
 
-  const current = new Date(start);
+  const calculateAllMonths = async () => {
+    for (let m = 0; m < 12; m++) {
+      const daysCount = new Date(year, m + 1, 0).getDate();
+      for (let i = 1; i <= daysCount; i++) {
+        const date = new Date(year, m, i);
+        const key = getKey(date);
+        data[key] = calculatePanchang(date);
+        // Yield after EVERY single day for maximum responsiveness
+        await new Promise(resolve => setTimeout(resolve, 0));
+      }
+    }
+    yearCache = data;
+    await AsyncStorage.setItem(
+      CACHE_KEY,
+      JSON.stringify({ year, data })
+    );
+  };
 
-  while (current <= end) {
-
-    const key = getKey(current);
-
-    data[key] = calculatePanchang(new Date(current));
-
-    current.setDate(current.getDate() + 1);
-  }
-
-  yearCache = data;
-
-  await AsyncStorage.setItem(
-    CACHE_KEY,
-    JSON.stringify({
-      year,
-      data
-    })
-  );
+  calculateAllMonths();
 
   return data;
 }

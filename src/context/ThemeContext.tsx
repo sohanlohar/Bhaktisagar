@@ -8,7 +8,6 @@ import React, {
     ReactNode
 } from 'react';
 
-import { useColorScheme } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LIGHT_COLORS, DARK_COLORS } from '../theme/colors';
 
@@ -32,8 +31,7 @@ type ThemeProviderProps = {
 
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
 
-    const systemColorScheme = useColorScheme();
-    const [isDarkMode, setIsDarkMode] = useState(systemColorScheme === 'dark');
+    const [isDarkMode, setIsDarkMode] = useState(false); // Default to light theme
 
     useEffect(() => {
 

@@ -30,36 +30,41 @@ export const InfoCard = memo(({ icon: Icon, label, value, color, colors }) => (
 
 // Memoized Day component for the calendar grid
 export const CalendarDay = memo(
-  ({ date, isSelected, isSunday, onPress, colors }) => (
-    <TouchableOpacity
-      onPress={onPress}
-      style={{
-        width: '14.28%',
-        aspectRatio: 1,
-        backgroundColor: isSelected ? colors.saffron + '20' : 'transparent',
-        borderColor: colors.border + '50',
-        borderRightWidth: 1,
-        borderBottomWidth: 1,
-      }}
-      className="items-center justify-center p-1"
-    >
-      <View
-        className="w-8 h-8 rounded-full items-center justify-center"
-        style={{ backgroundColor: isSelected ? colors.saffron : 'transparent' }}
+  ({ date, isSelected, isSunday, onPress, colors }) => {
+
+    const handlePress = () => onPress(date);
+
+    return (
+      <TouchableOpacity
+        onPress={handlePress}
+        style={{
+          width: '14.28%',
+          aspectRatio: 1,
+          backgroundColor: isSelected ? colors.saffron + '20' : 'transparent',
+          borderColor: colors.border + '50',
+          borderRightWidth: 1,
+          borderBottomWidth: 1,
+        }}
+        className="items-center justify-center p-1"
       >
-        <Text
-          className="font-bold text-lg"
-          style={{
-            color: isSelected
-              ? '#FFFFFF'
-              : isSunday
-              ? colors.pillRed
-              : colors.text,
-          }}
+        <View
+          className="w-8 h-8 rounded-full items-center justify-center"
+          style={{ backgroundColor: isSelected ? colors.saffron : 'transparent' }}
         >
-          {date}
-        </Text>
-      </View>
-    </TouchableOpacity>
-  ),
+          <Text
+            className="font-bold text-lg"
+            style={{
+              color: isSelected
+                ? '#FFFFFF'
+                : isSunday
+                  ? colors.pillRed
+                  : colors.text,
+            }}
+          >
+            {date}
+          </Text>
+        </View>
+      </TouchableOpacity>
+    );
+  }
 );

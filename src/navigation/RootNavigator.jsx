@@ -33,6 +33,26 @@ const renderIcon = (IconComponent) =>
   ({ color, size }) =>
     <IconComponent color={color} size={size} />;
 
+/* ---------- Suspense Wrappers ---------- */
+
+const HomeStackWrapper = () => (
+  <Suspense fallback={<ScreenLoader />}>
+    <HomeStack />
+  </Suspense>
+);
+
+const BookmarksWrapper = () => (
+  <Suspense fallback={<ScreenLoader />}>
+    <BookmarksScreen />
+  </Suspense>
+);
+
+const PanchangWrapper = () => (
+  <Suspense fallback={<ScreenLoader />}>
+    <PanchangScreen />
+  </Suspense>
+);
+
 /* ---------- Tabs ---------- */
 
 const MainTabs = React.memo(() => {
@@ -64,45 +84,30 @@ const MainTabs = React.memo(() => {
 
       <Tab.Screen
         name={ROUTES.HOME_TAB}
+        component={HomeStackWrapper}
         options={{
           title: 'Home',
           tabBarIcon: renderIcon(Home)
         }}
-      >
-        {() => (
-          <Suspense fallback={<ScreenLoader />}>
-            <HomeStack />
-          </Suspense>
-        )}
-      </Tab.Screen>
+      />
 
       <Tab.Screen
         name={ROUTES.BOOKMARKS}
+        component={BookmarksWrapper}
         options={{
           title: 'Favorites',
           tabBarIcon: renderIcon(Heart)
         }}
-      >
-        {() => (
-          <Suspense fallback={<ScreenLoader />}>
-            <BookmarksScreen />
-          </Suspense>
-        )}
-      </Tab.Screen>
+      />
 
       <Tab.Screen
         name={ROUTES.PANCHANG}
+        component={PanchangWrapper}
         options={{
           title: 'Panchang',
           tabBarIcon: renderIcon(CalendarDays)
         }}
-      >
-        {() => (
-          <Suspense fallback={<ScreenLoader />}>
-            <PanchangScreen />
-          </Suspense>
-        )}
-      </Tab.Screen>
+      />
 
     </Tab.Navigator>
   );
