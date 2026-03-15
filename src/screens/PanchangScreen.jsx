@@ -174,12 +174,6 @@ export default function PanchangScreen({ navigation }) {
 
         <BhaktiHeader navigation={navigation} />
 
-        {loading ? (
-
-          <BhaktiLoader message="पंचांग लोड हो रहा है..." />
-
-        ) : (
-
           <ScrollView
             style={{ flex: 1 }}
             showsVerticalScrollIndicator={false}
@@ -248,6 +242,7 @@ export default function PanchangScreen({ navigation }) {
               {/* Calendar */}
 
               <CalendarGrid
+                loading={loading}
                 monthData={monthData}
                 selectedDateObj={selectedDateObj}
                 onSelectDate={handleSelectDate}
@@ -265,8 +260,6 @@ export default function PanchangScreen({ navigation }) {
             </View>
 
           </ScrollView>
-
-        )}
 
       </View>
 

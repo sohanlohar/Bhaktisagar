@@ -122,13 +122,30 @@ export const CalendarGrid = memo(function CalendarGrid({
 
   /* ---------- UI ---------- */
 
-  if (loading && !monthData.length) {
+  const content = useMemo(() => {
+    if (loading && !monthData.length) {
+      return (
+        <View className="py-20 items-center justify-center">
+          <ActivityIndicator size="small" color={colors.saffron} />
+        </View>
+      );
+    }
+
     return (
-      <View className="mb-8 py-10 items-center justify-center">
-        <ActivityIndicator size="small" color={colors.saffron} />
+      <View className="flex-row flex-wrap">
+        {cells}
+
+        {loading && monthData.length > 0 && (
+          <View
+            className="absolute inset-0 items-center justify-center rounded-2xl"
+            style={{ backgroundColor: colors.cardBg + '80' }}
+          >
+            <ActivityIndicator size="small" color={colors.saffron} />
+          </View>
+        )}
       </View>
     );
-  }
+  }, [loading, monthData.length, cells, colors.saffron, colors.cardBg]);
 
   return (
     <View className="mb-8">
@@ -140,10 +157,7 @@ export const CalendarGrid = memo(function CalendarGrid({
         }}
       >
         {header}
-
-        <View className="flex-row flex-wrap">
-          {cells}
-        </View>
+        {content}
       </View>
     </View>
   );
