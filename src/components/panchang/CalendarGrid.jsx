@@ -126,7 +126,7 @@ export const CalendarGrid = memo(function CalendarGrid({
     if (loading && !monthData.length) {
       return (
         <View className="py-20 items-center justify-center">
-          <ActivityIndicator size="small" color={colors.saffron} />
+          <ActivityIndicator size="large" color={colors.saffron} />
         </View>
       );
     }
@@ -137,10 +137,13 @@ export const CalendarGrid = memo(function CalendarGrid({
 
         {loading && monthData.length > 0 && (
           <View
-            className="absolute inset-0 items-center justify-center rounded-2xl"
-            style={{ backgroundColor: colors.cardBg + '80' }}
+            className="absolute inset-0 items-center justify-center"
+            style={{ 
+              backgroundColor: colors.cardBg + '90',
+              zIndex: 10
+            }}
           >
-            <ActivityIndicator size="small" color={colors.saffron} />
+            <ActivityIndicator size="large" color={colors.saffron} />
           </View>
         )}
       </View>

@@ -20,23 +20,29 @@ export default function ItemCard({ id, title, onPress }) {
   return (
     <AnimatedPressable
       onPress={onPress}
-      className="rounded-[16px] p-5 shadow-md"
+      className="rounded-[16px] shadow-md p-5"
       style={{
         backgroundColor: colors.cardBg,
-        borderColor: colors.border,
+        shadowColor: colors.primary,
+        shadowOffset: { width: 0, height: 8 },
+        shadowOpacity: 0.08,
+        shadowRadius: 16,
+        elevation: 4,
         borderWidth: 1,
+        borderColor: colors.border,
         marginBottom: 10,
       }}
     >
       <View className="flex-row items-center justify-between">
-
-        <Text
-          className="text-[14px] font-bold"
-          style={{ color: colors.text }}
-        >
-          {title}
-        </Text>
-
+        <View className="flex-1">
+          <Text
+            className="text-[14px] font-bold"
+            style={{ color: colors.text }}
+            numberOfLines={1}
+          >
+            {title}
+          </Text>
+        </View>
         <Pressable onPress={handleBookmarkPress}>
           <Heart
             size={20}

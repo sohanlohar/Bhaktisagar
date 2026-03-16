@@ -75,61 +75,48 @@ export default function PanchangScreen({ navigation }) {
 
   }, []);
 
+  const displayDateRef = React.useRef(displayDate);
+  React.useEffect(() => {
+    displayDateRef.current = displayDate;
+  }, [displayDate]);
+
   /* ---------- Load Month ---------- */
 
-  const loadMonthData = useCallback(async (force = false) => {
+  const loadMonthData = useCallback(async (targetDate, force = false) => {
 
-    const year = displayDate.getFullYear();
-    const month = displayDate.getMonth();
+    setLoading(true);
 
-    // Skip if already loaded and not forced
-    if (!force && monthData.length > 0 && monthData[0].fullDateObj.getMonth() === month && monthData[0].fullDateObj.getFullYear() === year) {
-      return;
-    }
+    const finalTarget = targetDate || displayDateRef.current;
+    const year = finalTarget.getFullYear();
+    const month = finalTarget.getMonth();
 
     const grid = generateMonthGrid(year, month);
     const today = new Date();
-    let initialDate = grid[0].fullDateObj;
+    let initialDate = finalTarget;
 
+    // Default to today if it's the current month/year
     if (month === today.getMonth() && year === today.getFullYear()) {
       initialDate = today;
+    } else if (finalTarget.getDate() !== 1) {
+      // If we're just switching to a different month, default to the 1st
+      initialDate = new Date(year, month, 1);
     }
 
     // Batch updates
     setMonthData(grid);
-    fetchDetailedDay(initialDate);
+    await fetchDetailedDay(initialDate);
     setLoading(false);
 
-  }, [displayDate, generateMonthGrid, fetchDetailedDay, monthData]);
+  }, [generateMonthGrid, fetchDetailedDay]);
 
   /* ---------- Load Month Effect ---------- */
 
   useFocusEffect(
     useCallback(() => {
-      let cancelled = false;
-
-      // Only show top-level loading if we don't have month data yet
-      const year = displayDate.getFullYear();
-      const month = displayDate.getMonth();
-      const isCorrectMonth = monthData.length > 0 &&
-        monthData[0].fullDateObj.getMonth() === month &&
-        monthData[0].fullDateObj.getFullYear() === year;
-
-      if (!isCorrectMonth) {
-        setLoading(true);
-
-        const timer = setTimeout(() => {
-          if (!cancelled) {
-            loadMonthData();
-          }
-        }, 0);
-
-        return () => {
-          cancelled = true;
-          clearTimeout(timer);
-        };
-      }
-    }, [loadMonthData, monthData, displayDate])
+      const today = new Date();
+      setDisplayDate(today);
+      loadMonthData(today, true);
+    }, [loadMonthData])
   );
 
   /* ---------- Date Select ---------- */
@@ -144,17 +131,13 @@ export default function PanchangScreen({ navigation }) {
 
   const changeMonth = useCallback((offset) => {
 
-    setDisplayDate(prev => {
+    const newDate = new Date(displayDate);
+    newDate.setMonth(displayDate.getMonth() + offset);
 
-      const newDate = new Date(prev);
+    setDisplayDate(newDate);
+    loadMonthData(newDate, true);
 
-      newDate.setMonth(prev.getMonth() + offset);
-
-      return newDate;
-
-    });
-
-  }, []);
+  }, [displayDate, loadMonthData]);
 
   /* ---------- Month Title ---------- */
 
