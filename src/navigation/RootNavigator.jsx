@@ -33,14 +33,10 @@ const MainTabs = React.memo(() => {
 
   const screenOptions = useMemo(() => ({
     headerShown: false,
-
     lazy: true,
-
     freezeOnBlur: true,
-
     tabBarActiveTintColor: colors.tabBarActive,
     tabBarInactiveTintColor: colors.tabBarInactive,
-
     tabBarStyle: {
       height: 80,
       paddingBottom: 10,
@@ -48,6 +44,10 @@ const MainTabs = React.memo(() => {
       backgroundColor: colors.background,
       borderTopWidth: 1,
       borderTopColor: colors.border
+    },
+    tabBarLabelStyle: {
+      fontSize: 12,
+      fontWeight: '600',
     }
 
   }), [colors]);

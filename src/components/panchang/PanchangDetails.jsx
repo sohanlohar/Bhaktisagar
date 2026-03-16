@@ -13,6 +13,86 @@ import {
 
 import { InfoCard } from './PanchangComponents';
 
+/* ---------- Sub Components ---------- */
+
+const DetailedTithiCard = memo(({ tithiDetailed, samvat, colors }) => {
+  if (!tithiDetailed) return null;
+
+  return (
+    <View
+      className="rounded-3xl p-5 mb-8 shadow-sm border"
+      style={{
+        backgroundColor: colors.cardBg,
+        borderColor: colors.border,
+      }}
+    >
+      <View className="flex-row items-center gap-4 mb-3">
+        <View
+          className="w-10 h-10 rounded-full items-center justify-center"
+          style={{ backgroundColor: colors.primary + '15' }}
+        >
+          <Moon size={20} color={colors.primary} />
+        </View>
+        <Text
+          className="text-md font-bold uppercase tracking-widest"
+          style={{ color: colors.primary }}
+        >
+          विस्तृत तिथि विवरण
+        </Text>
+      </View>
+
+      <Text
+        className="text-base leading-7 font-semibold"
+        style={{ color: colors.text }}
+      >
+        {tithiDetailed}
+      </Text>
+
+      {/* Samvat Info */}
+      <View
+        className="mt-4 pt-4 border-t flex-row flex-wrap gap-y-2 justify-between"
+        style={{ borderTopColor: colors.border + '50' }}
+      >
+        <View className="mr-6">
+          <Text
+            className="text-md uppercase font-bold mb-1"
+            style={{ color: colors.primary }}
+          >
+            विक्रम संवत
+          </Text>
+          <Text className="text-md font-bold" style={{ color: colors.text }}>
+            {samvat?.vikram || '--'}
+          </Text>
+        </View>
+
+        <View className="mr-6">
+          <Text
+            className="text-md uppercase font-bold mb-1"
+            style={{ color: colors.primary }}
+          >
+            शक संवत
+          </Text>
+          <Text className="text-md font-bold" style={{ color: colors.text }}>
+            {samvat?.shaka || '--'}
+          </Text>
+        </View>
+
+        <View>
+          <Text
+            className="text-md uppercase font-bold mb-1"
+            style={{ color: colors.primary }}
+          >
+            संवत्सर
+          </Text>
+          <Text className="text-md font-bold" style={{ color: colors.text }}>
+            {samvat?.samvatsara || '--'}
+          </Text>
+        </View>
+      </View>
+    </View>
+  );
+});
+
 export const PanchangDetails = memo(function PanchangDetails({
   detailLoading,
   selectedData,
@@ -70,6 +150,13 @@ export const PanchangDetails = memo(function PanchangDetails({
 
   return (
     <>
+      {/* Detailed Tithi Card */}
+      <DetailedTithiCard
+        tithiDetailed={selectedData.tithiDetailed}
+        samvat={selectedData.samvat}
+        colors={colors}
+      />
+
       {/* Core Section */}
 
       <Text

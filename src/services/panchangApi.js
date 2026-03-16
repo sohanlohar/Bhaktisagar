@@ -50,6 +50,87 @@ const KARANA_HINDI = {
   Kimstughna: "किंस्तुघ्न"
 };
 
+const MASA_HINDI = [
+  "चैत्र", "वैशाख", "ज्येष्ठ", "आषाढ़", "श्रावण", "भाद्रपद",
+  "आश्विन", "कार्तिक", "मार्गशीर्ष", "पौष", "माघ", "फाल्गुन"
+];
+
+const PAKSHA_HINDI = {
+  Shukla: "शुक्ल",
+  Krishna: "कृष्ण"
+};
+
+const SAMVATSARA_HINDI = {
+  Prabhava: "प्रभव",
+  Vibhava: "विभव",
+  Shukla: "शुक्ल",
+  Pramoda: "प्रमोद",
+  Prajapati: "प्रजापति",
+  Angirasa: "अंगिरा",
+  Shrimukha: "श्रीमुख",
+  Bhava: "भाव",
+  Yuva: "युवा",
+  Dhata: "धाता",
+  Ishwara: "ईश्वर",
+  Bahudhanya: "बहुधान्य",
+  Pramathi: "प्रमाथी",
+  Vikrama: "विक्रम",
+  Vrisha: "वृष",
+  Chitrabhanu: "चित्रभानु",
+  Svabhanu: "स्वभानु",
+  Tarana: "तारण",
+  Parthiva: "पार्थिव",
+  Vyaya: "व्यय",
+  Sarvajit: "सर्वजित",
+  Sarvajeeth: "सर्वजित",
+  Sarvadhari: "सर्वधारी",
+  Virodhi: "विरोधी",
+  Vikriti: "विकृति",
+  Khara: "खर",
+  Nandana: "नन्दन",
+  Vijaya: "विजय",
+  Jaya: "जय",
+  Manmatha: "मन्मथ",
+  Durmukha: "दुर्मुख",
+  Hemalamba: "हेमलम्ब",
+  Hevilambi: "हेमलम्ब",
+  Vilamba: "विलम्ब",
+  Vilambi: "विलम्ब",
+  Vikari: "विकारी",
+  Sharvari: "शार्वरी",
+  Plava: "प्लव",
+  Shubhakrit: "शुभकृत",
+  Shubhakriti: "शुभकृत",
+  Sobhakrit: "शोभकृत",
+  Shobhakriti: "शोभकृत",
+  Krodhi: "क्रोधी",
+  Vishvavasu: "विश्ववसु",
+  Parābhava: "पराभव",
+  Parabhava: "पराभव",
+  Plavanga: "प्लवङ्ग",
+  Kilaka: "कीलक",
+  Saumya: "सौम्य",
+  Sadharana: "साधारण",
+  Virodhikrit: "विरोधकृत",
+  Paridhavi: "परिधावी",
+  Pramadi: "प्रमादी",
+  Ananda: "आनन्द",
+  Rakshasa: "राक्षस",
+  Anala: "अनल",
+  Nala: "नल",
+  Pingala: "पिंगल",
+  Kalayukta: "कालयुक्त",
+  Kālayukta: "कालयुक्त",
+  Siddharthi: "सिद्धार्थी",
+  Raudra: "रौद्र",
+  Durmati: "दुर्मति",
+  Dundubhi: "दुन्दुभि",
+  Rudhirodgari: "रुधिरोद्गारी",
+  Raktaksha: "रक्ताक्ष",
+  Krodhana: "क्रोधन",
+  Akshaya: "अक्षय"
+};
+
 /* ---------------- MEMORY CACHE ---------------- */
 
 const dayCache = {};
@@ -93,6 +174,56 @@ function calculatePanchang(date) {
   const isSpecial =
     result.tithi === 14 || result.tithi === 29;
 
+  /* ---------- Detailed Tithi Construction ---------- */
+
+  const masaName = MASA_HINDI[result.masa.index] || result.masa.name;
+  const pakshaName = PAKSHA_HINDI[result.paksha] || result.paksha;
+
+  // Find current and next tithi from transitions
+  const tithiItems = result.tithis || [];
+  const currentTithiEntry = tithiItems[0];
+  const nextTithiEntry = tithiItems[1];
+
+  let detailedTithi = "";
+  let activeTithiName = "";
+
+  if (currentTithiEntry) {
+    const name = TITHI_HINDI[currentTithiEntry.index];
+    const endTime = formatTime(new Date(currentTithiEntry.endTime));
+
+    // detailedTithi = `${date.toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}, ${calcDate.toLocaleDateString("hi-IN", { weekday: "long" })} – ${masaName} ${pakshaName} पक्ष ${name}`;
+    detailedTithi = `${masaName} ${pakshaName} पक्ष ${name}`;
+
+    if (endTime !== "--:--") {
+      detailedTithi += ` (${endTime} तक)`;
+    }
+
+    if (nextTithiEntry) {
+      detailedTithi += `, उसके बाद ${TITHI_HINDI[nextTithiEntry.index]}`;
+    }
+
+    // Determine currently active tithi based on queried time
+    const now = new Date();
+    const queryDateStr = calcDate.toISOString().split("T")[0];
+    const nowDateStr = now.toISOString().split("T")[0];
+
+    // If we're looking at "today", check the real time
+    if (queryDateStr === nowDateStr) {
+      if (now < new Date(currentTithiEntry.endTime)) {
+        activeTithiName = name;
+      } else if (nextTithiEntry) {
+        activeTithiName = TITHI_HINDI[nextTithiEntry.index];
+      } else {
+        activeTithiName = name;
+      }
+    } else {
+      // If past/future, just show the primary tithi
+      activeTithiName = name;
+    }
+
+    detailedTithi += ` | अभी तिथि है ${activeTithiName}।`;
+  }
+
   return {
 
     date: calcDate.toLocaleDateString("hi-IN", {
@@ -115,6 +246,17 @@ function calculatePanchang(date) {
     tithi: isSpecial
       ? TITHI_HINDI[tithiIdx]
       : paksha + TITHI_HINDI[tithiIdx],
+
+    tithiDetailed: detailedTithi,
+    activeTithiName: activeTithiName,
+
+    masa: masaName,
+
+    samvat: {
+      vikram: result.samvat.vikram,
+      shaka: result.samvat.shaka,
+      samvatsara: SAMVATSARA_HINDI[result.samvat.samvatsara] || result.samvat.samvatsara
+    },
 
     nakshatra: NAKSHATRA_HINDI[nakshatraIdx] || "--",
 
