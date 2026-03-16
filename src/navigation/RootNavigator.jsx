@@ -60,7 +60,7 @@ const MainTabs = React.memo(() => {
         name={ROUTES.HOME_TAB}
         component={HomeStack}
         options={{
-          title: 'Home',
+          title: 'मुख्य',
           tabBarIcon: renderIcon(Home)
         }}
       />
@@ -69,7 +69,7 @@ const MainTabs = React.memo(() => {
         name={ROUTES.BOOKMARKS}
         component={BookmarksScreen}
         options={{
-          title: 'Favorites',
+          title: 'संग्रह',
           tabBarIcon: renderIcon(Heart)
         }}
       />
@@ -78,7 +78,7 @@ const MainTabs = React.memo(() => {
         name={ROUTES.PANCHANG}
         component={PanchangScreen}
         options={{
-          title: 'Panchang',
+          title: 'पंचांग',
           tabBarIcon: renderIcon(CalendarDays)
         }}
       />
