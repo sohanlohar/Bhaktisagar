@@ -84,14 +84,14 @@ function calculatePanchang(date) {
 
   const result = getPanchangam(calcDate, observer);
 
-  const tithiIdx = result.tithi - 1;
-  const nakshatraIdx = result.nakshatra - 1;
-  const yogaIdx = result.yoga - 1;
+  const tithiIdx = result.tithi;
+  const nakshatraIdx = result.nakshatra;
+  const yogaIdx = result.yoga;
 
-  const paksha = result.tithi <= 15 ? "शुक्ल " : "कृष्ण ";
+  const paksha = result.tithi < 15 ? "शुक्ल " : "कृष्ण ";
 
   const isSpecial =
-    result.tithi === 15 || result.tithi === 30;
+    result.tithi === 14 || result.tithi === 29;
 
   return {
 
