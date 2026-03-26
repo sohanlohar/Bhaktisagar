@@ -3,7 +3,7 @@ import {
   DefaultTheme,
   NavigationContainer,
 } from '@react-navigation/native';
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -13,8 +13,6 @@ import { BookmarkProvider } from './src/context/BookmarkContext';
 import { ThemeProvider, useTheme } from './src/context/ThemeContext';
 
 import RootNavigator from './src/navigation/RootNavigator';
-import { preCalculateYearPanchang } from './src/services/panchangApi';
-import { preloadScreens } from './src/utils/preloadScreens';
 
 const AppContent = React.memo(() => {
   const { isDarkMode, colors } = useTheme();
@@ -33,22 +31,8 @@ const AppContent = React.memo(() => {
     },
   }), [isDarkMode, colors]);
 
-  /* ---------- Background Panchang Precalculation ---------- */
-
-  useEffect(() => {
-
-    const timer = setTimeout(() => {
-
-      // run heavy tasks after app UI loads
-      preCalculateYearPanchang(new Date().getFullYear());
-
-      // preloadScreens();
-
-    }, 2000); // delay so app opens instantly
-
-    return () => clearTimeout(timer);
-
-  }, []);
+  // NOTE:
+  // Avoid heavy synchronous/CPU work on app startup to keep navigation responsive.
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.background }}>

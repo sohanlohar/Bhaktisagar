@@ -28,6 +28,7 @@ export default function PanchangScreen({ navigation }) {
 
   const [loading, setLoading] = useState(true);
   const [detailLoading, setDetailLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const [displayDate, setDisplayDate] = useState(new Date());
 
@@ -51,9 +52,16 @@ export default function PanchangScreen({ navigation }) {
 
   /* ---------- Fetch Panchang Detail ---------- */
 
+  const requestIdRef = React.useRef(0);
+  const monthRequestIdRef = React.useRef(0);
+
   const fetchDetailedDay = useCallback(async (date) => {
 
+    const requestId = ++requestIdRef.current;
+
     setDetailLoading(true);
+
+    setError(null);
 
     setSelectedDateObj(date);
 
@@ -61,15 +69,24 @@ export default function PanchangScreen({ navigation }) {
 
       const data = await getTodayPanchang(date);
 
+      // Ignore stale responses when date/month changes quickly.
+      if (requestIdRef.current !== requestId) return;
+
       setSelectedData(data);
 
     } catch (err) {
 
+      if (requestIdRef.current !== requestId) return;
+
       console.log("Panchang fetch error", err);
+
+      setError("पंचांग विवरण लोड नहीं हो सका। कृपया पुनः प्रयास करें।");
 
     } finally {
 
-      setDetailLoading(false);
+      if (requestIdRef.current === requestId) {
+        setDetailLoading(false);
+      }
 
     }
 
@@ -83,7 +100,7 @@ export default function PanchangScreen({ navigation }) {
   /* ---------- Load Month ---------- */
 
   const loadMonthData = useCallback(async (targetDate, force = false) => {
-
+    const monthRequestId = ++monthRequestIdRef.current;
     setLoading(true);
 
     const finalTarget = targetDate || displayDateRef.current;
@@ -102,9 +119,13 @@ export default function PanchangScreen({ navigation }) {
       initialDate = new Date(year, month, 1);
     }
 
-    // Batch updates
+    // Apply only if this is still the latest month request.
+    if (monthRequestIdRef.current !== monthRequestId) return;
     setMonthData(grid);
+
     await fetchDetailedDay(initialDate);
+
+    if (monthRequestIdRef.current !== monthRequestId) return;
     setLoading(false);
 
   }, [generateMonthGrid, fetchDetailedDay]);
@@ -233,6 +254,14 @@ export default function PanchangScreen({ navigation }) {
               />
 
               {/* Details */}
+
+              {error && !detailLoading && (
+                <View className="px-5 py-2">
+                  <Text style={{ color: colors.textLight, textAlign: 'center' }}>
+                    {error}
+                  </Text>
+                </View>
+              )}
 
               <PanchangDetails
                 detailLoading={detailLoading}

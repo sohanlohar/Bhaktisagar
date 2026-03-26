@@ -53,20 +53,18 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
 
     }, []);
 
-    const toggleTheme = useCallback(async () => {
-
+    const toggleTheme = useCallback(() => {
         setIsDarkMode(prev => {
-
             const newMode = !prev;
-
             AsyncStorage.setItem(
                 STORAGE_KEY,
                 newMode ? 'dark' : 'light'
-            );
-
+            ).catch((e) => {
+                // Theme still toggles in-memory; persistence failure shouldn't break UI.
+                console.log('Theme save error', e);
+            });
             return newMode;
         });
-
     }, []);
 
     const themeValues = useMemo(() => ({

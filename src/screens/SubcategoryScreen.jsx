@@ -56,11 +56,11 @@ export default function SubcategoryScreen() {
     <ItemCard
       id={item.id}
       title={item.title}
-      item={item}
+      item={{ ...item, kind }}
       onPress={() => openDetail(item)}
     />
 
-  ), [openDetail]);
+  ), [openDetail, kind]);
 
   /* ---------- Empty ---------- */
 

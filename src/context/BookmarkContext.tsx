@@ -57,10 +57,18 @@ export const BookmarkProvider: React.FC<Props> = ({ children }) => {
     /* ---------- Save ---------- */
 
     useEffect(() => {
-        AsyncStorage.setItem(
-            STORAGE_KEYS.BOOKMARKS,
-            JSON.stringify(bookmarks)
-        );
+        const save = async () => {
+            try {
+                await AsyncStorage.setItem(
+                    STORAGE_KEYS.BOOKMARKS,
+                    JSON.stringify(bookmarks),
+                );
+            } catch (err) {
+                console.log('Bookmark save error', err);
+            }
+        };
+
+        save();
     }, [bookmarks]);
 
     /* ---------- Toggle ---------- */

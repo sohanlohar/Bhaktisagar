@@ -1,7 +1,7 @@
 import React, { memo, useCallback } from 'react';
 import { Image, Pressable, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Heart, Search } from 'lucide-react-native';
+import { Heart, Search, Settings } from 'lucide-react-native';
 
 import { ROUTES } from '../../constants';
 import { useTheme } from '../../context/ThemeContext';
@@ -15,11 +15,16 @@ export const BhaktiHeader = memo(function BhaktiHeader() {
   /* ---------- Navigation Handlers ---------- */
 
   const openBookmarks = useCallback(() => {
-    navigation.navigate(ROUTES.BOOKMARKS);
+    // Bookmarks is a tab inside RootTabs, so use nested targeting.
+    navigation.navigate(ROUTES.ROOT_TABS, { screen: ROUTES.BOOKMARKS });
   }, [navigation]);
 
   const openSearch = useCallback(() => {
     navigation.navigate(ROUTES.SEARCH);
+  }, [navigation]);
+
+  const openSettings = useCallback(() => {
+    navigation.navigate(ROUTES.SETTINGS);
   }, [navigation]);
 
   return (
@@ -67,6 +72,12 @@ export const BhaktiHeader = memo(function BhaktiHeader() {
 
         <Pressable className="p-1 ml-1" onPress={openSearch}>
           <Search size={25} color={colors.headerText || 'white'} />
+        </Pressable>
+
+        {/* Settings */}
+
+        <Pressable className="p-1 ml-1" onPress={openSettings}>
+          <Settings size={25} color={colors.headerText || 'white'} />
         </Pressable>
       </View>
     </View>

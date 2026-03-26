@@ -1,5 +1,5 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
-import { ChevronLeft, Heart, Share2, Type } from 'lucide-react-native';
+import { ChevronLeft, Heart, Type } from 'lucide-react-native';
 import React, { useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import ScreenWrapper from '../components/ScreenWrapper';
@@ -94,7 +94,13 @@ const ContentDetailScreen = () => {
                     {/* Right Side */}
                     <View style={styles.headerActions}>
                         <Pressable
-                            onPress={() => toggle({ id: item.id, title: item.title })}
+                            onPress={() =>
+                                toggle({
+                                    id: item.id,
+                                    title: item.title,
+                                    kind: item.kind,
+                                })
+                            }
                             style={styles.iconBtn}
                         >
                             <Heart

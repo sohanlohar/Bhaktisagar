@@ -15,7 +15,8 @@ def getPackageJson() {
 def packageJson = getPackageJson()
 def appVersion = packageJson.version // e.g., "1.0.1"
 def versionParts = appVersion.split("\\.")
-def buildNumber = (versionParts[0].toInteger() * 10000) + (versionParts[1].toInteger() * 100) + versionParts[2].toInteger()
+def buildNumber = (versionParts[0].toInteger() * 100) + (versionParts[1].toInteger() * 10) + versionParts[2].toInteger()
+def appVersionCode = buildNumber // For clarity
 
 
 /**

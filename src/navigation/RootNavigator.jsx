@@ -7,14 +7,13 @@ import { Home, CalendarDays, Heart } from 'lucide-react-native';
 import { useTheme } from '../context/ThemeContext';
 import { ROUTES } from '../constants';
 
-/* ---------- Lazy Screens ---------- */
-
-const HomeStack = React.lazy(() => import('./home/HomeStack'));
-const BookmarksScreen = React.lazy(() => import('../screens/BookmarkScreen'));
-const PanchangScreen = React.lazy(() => import('../screens/PanchangScreen'));
-const ProfileScreen = React.lazy(() => import('../screens/ProfileScreen'));
-const SearchScreen = React.lazy(() => import('../screens/SearchScreen'));
-const ContentDetailScreen = React.lazy(() => import('../screens/ContentDetailScreen'));
+/* ---------- Screens (static imports for navigation stability) ---------- */
+import HomeStack from './home/HomeStack';
+import BookmarksScreen from '../screens/BookmarkScreen';
+import PanchangScreen from '../screens/PanchangScreen';
+import ProfileScreen from '../screens/ProfileScreen';
+import SearchScreen from '../screens/SearchScreen';
+import ContentDetailScreen from '../screens/ContentDetailScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -70,7 +69,9 @@ const MainTabs = React.memo(() => {
         component={BookmarksScreen}
         options={{
           title: 'संग्रह',
-          tabBarIcon: renderIcon(Heart)
+          tabBarIcon: renderIcon(Heart),
+          // Pre-mount so first tab press is instant.
+          lazy: false,
         }}
       />
 
@@ -79,7 +80,9 @@ const MainTabs = React.memo(() => {
         component={PanchangScreen}
         options={{
           title: 'पंचांग',
-          tabBarIcon: renderIcon(CalendarDays)
+          tabBarIcon: renderIcon(CalendarDays),
+          // Pre-mount so first tab press is instant.
+          lazy: false,
         }}
       />
 

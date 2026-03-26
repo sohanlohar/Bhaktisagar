@@ -66,8 +66,12 @@ export default function HomeScreen() {
         const panchangData = await getTodayPanchang();
         setPanchang(panchangData);
 
-        const content = getHomePageContent();
-        setHomeContent(content);
+        // Defer heavy home-content filtering/sorting so the UI stays responsive.
+        // (Prevents a brief freeze that can impact immediate tab presses.)
+        setTimeout(() => {
+          const content = getHomePageContent();
+          setHomeContent(content);
+        }, 0);
 
       } catch (err) {
 

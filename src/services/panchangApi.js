@@ -331,7 +331,10 @@ export async function getMonthPanchang(year, month) {
 
 /* ---------------- YEAR PRECALC ---------------- */
 
-export async function preCalculateYearPanchang(year) {
+export async function preCalculateYearPanchang(
+  year,
+  options = { chunkSize: 6, yieldMs: 0 },
+) {
 
   const stored = await AsyncStorage.getItem(CACHE_KEY);
 
@@ -354,6 +357,9 @@ export async function preCalculateYearPanchang(year) {
 
   const current = new Date(start);
 
+  const { chunkSize, yieldMs } = options || {};
+  let processedInChunk = 0;
+
   while (current <= end) {
 
     const key = getKey(current);
@@ -361,6 +367,13 @@ export async function preCalculateYearPanchang(year) {
     data[key] = calculatePanchang(current);
 
     current.setDate(current.getDate() + 1);
+
+    processedInChunk += 1;
+    // Yield to the event loop periodically so navigation/interactions remain responsive.
+    if (processedInChunk >= (chunkSize || 6)) {
+      processedInChunk = 0;
+      await new Promise(resolve => setTimeout(resolve, yieldMs || 0));
+    }
   }
 
   yearCache = data;

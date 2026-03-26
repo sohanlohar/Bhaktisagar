@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import ScreenWrapper from '../components/ScreenWrapper';
 import { useTheme } from '../context/ThemeContext';
@@ -6,12 +6,22 @@ import ItemCard from '../components/ItemCard';
 import { useNavigation } from '@react-navigation/native';
 import { BhaktiHeader } from '../components/home/BhaktiHeader';
 import { useBookmarks } from '../hooks/useBookmarks';
+import { resolveContentById } from '../utils/homeContentUtils';
 
 const BookmarksScreen = () => {
 
   const { bookmarks } = useBookmarks();
   const { colors } = useTheme();
   const nav = useNavigation();
+
+  // Resolve full content by id once, so opening the tab is fast.
+  const resolvedBookmarks = useMemo(() => {
+    return bookmarks.map((b) => {
+      const resolved = resolveContentById(b.id);
+      if (resolved) return resolved;
+      return { id: b.id, title: b.title, kind: b.kind };
+    });
+  }, [bookmarks]);
 
   return (
     <ScreenWrapper>
@@ -30,12 +40,13 @@ const BookmarksScreen = () => {
           </Text>
 
           <FlatList
-            data={bookmarks}
+            data={resolvedBookmarks}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
               <ItemCard
                 id={item.id}
                 title={item.title}
+                item={item}
                 onPress={() => nav.navigate('Detail', { item })}
               />
             )}

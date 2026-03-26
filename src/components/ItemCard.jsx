@@ -5,16 +5,20 @@ import { useBookmarks } from '../hooks/useBookmarks';
 import { useTheme } from '../context/ThemeContext';
 import AnimatedPressable from './AnimatedPressable';
 
-export default function ItemCard({ id, title, onPress }) {
-
+export default function ItemCard({ id, title, onPress, item }) {
   const { toggle, isBookmarked } = useBookmarks();
   const { colors } = useTheme();
-
   const active = isBookmarked(id);
 
   const handleBookmarkPress = (e) => {
-    e.stopPropagation();
-    toggle({ id, title });
+    // Some RN versions may call onPress without an event argument.
+    if (e && typeof e.stopPropagation === 'function') {
+      e.stopPropagation();
+    }
+
+    // Preserve kind when possible, but keep a safe fallback.
+    const bookmarkItem = item || { id, title, kind: 'bhajan' };
+    toggle(bookmarkItem);
   };
 
   return (
@@ -47,10 +51,9 @@ export default function ItemCard({ id, title, onPress }) {
           <Heart
             size={20}
             color={active ? colors.saffron : colors.textLight}
-            fill={active ? colors.saffron : "none"}
+            fill={active ? colors.saffron : 'none'}
           />
         </Pressable>
-
       </View>
     </AnimatedPressable>
   );
