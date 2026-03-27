@@ -242,6 +242,10 @@ export default function HomeScreen() {
                   keyExtractor={(item) => item.id}
                   renderItem={renderTrending}
                   contentContainerStyle={{ paddingVertical: 8 }}
+                  initialNumToRender={6}
+                  maxToRenderPerBatch={6}
+                  windowSize={8}
+                  removeClippedSubviews
                 />
 
               </View>

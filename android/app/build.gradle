@@ -12,11 +12,18 @@ def getPackageJson() {
     throw new RuntimeException("Could not find version in package.json")
 }
 
+def getBuildNumber() {
+    def versionPropsFile = file('version.properties')
+    def versionProps = new Properties()
+    versionProps.load(new FileInputStream(versionPropsFile))
+    def buildNumber = versionProps['build.number'].toInteger()
+    return buildNumber
+}
+
 def packageJson = getPackageJson()
 def appVersion = packageJson.version // e.g., "1.0.1"
-def versionParts = appVersion.split("\\.")
-def buildNumber = (versionParts[0].toInteger() * 100) + (versionParts[1].toInteger() * 10) + versionParts[2].toInteger()
-def appVersionCode = buildNumber // For clarity
+def buildNumber = getBuildNumber()
+def appVersionCode = buildNumber
 
 
 /**
@@ -155,6 +162,19 @@ android {
             if (abi != null) {
                 output.versionCodeOverride =
                     defaultConfig.versionCode * 1000 + versionCodes.get(abi)
+            }
+        }
+        
+        // Auto-increment build number after successful build
+        if (variant.buildType.name == 'release') {
+            variant.assembleProvider.get().doLast {
+                def versionPropsFile = file('version.properties')
+                def versionProps = new Properties()
+                versionProps.load(new FileInputStream(versionPropsFile))
+                def currentBuildNumber = versionProps['build.number'].toInteger()
+                versionProps['build.number'] = (currentBuildNumber + 1).toString()
+                versionProps.store(versionPropsFile.newWriter(), null)
+                println "Incremented build.number to ${currentBuildNumber + 1}"
             }
         }
     }

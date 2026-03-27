@@ -50,6 +50,10 @@ const BookmarksScreen = () => {
                 onPress={() => nav.navigate('Detail', { item })}
               />
             )}
+            initialNumToRender={8}
+            maxToRenderPerBatch={10}
+            windowSize={10}
+            removeClippedSubviews
             ListEmptyComponent={
               <Text
                 style={{ color: colors.textLight, textAlign: 'center', marginTop: 60 }}

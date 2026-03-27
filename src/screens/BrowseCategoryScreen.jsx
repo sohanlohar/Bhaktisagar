@@ -133,6 +133,10 @@ export default function BrowseCategoryScreen() {
                     data={data}
                     keyExtractor={(item) => item.id}
                     numColumns={2}
+                    initialNumToRender={8}
+                    maxToRenderPerBatch={10}
+                    windowSize={10}
+                    removeClippedSubviews
                     contentContainerStyle={{ padding: 8, paddingBottom: 100 }}
                     renderItem={renderItem}
                     showsVerticalScrollIndicator={false}

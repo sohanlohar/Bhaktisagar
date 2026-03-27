@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 
 import ScreenWrapper from '../components/ScreenWrapper';
-import { getMonthPanchang, getTodayPanchang } from '../services/panchangApi';
+import { getTodayPanchang } from '../services/panchangApi';
 import { useTheme } from '../context/ThemeContext';
 
 import { ChevronLeft, ChevronRight } from 'lucide-react-native';
@@ -10,7 +10,6 @@ import { ChevronLeft, ChevronRight } from 'lucide-react-native';
 import { BhaktiHeader } from '../components/home/BhaktiHeader';
 import { CalendarGrid } from '../components/panchang/CalendarGrid';
 import { PanchangDetails } from '../components/panchang/PanchangDetails';
-import BhaktiLoader from '../components/BhaktiLoader';
 import { useFocusEffect } from '@react-navigation/native';
 
 const HINDI_MONTHS = [
