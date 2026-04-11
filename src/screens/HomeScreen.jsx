@@ -20,6 +20,8 @@ const HOME_CATEGORIES = [
   { id: '2', title: 'चालीसा', icon: '🎶', kind: 'chalisa' },
   { id: '3', title: 'भजन', icon: '🎶', kind: 'bhajan' },
   { id: '4', title: 'आरती', icon: '🪔', kind: 'aarti' },
+  { id: '5', title: 'स्तोत्र', icon: '📜', kind: 'stotra' },
+
 ];
 
 const getKindIcon = (kind) => {

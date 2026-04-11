@@ -11,6 +11,7 @@ import mantras from '../data/mantras.json';
 import chalisas from '../data/chalisas.json';
 import bhajans from '../data/bhajans.json';
 import aartis from '../data/aartis.json';
+import stotras from '../data/stotram.json';
 import { useBookmarks } from '../hooks/useBookmarks';
 
 const BROWSE_DATA = {
@@ -18,6 +19,7 @@ const BROWSE_DATA = {
     chalisa: chalisas,
     bhajan: bhajans,
     aarti: aartis,
+    stotra: stotras
 };
 
 export default function BrowseCategoryScreen() {
