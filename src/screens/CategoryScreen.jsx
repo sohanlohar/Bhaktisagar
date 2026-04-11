@@ -42,6 +42,25 @@ export default function CategoryScreen() {
     );
   }
 
+  const renderItem = React.useCallback(({ item }) => (
+    <Pressable
+      onPress={() =>
+        nav.navigate('Subcategory', {
+          kind,
+          subId: item.id,
+          title: `${item.title} ${title}`,
+        })
+      }
+      className="flex-1 m-2 p-6 rounded-[32px] border items-center shadow-sm"
+      style={{ backgroundColor: colors.cardBg, borderColor: colors.border }}
+    >
+      <View className="w-16 h-16 rounded-2xl bg-saffron/10 items-center justify-center mb-4" style={{ backgroundColor: colors.saffron + '15' }}>
+        <Text className="text-3xl">{item.icon}</Text>
+      </View>
+      <Text className="text-[16px] font-bold text-center" style={{ color: colors.text }}>{item.title}</Text>
+    </Pressable>
+  ), [nav, kind, title, colors]);
+
   return (
     <ScreenWrapper>
       <View style={{ flex: 1, backgroundColor: colors.background }}>
@@ -58,24 +77,12 @@ export default function CategoryScreen() {
           keyExtractor={(item) => item.id}
           numColumns={2}
           contentContainerStyle={{ paddingHorizontal: 12, paddingBottom: 20 }}
-          renderItem={({ item }) => (
-            <Pressable
-              onPress={() =>
-                nav.navigate('Subcategory', {
-                  kind,
-                  subId: item.id,
-                  title: `${item.title} ${title}`,
-                })
-              }
-              className="flex-1 m-2 p-6 rounded-[32px] border items-center shadow-sm"
-              style={{ backgroundColor: colors.cardBg, borderColor: colors.border }}
-            >
-              <View className="w-16 h-16 rounded-2xl bg-saffron/10 items-center justify-center mb-4" style={{ backgroundColor: colors.saffron + '15' }}>
-                <Text className="text-3xl">{item.icon}</Text>
-              </View>
-              <Text className="text-[16px] font-bold text-center" style={{ color: colors.text }}>{item.title}</Text>
-            </Pressable>
-          )}
+          renderItem={renderItem}
+          initialNumToRender={8}
+          maxToRenderPerBatch={8}
+          windowSize={5}
+          removeClippedSubviews={false} // False for small grid to not mess up styling
+          showsVerticalScrollIndicator={false}
         />
       </View>
     </ScreenWrapper>

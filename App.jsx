@@ -43,16 +43,20 @@ const AppContent = React.memo(() => {
   );
 });
 
+import ErrorBoundary from './src/components/ErrorBoundary';
+
 export default function App() {
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <SafeAreaProvider>
-        <ThemeProvider>
-          <BookmarkProvider>
-            <AppContent />
-          </BookmarkProvider>
-        </ThemeProvider>
-      </SafeAreaProvider>
-    </GestureHandlerRootView>
+    <ErrorBoundary>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <SafeAreaProvider>
+          <ThemeProvider>
+            <BookmarkProvider>
+              <AppContent />
+            </BookmarkProvider>
+          </ThemeProvider>
+        </SafeAreaProvider>
+      </GestureHandlerRootView>
+    </ErrorBoundary>
   );
 }
