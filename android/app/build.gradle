@@ -94,11 +94,11 @@ android {
             keyPassword 'android'
         }
         release {
-            storeFile file('bhakti-key.keystore')
-            storePassword 'bhaktiSD@123!'
-            keyAlias 'bhakti-key-alias'
-            keyPassword 'bhaktiSD@123!'
-        }   
+            storeFile file(project.properties['MYAPP_RELEASE_STORE_FILE'] ?: 'bhakti-key.keystore')
+            storePassword project.properties['MYAPP_RELEASE_STORE_PASSWORD'] ?: 'bhaktiSD@123!'
+            keyAlias project.properties['MYAPP_RELEASE_KEY_ALIAS'] ?: 'bhakti-key-alias'
+            keyPassword project.properties['MYAPP_RELEASE_KEY_PASSWORD'] ?: 'bhaktiSD@123!'
+        }
     }
     buildTypes {
         debug {

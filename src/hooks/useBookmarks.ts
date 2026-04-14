@@ -32,7 +32,7 @@ export const useBookmarks = (id?: string, title?: string) => {
   return {
     bookmarks,
     // For most callers we want the original toggle signature: toggle(item)
-    // For DetailListScreen we pass (id,title) and want toggle() with no args.
+    // For screens that pass (id,title), toggle is bound and takes no args.
     toggle: id ? toggleBound : toggle,
     isBookmarked,
     bookmarked,

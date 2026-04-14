@@ -16,8 +16,6 @@ export interface BookmarkItem {
 
 export type RootStackParamList = {
     HomeTab: undefined;
-    Category: { kind: string; title: string };
-    Subcategory: { kind: string; title: string };
-    DetailList: { title: string; items: ContentItem[] };
-    Detail: { item: ContentItem }; // New Detail screen
+    BrowseCategory: { kind: string; title: string };
+    Detail: { item: ContentItem }; // Detail screen
 };

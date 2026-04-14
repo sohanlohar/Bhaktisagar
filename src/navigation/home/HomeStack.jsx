@@ -3,9 +3,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import HomeScreen from '../../screens/HomeScreen';
 import BrowseCategoryScreen from '../../screens/BrowseCategoryScreen';
-// import CategoryScreen from '../../screens/CategoryScreen';
-// import SubcategoryScreen from '../../screens/SubcategoryScreen';
-// import DetailListScreen from '../../screens/DetailListScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,12 +21,6 @@ function HomeStack() {
       <Stack.Screen name="Home" component={HomeScreen} />
 
       <Stack.Screen name="BrowseCategory" component={BrowseCategoryScreen} />
-
-      {/* <Stack.Screen name="Category" component={CategoryScreen} /> */}
-
-      {/* <Stack.Screen name="Subcategory" component={SubcategoryScreen} /> */}
-
-      {/* <Stack.Screen name="DetailList" component={DetailListScreen} /> */}
     </Stack.Navigator>
   );
 }

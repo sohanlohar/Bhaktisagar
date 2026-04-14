@@ -5,7 +5,7 @@ import { useBookmarks } from '../hooks/useBookmarks';
 import { useTheme } from '../context/ThemeContext';
 import AnimatedPressable from './AnimatedPressable';
 
-export default function ItemCard({ id, title, onPress, item }) {
+const ItemCard = React.memo(({ id, title, onPress, item }) => {
   const { toggle, isBookmarked } = useBookmarks();
   const { colors } = useTheme();
   const active = isBookmarked(id);
@@ -57,4 +57,6 @@ export default function ItemCard({ id, title, onPress, item }) {
       </View>
     </AnimatedPressable>
   );
-}
+});
+
+export default ItemCard;
