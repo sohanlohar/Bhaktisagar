@@ -72,9 +72,9 @@ const ProfileScreen = () => {
           value={isDarkMode}
           onValueChange={toggleTheme}
         />
-        <MenuItem colors={colors} icon={Bell} label="नोटिफिकेशन" />
+        {/* <MenuItem colors={colors} icon={Bell} label="नोटिफिकेशन" />
         <MenuItem colors={colors} icon={Shield} label="प्राइवेसी" />
-        <MenuItem colors={colors} icon={Info} label="हमारे बारे में" />
+        <MenuItem colors={colors} icon={Info} label="हमारे बारे में" /> */}
 
         <Text className="text-center mt-10" style={{ color: colors.textLight, fontSize: 12 }}>Version 0.0.1</Text>
       </View>

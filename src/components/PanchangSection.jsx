@@ -35,7 +35,13 @@ function PanchangSection({ panchang }) {
   );
 
   const openPanchang = useCallback(() => {
-    // Panchang is a tab inside RootTabs, so navigate using nested route targeting.
+    const parent = navigation.getParent();
+
+    if (parent) {
+      parent.navigate(ROUTES.PANCHANG);
+      return;
+    }
+
     navigation.navigate(ROUTES.ROOT_TABS, { screen: ROUTES.PANCHANG });
   }, [navigation]);
 

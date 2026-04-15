@@ -139,13 +139,35 @@ let yearCache = null;
 
 /* ---------------- HELPERS ---------------- */
 
+const padNumber = value => String(value).padStart(2, '0');
+
+const safeLocaleFormat = (date, method, locale, options, fallback) => {
+  if (!date || typeof date[method] !== 'function') {
+    return fallback ? fallback(date) : '--';
+  }
+
+  try {
+    return date[method](locale, options);
+  } catch (error) {
+    // Hermes release builds may not support all locales.
+    console.warn('Locale formatting failed:', locale, method, error);
+    return fallback ? fallback(date) : date.toISOString();
+  }
+};
+
 const formatTime = date => {
-  if (!date) return "--:--";
-  return date.toLocaleTimeString("en-IN", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: true
-  });
+  if (!date) return '--:--';
+  return safeLocaleFormat(
+    date,
+    'toLocaleTimeString',
+    'en-IN',
+    {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    },
+    d => `${padNumber(d.getHours())}:${padNumber(d.getMinutes())} ${d.getHours() >= 12 ? 'PM' : 'AM'}`,
+  );
 };
 
 const normalizeDate = date => {
@@ -194,7 +216,7 @@ function calculatePanchang(date) {
     // detailedTithi = `${date.toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}, ${calcDate.toLocaleDateString("hi-IN", { weekday: "long" })} – ${masaName} ${pakshaName} पक्ष ${name}`;
     detailedTithi = `${masaName} ${pakshaName} पक्ष ${name}`;
 
-    if (endTime !== "--:--") {
+    if (endTime !== '--:--') {
       detailedTithi += ` (${endTime} तक)`;
     }
 
@@ -226,20 +248,38 @@ function calculatePanchang(date) {
 
   return {
 
-    date: calcDate.toLocaleDateString("hi-IN", {
-      day: "numeric",
-      month: "long",
-      year: "numeric"
-    }),
+    date: safeLocaleFormat(
+      calcDate,
+      'toLocaleDateString',
+      'hi-IN',
+      {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      },
+      d => `${d.getDate()}/${padNumber(d.getMonth() + 1)}/${d.getFullYear()}`,
+    ),
 
-    shortDate: calcDate.toLocaleDateString("en-IN", {
-      day: "2-digit",
-      month: "short"
-    }),
+    shortDate: safeLocaleFormat(
+      calcDate,
+      'toLocaleDateString',
+      'en-IN',
+      {
+        day: '2-digit',
+        month: 'short',
+      },
+      d => `${padNumber(d.getDate())} ${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()]}`,
+    ),
 
-    dayName: calcDate.toLocaleDateString("hi-IN", {
-      weekday: "short"
-    }),
+    dayName: safeLocaleFormat(
+      calcDate,
+      'toLocaleDateString',
+      'hi-IN',
+      {
+        weekday: 'short',
+      },
+      d => ['रवि','सोम','मंगल','बुध','गुरु','शुक्र','शनि'][d.getDay()],
+    ),
 
     fullDateObj: calcDate,
 

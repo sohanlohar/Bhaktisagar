@@ -77,7 +77,7 @@ export default function HomeScreen() {
 
       } catch (err) {
 
-        console.log("Home load error", err);
+        console.error("Home load error", err);
 
       } finally {
 

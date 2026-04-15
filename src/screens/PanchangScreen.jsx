@@ -77,7 +77,7 @@ export default function PanchangScreen({ navigation }) {
 
       if (requestIdRef.current !== requestId) return;
 
-      console.log("Panchang fetch error", err);
+      console.error("Panchang fetch error", err);
 
       setError("पंचांग विवरण लोड नहीं हो सका। कृपया पुनः प्रयास करें।");
 
