@@ -44,7 +44,7 @@ export const GridListItem = memo(function GridListItem({
       </View>
 
       <Text
-        className="text-[14px] font-bold flex-1"
+        className="text-[14px] font-pbold flex-1"
         style={{ color: colors.text }}
         numberOfLines={1}
       >
@@ -84,7 +84,7 @@ export const SubCategoryChip = memo(function SubCategoryChip({
         </View>
       )}
 
-      <Text className="text-[14px] font-bold" style={{ color: colors.text }}>
+      <Text className="text-[14px] font-pbold" style={{ color: colors.text }}>
         {label}
       </Text>
     </Pressable>

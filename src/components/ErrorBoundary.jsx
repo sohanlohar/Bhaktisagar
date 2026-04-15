@@ -8,13 +8,11 @@ class ErrorBoundary extends Component {
   }
 
   static getDerivedStateFromError(error) {
-    // Update state so the next render will show the fallback UI.
     return { hasError: true, error };
   }
 
   componentDidCatch(error, errorInfo) {
-    // You can also log the error to an error reporting service like Sentry or Crashlytics here
-    console.error("ErrorBoundary caught an error", error, errorInfo);
+    console.error('ErrorBoundary caught an error', error, errorInfo);
   }
 
   handleReset = () => {
@@ -24,23 +22,18 @@ class ErrorBoundary extends Component {
   render() {
     if (this.state.hasError) {
       return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: '#f9f9f9', justifyContent: 'center', alignItems: 'center' }}>
-          <View style={{ padding: 20, alignItems: 'center' }}>
-            <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#ff4444', marginBottom: 10 }}>Oops!</Text>
-            <Text style={{ fontSize: 16, color: '#333', textAlign: 'center', marginBottom: 20 }}>
-              Something went wrong. We apologize for the inconvenience.
+        <SafeAreaView className="flex-1 justify-center items-center bg-gray-50">
+          <View className="p-5 items-center">
+            <Text className="text-2xl font-pbold mb-2.5 text-red-500">क्षमा करें</Text>
+            <Text className="text-base text-gray-800 text-center mb-5">
+              कुछ तकनीकी समस्या आ गई है। कृपया पुनः प्रयास करें।
             </Text>
             <Pressable
               onPress={this.handleReset}
-              style={{
-                backgroundColor: '#FF6F00', // Saffron color
-                paddingHorizontal: 30,
-                paddingVertical: 12,
-                borderRadius: 25,
-                elevation: 2,
-              }}
+              className="px-7 py-3 rounded-full elevation-sm"
+              style={{ backgroundColor: '#FF6F00' }}
             >
-              <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 16 }}>Try Again</Text>
+              <Text className="text-white font-pbold text-base">फिर से प्रयास करें</Text>
             </Pressable>
           </View>
         </SafeAreaView>

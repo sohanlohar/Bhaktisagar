@@ -20,7 +20,7 @@ function HomeStack() {
     <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Screen name="Home" component={HomeScreen} />
 
-      <Stack.Screen name="BrowseCategory" component={BrowseCategoryScreen} />
+      {/* <Stack.Screen name="BrowseCategory" component={BrowseCategoryScreen} /> */}
     </Stack.Navigator>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useCallback } from 'react';
-import { View, Text, TextInput, FlatList, Pressable, StyleSheet } from 'react-native';
+import { View, Text, TextInput, FlatList, Pressable } from 'react-native';
 import { Search as SearchIcon, ArrowLeft, X } from 'lucide-react-native';
 import { useNavigation } from '@react-navigation/native';
 
@@ -13,6 +13,8 @@ import bhajans from '../data/bhajans.json';
 import mantras from '../data/mantras.json';
 
 import { ROUTES } from '../constants';
+import { APP_LAYOUT } from '../theme/layout';
+
 
 const SearchScreen = () => {
 
@@ -83,63 +85,40 @@ const SearchScreen = () => {
 
     }, [navigation]);
 
-    const renderItem = useCallback(({ item }) => (
-
-        <View style={styles.cardWrapper}>
-
-            <ItemCard
-                id={item.id}
-                title={item.title}
-                item={item}
-                onPress={() => openDetail(item)}
-            />
-
-        </View>
-
-    ), [openDetail]);
-
-    const clearSearch = useCallback(() => {
-        setSearchQuery('');
-    }, []);
-
     /* ---------- UI ---------- */
 
     return (
         <ScreenWrapper>
-
-            <View style={[styles.container, { backgroundColor: colors.background }]}>
-
+            <View className="flex-1" style={{ backgroundColor: colors.background }}>
                 {/* Header */}
 
                 <View
                     className="px-4 py-3 flex-row items-center"
-                    style={{ backgroundColor: colors.headerBg }}
+                    style={{ minHeight: APP_LAYOUT.headerHeight, backgroundColor: colors.headerBg }}
                 >
 
                     <Pressable
                         onPress={() => navigation.goBack()}
-                        style={styles.backButton}
+                        className="p-1"
                     >
                         <ArrowLeft size={24} color={colors.headerText} />
                     </Pressable>
 
                     <View
-                        style={[
-                            styles.searchBar,
-                            { backgroundColor: colors.white + '22' }
-                        ]}
+                        className="flex-1 flex-row items-center rounded-lg px-3 h-11"
+                        style={{ backgroundColor: colors.white + '22' }}
                     >
-
                         <SearchIcon
                             size={20}
                             color={colors.headerText}
-                            style={styles.searchIcon}
+                            className="mr-2"
                         />
 
                         <TextInput
                             placeholder="आज क्या पढ़ना चाहेंगे?"
                             placeholderTextColor={colors.headerText + '88'}
-                            style={[styles.input, { color: colors.headerText }]}
+                            className="flex-1 text-base font-pmedium"
+                            style={{ color: colors.headerText }}
                             value={searchQuery}
                             onChangeText={setSearchQuery}
                             autoFocus
@@ -158,61 +137,51 @@ const SearchScreen = () => {
                 {/* Empty State */}
 
                 {searchQuery.trim() === '' && (
-
-                    <View style={styles.emptyContainer}>
-
+                    <View className="flex-1 justify-center items-center pb-24">
                         <SearchIcon size={64} color={colors.border} />
 
                         <Text
-                            style={[
-                                styles.emptyText,
-                                { color: colors.textLight }
-                            ]}
+                            className="mt-4 text-center font-pmedium text-[16px] leading-[26px]"
+                            style={{ color: colors.textLight }}
                         >
                             भजन, आरती या चालीसा खोजें
                         </Text>
-
                     </View>
-
                 )}
 
                 {/* Results */}
 
                 {searchQuery.trim() !== '' && (
-
                     <FlatList
                         data={results}
                         keyExtractor={(item) => `${item.kind}-${item.id}`}
-                        renderItem={renderItem}
-
-                        contentContainerStyle={styles.listContent}
-
+                        renderItem={({ item }) => (
+                            <View className="mb-4">
+                                <ItemCard
+                                    id={item.id}
+                                    title={item.title}
+                                    item={item}
+                                    onPress={() => openDetail(item)}
+                                />
+                            </View>
+                        )}
+                        contentContainerStyle={{ padding: 16 }}
                         initialNumToRender={8}
                         maxToRenderPerBatch={10}
                         windowSize={10}
                         removeClippedSubviews
-
                         showsVerticalScrollIndicator={false}
-
                         ListEmptyComponent={
-
-                            <View style={styles.emptyContainer}>
-
+                            <View className="flex-1 justify-center items-center pb-24">
                                 <Text
-                                    style={[
-                                        styles.emptyText,
-                                        { color: colors.textLight }
-                                    ]}
+                                    className="font-pmedium text-[16px] leading-[26px]"
+                                    style={{ color: colors.textLight }}
                                 >
                                     कोई परिणाम नहीं मिला
                                 </Text>
-
                             </View>
-
                         }
-
                     />
-
                 )}
 
             </View>
@@ -220,58 +189,5 @@ const SearchScreen = () => {
         </ScreenWrapper>
     );
 };
-
-const styles = StyleSheet.create({
-
-    container: {
-        flex: 1,
-    },
-
-    backButton: {
-        padding: 4,
-    },
-
-    searchBar: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        borderRadius: 12,
-        paddingHorizontal: 12,
-        height: 44,
-    },
-
-    searchIcon: {
-        marginRight: 8,
-    },
-
-    input: {
-        flex: 1,
-        fontSize: 16,
-        paddingVertical: 8,
-        fontWeight: '500',
-    },
-
-    listContent: {
-        padding: 16,
-    },
-
-    cardWrapper: {
-        marginBottom: 16,
-    },
-
-    emptyContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingBottom: 100,
-    },
-
-    emptyText: {
-        marginTop: 16,
-        fontSize: 16,
-        fontWeight: '500',
-    },
-
-});
 
 export default SearchScreen;

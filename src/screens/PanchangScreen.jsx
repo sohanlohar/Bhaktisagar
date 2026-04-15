@@ -12,6 +12,7 @@ import { CalendarGrid } from '../components/panchang/CalendarGrid';
 import { PanchangDetails } from '../components/panchang/PanchangDetails';
 import { useFocusEffect } from '@react-navigation/native';
 
+
 const HINDI_MONTHS = [
   'जनवरी', 'फरवरी', 'मार्च', 'अप्रैल', 'मई', 'जून',
   'जुलाई', 'अगस्त', 'सितंबर', 'अक्टूबर', 'नवंबर', 'दिसंबर'
@@ -162,118 +163,102 @@ export default function PanchangScreen({ navigation }) {
   /* ---------- Month Title ---------- */
 
   const monthTitle = useMemo(() => {
-
     return `${HINDI_MONTHS[displayDate.getMonth()]} ${displayDate.getFullYear()}`;
-
   }, [displayDate]);
 
   /* ---------- UI ---------- */
 
   return (
-
     <ScreenWrapper>
-
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
-
+      <View className="flex-1" style={{ backgroundColor: colors.background }}>
         <BhaktiHeader navigation={navigation} />
 
-          <ScrollView
-            style={{ flex: 1 }}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ paddingBottom: 40 }}
-          >
+        <ScrollView
+          className="flex-1"
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 40 }}
+        >
+          <View className="px-5 py-2">
+            {/* Header */}
 
-            <View className="px-5 py-2">
-
-              {/* Header */}
-
-              <View className="mb-6 mt-2 flex flex-row items-center justify-between">
-
-                <Text
-                  className="text-3xl font-bold"
-                  style={{ color: colors.text }}
-                >
-                  पंचांग
-                </Text>
-
-                <Text
-                  className="text-md font-bold mt-1"
-                  style={{ color: colors.saffron }}
-                >
-                  {selectedData?.date}
-                </Text>
-
-              </View>
-
-              {/* Month Selector */}
-
-              <View className="flex-row items-center justify-between mb-4 px-2">
-
-                <TouchableOpacity
-                  onPress={() => changeMonth(-1)}
-                  className="p-2 rounded-full"
-                  style={{
-                    backgroundColor: colors.cardBg,
-                    borderColor: colors.border,
-                    borderWidth: 1
-                  }}
-                >
-                  <ChevronLeft size={20} color={colors.text} />
-                </TouchableOpacity>
-
-                <Text
-                  className="text-xl font-bold"
-                  style={{ color: colors.text }}
-                >
-                  {monthTitle}
-                </Text>
-
-                <TouchableOpacity
-                  onPress={() => changeMonth(1)}
-                  className="p-2 rounded-full"
-                  style={{
-                    backgroundColor: colors.cardBg,
-                    borderColor: colors.border,
-                    borderWidth: 1
-                  }}
-                >
-                  <ChevronRight size={20} color={colors.text} />
-                </TouchableOpacity>
-
-              </View>
-
-              {/* Calendar */}
-
-              <CalendarGrid
-                loading={loading}
-                monthData={monthData}
-                selectedDateObj={selectedDateObj}
-                onSelectDate={handleSelectDate}
-                colors={colors}
-              />
-
-              {/* Details */}
-
-              {error && !detailLoading && (
-                <View className="px-5 py-2">
-                  <Text style={{ color: colors.textLight, textAlign: 'center' }}>
-                    {error}
-                  </Text>
-                </View>
-              )}
-
-              <PanchangDetails
-                detailLoading={detailLoading}
-                selectedData={selectedData}
-                colors={colors}
-              />
-
+            <View className="mb-6 mt-2 flex flex-row items-center justify-between">
+              <Text
+                className="text-[30px] font-pbold leading-[38px]"
+                style={{ color: colors.text }}
+              >
+                पंचांग
+              </Text>
+              <Text
+                className="mt-1 text-[13px] font-pmedium leading-[18px]"
+                style={{ color: colors.saffron }}
+              >
+                {selectedData?.date}
+              </Text>
             </View>
 
-          </ScrollView>
+            {/* Month Selector */}
 
+            <View className="flex-row items-center justify-between mb-4 px-2">
+              <TouchableOpacity
+                onPress={() => changeMonth(-1)}
+                className="p-2 rounded-full border"
+                style={{
+                  backgroundColor: colors.cardBg,
+                  borderColor: colors.border,
+                }}
+              >
+                <ChevronLeft size={20} color={colors.text} />
+              </TouchableOpacity>
+
+              <Text
+                className="text-[16px] font-psemibold leading-[24px]"
+                style={{ color: colors.text }}
+              >
+                {monthTitle}
+              </Text>
+
+              <TouchableOpacity
+                onPress={() => changeMonth(1)}
+                className="p-2 rounded-full border"
+                style={{
+                  backgroundColor: colors.cardBg,
+                  borderColor: colors.border,
+                }}
+              >
+                <ChevronRight size={20} color={colors.text} />
+              </TouchableOpacity>
+            </View>
+
+            {/* Calendar */}
+
+            <CalendarGrid
+              loading={loading}
+              monthData={monthData}
+              selectedDateObj={selectedDateObj}
+              onSelectDate={handleSelectDate}
+              colors={colors}
+            />
+
+            {/* Details */}
+
+            {error && !detailLoading && (
+              <View className="px-5 py-2">
+                <Text
+                  className="text-center"
+                  style={{ color: colors.textLight }}
+                >
+                  {error}
+                </Text>
+              </View>
+            )}
+            <PanchangDetails
+              detailLoading={detailLoading}
+              selectedData={selectedData}
+              colors={colors}
+            />
+          </View>
+        </ScrollView>
       </View>
-
     </ScreenWrapper>
 
   );

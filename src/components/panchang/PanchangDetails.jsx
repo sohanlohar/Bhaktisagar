@@ -34,7 +34,7 @@ const DetailedTithiCard = memo(({ tithiDetailed, samvat, colors }) => {
           <Moon size={20} color={colors.primary} />
         </View>
         <Text
-          className="text-md font-bold uppercase tracking-widest"
+          className="text-md font-pbold uppercase tracking-widest"
           style={{ color: colors.primary }}
         >
           विस्तृत तिथि विवरण
@@ -42,7 +42,7 @@ const DetailedTithiCard = memo(({ tithiDetailed, samvat, colors }) => {
       </View>
 
       <Text
-        className="text-base leading-7 font-semibold"
+        className="text-base leading-7 font-psemibold"
         style={{ color: colors.text }}
       >
         {tithiDetailed}
@@ -55,36 +55,36 @@ const DetailedTithiCard = memo(({ tithiDetailed, samvat, colors }) => {
       >
         <View className="mr-6">
           <Text
-            className="text-md uppercase font-bold mb-1"
+            className="text-md uppercase font-pbold mb-1"
             style={{ color: colors.primary }}
           >
             विक्रम संवत
           </Text>
-          <Text className="text-md font-bold" style={{ color: colors.text }}>
+          <Text className="text-md font-pbold" style={{ color: colors.text }}>
             {samvat?.vikram || '--'}
           </Text>
         </View>
 
         <View className="mr-6">
           <Text
-            className="text-md uppercase font-bold mb-1"
+            className="text-md uppercase font-pbold mb-1"
             style={{ color: colors.primary }}
           >
             शक संवत
           </Text>
-          <Text className="text-md font-bold" style={{ color: colors.text }}>
+          <Text className="text-md font-pbold" style={{ color: colors.text }}>
             {samvat?.shaka || '--'}
           </Text>
         </View>
 
         <View>
           <Text
-            className="text-md uppercase font-bold mb-1"
+            className="text-md uppercase font-pbold mb-1"
             style={{ color: colors.primary }}
           >
             संवत्सर
           </Text>
-          <Text className="text-md font-bold" style={{ color: colors.text }}>
+          <Text className="text-md font-pbold" style={{ color: colors.text }}>
             {samvat?.samvatsara || '--'}
           </Text>
         </View>
@@ -160,7 +160,7 @@ export const PanchangDetails = memo(function PanchangDetails({
       {/* Core Section */}
 
       <Text
-        className="text-lg font-bold mb-4 px-1"
+        className="text-lg font-pbold mb-4 px-1"
         style={{ color: colors.text }}
       >
         मुख्य विवरण
@@ -179,7 +179,7 @@ export const PanchangDetails = memo(function PanchangDetails({
       {/* Muhurat */}
 
       <Text
-        className="text-lg font-bold mb-4 px-1"
+        className="text-lg font-pbold mb-4 px-1"
         style={{ color: colors.text }}
       >
         महत्वपूर्ण समय
@@ -203,14 +203,14 @@ export const PanchangDetails = memo(function PanchangDetails({
 
             <View>
               <Text
-                className="text-xs font-bold uppercase tracking-wider mb-1"
+                className="text-xs font-pbold uppercase tracking-wider mb-1"
                 style={{ color: colors.textLight }}
               >
                 शुभ मुहूर्त (अभिजित)
               </Text>
 
               <Text
-                className="text-base font-bold"
+                className="text-base font-pbold"
                 style={{ color: colors.text }}
               >
                 {selectedData.shubh_muhurat}
@@ -225,12 +225,12 @@ export const PanchangDetails = memo(function PanchangDetails({
           </View>
 
           <View>
-            <Text className="text-xs font-bold uppercase text-red-500 mb-1">
+            <Text className="text-xs font-pbold uppercase text-red-500 mb-1">
               राहुकाल
             </Text>
 
             <Text
-              className="text-base font-bold"
+              className="text-base font-pbold"
               style={{ color: colors.text }}
             >
               {selectedData.rahukal}
@@ -242,7 +242,7 @@ export const PanchangDetails = memo(function PanchangDetails({
       {/* Sun & Moon */}
 
       <Text
-        className="text-lg font-bold mb-4 px-1"
+        className="text-lg font-pbold mb-4 px-1"
         style={{ color: colors.text }}
       >
         सूर्य और चंद्र
@@ -265,13 +265,13 @@ export const PanchangDetails = memo(function PanchangDetails({
 
           <View>
             <Text
-              className="text-[10px] uppercase font-bold"
+              className="text-[10px] uppercase font-pbold"
               style={{ color: colors.textLight }}
             >
               सूर्योदय
             </Text>
 
-            <Text className="text-sm font-bold" style={{ color: colors.text }}>
+            <Text className="text-sm font-pbold" style={{ color: colors.text }}>
               {selectedData.sunrise}
             </Text>
           </View>
@@ -293,13 +293,13 @@ export const PanchangDetails = memo(function PanchangDetails({
 
           <View>
             <Text
-              className="text-[10px] uppercase font-bold"
+              className="text-[10px] uppercase font-pbold"
               style={{ color: colors.textLight }}
             >
               सूर्यास्त
             </Text>
 
-            <Text className="text-sm font-bold" style={{ color: colors.text }}>
+            <Text className="text-sm font-pbold" style={{ color: colors.text }}>
               {selectedData.sunset}
             </Text>
           </View>

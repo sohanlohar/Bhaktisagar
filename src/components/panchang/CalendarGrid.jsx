@@ -57,12 +57,8 @@ export const CalendarGrid = memo(function CalendarGrid({
         return (
           <View
             key={`empty-${index}`}
-            className="border-r border-b"
-            style={{
-              width: '14.28%',
-              aspectRatio: 1,
-              borderColor: colors.border + '50',
-            }}
+            className="w-[14.28%] aspect-square border-r border-b"
+            style={{ borderColor: colors.border + '50' }}
           />
         );
       }
@@ -98,14 +94,10 @@ export const CalendarGrid = memo(function CalendarGrid({
             <View
               key={day}
               className="flex-1 py-3 items-center justify-center"
-              style={{
-                backgroundColor: isSunday
-                  ? colors.pillRed + '20'
-                  : 'transparent',
-              }}
+              style={isSunday ? { backgroundColor: colors.pillRed + '20' } : {}}
             >
               <Text
-                className="text-sm font-bold"
+                className="text-sm font-pbold"
                 style={{
                   color: isSunday ? colors.pillRed : colors.textLight,
                 }}
@@ -117,7 +109,7 @@ export const CalendarGrid = memo(function CalendarGrid({
         })}
       </View>
     ),
-    [colors],
+    [colors.border, colors.pillRed, colors.textLight],
   );
 
   /* ---------- UI ---------- */
@@ -137,11 +129,8 @@ export const CalendarGrid = memo(function CalendarGrid({
 
         {loading && monthData.length > 0 && (
           <View
-            className="absolute inset-0 items-center justify-center"
-            style={{ 
-              backgroundColor: colors.cardBg + '90',
-              zIndex: 10
-            }}
+            className="absolute inset-0 items-center justify-center z-10"
+            style={{ backgroundColor: colors.cardBg + '90' }}
           >
             <ActivityIndicator size="large" color={colors.saffron} />
           </View>

@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Home, CalendarDays, Heart } from 'lucide-react-native';
 
@@ -29,6 +30,7 @@ const renderIcon = Icon =>
 const MainTabs = React.memo(() => {
 
   const { colors } = useTheme();
+  const insets = useSafeAreaInsets();
 
   const screenOptions = useMemo(() => ({
     headerShown: false,
@@ -37,19 +39,19 @@ const MainTabs = React.memo(() => {
     tabBarActiveTintColor: colors.tabBarActive,
     tabBarInactiveTintColor: colors.tabBarInactive,
     tabBarStyle: {
-      height: 80,
-      paddingBottom: 10,
-      paddingTop: 5,
+      height: 58 + Math.max(insets.bottom, 8),
+      paddingBottom: Math.max(insets.bottom, 8),
+      paddingTop: 6,
       backgroundColor: colors.background,
       borderTopWidth: 1,
       borderTopColor: colors.border
     },
     tabBarLabelStyle: {
       fontSize: 12,
-      fontWeight: '600',
-    }
-
-  }), [colors]);
+      fontFamily: 'Poppins-SemiBold',
+    },
+    tabBarHideOnKeyboard: true,
+  }), [colors, insets.bottom]);
 
   return (
 

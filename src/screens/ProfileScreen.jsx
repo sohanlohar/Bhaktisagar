@@ -1,9 +1,10 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 import { View, Text, Pressable, Switch } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../context/ThemeContext';
 import ScreenWrapper from '../components/ScreenWrapper';
-import { ChevronLeft, Moon, Sun, Bell, Shield, Info } from 'lucide-react-native';
+import { ChevronLeft, Moon, Sun } from 'lucide-react-native';
+import pkg from '../../package.json';
 
 const MenuItem = memo(function MenuItem({
   colors,
@@ -25,7 +26,7 @@ const MenuItem = memo(function MenuItem({
         >
           <Icon size={20} color={colors.primary} />
         </View>
-        <Text style={{ color: colors.text, fontSize: 16, fontWeight: '500' }}>
+        <Text className="text-base font-pmedium" style={{ color: colors.text }}>
           {label}
         </Text>
       </View>
@@ -52,7 +53,7 @@ const ProfileScreen = () => {
 
   return (
     <ScreenWrapper>
-      <View style={{ flex: 1, backgroundColor: colors.background }} className="p-5">
+      <View className="flex-1 p-5" style={{ backgroundColor: colors.background }}>
         <View className="flex-row items-center mb-8">
           <Pressable
             onPress={onBack}
@@ -61,7 +62,7 @@ const ProfileScreen = () => {
           >
             <ChevronLeft size={22} color={colors.text} />
           </Pressable>
-          <Text className="text-3xl font-bold" style={{ color: colors.text }}>सेटिंग्स</Text>
+          <Text className="text-3xl font-pbold" style={{ color: colors.text }}>सेटिंग्स</Text>
         </View>
 
         <MenuItem
@@ -72,11 +73,10 @@ const ProfileScreen = () => {
           value={isDarkMode}
           onValueChange={toggleTheme}
         />
-        {/* <MenuItem colors={colors} icon={Bell} label="नोटिफिकेशन" />
-        <MenuItem colors={colors} icon={Shield} label="प्राइवेसी" />
-        <MenuItem colors={colors} icon={Info} label="हमारे बारे में" /> */}
 
-        <Text className="text-center mt-10" style={{ color: colors.textLight, fontSize: 12 }}>Version 0.0.1</Text>
+        <Text className="text-center mt-10 text-xs" style={{ color: colors.textLight }}>
+          Version {pkg.version}
+        </Text>
       </View>
     </ScreenWrapper>
   );

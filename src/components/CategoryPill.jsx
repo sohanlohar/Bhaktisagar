@@ -1,5 +1,5 @@
 import React, { memo, useMemo } from 'react';
-import { Pressable, Text, StyleSheet } from 'react-native';
+import { Pressable, Text } from 'react-native';
 import { useTheme } from '../context/ThemeContext';
 
 function CategoryPill({ label, onPress, color }) {
@@ -14,35 +14,21 @@ function CategoryPill({ label, onPress, color }) {
     return colors.white;
   }, [color, colors]);
 
-  const containerStyle = useMemo(
-    () => [styles.container, { backgroundColor }],
-    [backgroundColor],
-  );
-
   return (
-    <Pressable onPress={onPress} style={containerStyle}>
-      <Text style={[styles.text, { color: textColor }]}>{label}</Text>
+    <Pressable
+      onPress={onPress}
+      className="px-4 py-1.5 rounded-full mr-2 border"
+      style={{
+        backgroundColor,
+        borderColor: '#D1D5DB',
+        shadowOpacity: 0.08,
+        shadowRadius: 2,
+        elevation: 1,
+      }}
+    >
+      <Text className="text-sm font-pbold" style={{ color: textColor }}>{label}</Text>
     </Pressable>
   );
 }
 
 export default memo(CategoryPill);
-
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 16,
-    paddingVertical: 6,
-    borderRadius: 999,
-    marginRight: 8,
-    borderWidth: 1,
-    borderColor: '#D1D5DB',
-    shadowOpacity: 0.08,
-    shadowRadius: 2,
-    elevation: 1,
-  },
-
-  text: {
-    fontSize: 14,
-    fontWeight: '700',
-  },
-});

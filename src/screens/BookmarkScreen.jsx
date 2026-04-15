@@ -8,13 +8,13 @@ import { BhaktiHeader } from '../components/home/BhaktiHeader';
 import { useBookmarks } from '../hooks/useBookmarks';
 import { resolveContentById } from '../utils/homeContentUtils';
 
+
 const BookmarksScreen = () => {
 
   const { bookmarks } = useBookmarks();
   const { colors } = useTheme();
   const nav = useNavigation();
 
-  // Resolve full content by id once, so opening the tab is fast.
   const resolvedBookmarks = useMemo(() => {
     return bookmarks.map((b) => {
       const resolved = resolveContentById(b.id);
@@ -25,15 +25,12 @@ const BookmarksScreen = () => {
 
   return (
     <ScreenWrapper>
-
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
-
+      <View className="flex-1" style={{ backgroundColor: colors.background }}>
         <BhaktiHeader />
 
-        <View style={{ flex: 1, padding: 16 }}>
-
+        <View className="flex-1 p-4">
           <Text
-            className="text-2xl font-bold mb-6"
+            className="mb-6 font-pbold text-[24px] leading-[32px]"
             style={{ color: colors.text }}
           >
             मेरे बुकमार्क
@@ -56,7 +53,8 @@ const BookmarksScreen = () => {
             removeClippedSubviews
             ListEmptyComponent={
               <Text
-                style={{ color: colors.textLight, textAlign: 'center', marginTop: 60 }}
+                className="text-center font-pmedium text-[16px] leading-[26px]"
+                style={{ color: colors.textLight, marginTop: 60 }}
               >
                 अभी कोई बुकमार्क नहीं है।
               </Text>

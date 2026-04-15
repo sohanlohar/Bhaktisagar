@@ -1,5 +1,5 @@
 import React, { memo, useMemo } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View } from 'react-native';
 import { useTheme } from '../context/ThemeContext';
 import AnimatedPressable from './AnimatedPressable';
 
@@ -26,116 +26,57 @@ export const IconTile = memo(function IconTile({
   );
 
   return (
-    <AnimatedPressable onPress={onPress} style={styles.container}>
-      <View style={styles.iconWrapper}>
-        <View style={styles.mandala}>
-          <View style={[styles.baseCircle, circleStyle]} />
+    <AnimatedPressable
+      onPress={onPress}
+      className="items-center mx-2 flex w-20"
+    >
+      <View className="items-center justify-center mt-2">
+        <View className="w-16 h-16 items-center justify-center">
+          <View
+            className="absolute w-14 h-14 rounded-full border"
+            style={circleStyle}
+          />
 
           <View
+            className="absolute w-14 h-14 border-2 rounded-2xl"
             style={[
-              styles.square,
               squareStyle,
               { transform: [{ rotate: '0deg' }] },
             ]}
           />
 
           <View
+            className="absolute w-14 h-14 border-2 rounded-2xl"
             style={[
-              styles.square,
               squareStyle,
               { transform: [{ rotate: '45deg' }] },
             ]}
           />
 
-          <View style={styles.iconContainer}>
-            <Text style={[styles.iconText, { color: colors.orange }]}>
+          <View className="w-12 h-12 rounded-full items-center justify-center">
+            <Text className="text-xl" style={{ color: colors.orange }}>
               {icon}
             </Text>
           </View>
         </View>
 
         {isNew && (
-          <View style={styles.badge}>
-            <Text style={styles.badgeText}>NEW</Text>
+          <View
+            className="absolute top-0 right-0 px-1.5 py-0.5 rounded"
+            style={{ backgroundColor: '#16A34A' }}
+          >
+            <Text className="text-xs font-pbold text-white">NEW</Text>
           </View>
         )}
       </View>
 
-      <Text numberOfLines={1} style={[styles.label, { color: colors.text }]}>
+      <Text
+        numberOfLines={1}
+        className="mt-1 text-sm font-pbold text-center"
+        style={{ color: colors.text }}
+      >
         {label}
       </Text>
     </AnimatedPressable>
   );
-});
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    marginHorizontal: 8,
-    flex: 1,
-    width: 80,
-  },
-
-  iconWrapper: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 8,
-  },
-
-  mandala: {
-    width: 64,
-    height: 64,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  baseCircle: {
-    position: 'absolute',
-    width: 56,
-    height: 56,
-    borderRadius: 999,
-  },
-
-  square: {
-    position: 'absolute',
-    width: 56,
-    height: 56,
-    borderWidth: 2,
-    borderRadius: 10,
-  },
-
-  iconContainer: {
-    width: 48,
-    height: 48,
-    borderRadius: 999,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  iconText: {
-    fontSize: 20,
-  },
-
-  label: {
-    marginTop: 4,
-    fontSize: 14,
-    fontWeight: '700',
-    textAlign: 'center',
-  },
-
-  badge: {
-    position: 'absolute',
-    top: -4,
-    right: 0,
-    backgroundColor: '#16A34A',
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    borderRadius: 6,
-  },
-
-  badgeText: {
-    fontSize: 7,
-    fontWeight: '700',
-    color: '#fff',
-  },
 });
