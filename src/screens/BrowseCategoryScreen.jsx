@@ -13,13 +13,15 @@ import bhajans from '../data/bhajans.json';
 import aartis from '../data/aartis.json';
 import stotras from '../data/stotram.json';
 import { useBookmarks } from '../hooks/useBookmarks';
+import { APP_LAYOUT } from '../theme/layout';
+
 
 const BROWSE_DATA = {
     mantra: mantras,
     chalisa: chalisas,
     bhajan: bhajans,
     aarti: aartis,
-    stotra: stotras
+    stotra: stotras,
 };
 
 export default function BrowseCategoryScreen() {
@@ -27,11 +29,33 @@ export default function BrowseCategoryScreen() {
     const route = useRoute();
     const { colors } = useTheme();
     const { toggle, isBookmarked } = useBookmarks();
-    const { kind, title } = route.params;
+    const { kind, title } = route.params || {};
 
     const [loading, setLoading] = React.useState(true);
 
     const data = useMemo(() => BROWSE_DATA[kind] || [], [kind]);
+    const headerBarStyle = useMemo(
+        () => ({
+            minHeight: APP_LAYOUT.headerHeight,
+            backgroundColor: colors.headerBg,
+        }),
+        [colors.headerBg]
+    );
+
+    const heroBgStyle = useMemo(
+        () => ({ backgroundColor: colors.saffron + '10' }),
+        [colors.saffron]
+    );
+
+    const itemTitleStyle = useMemo(
+        () => ({ color: colors.text }),
+        [colors.text]
+    );
+
+    const deityStyle = useMemo(
+        () => ({ color: colors.textLight }),
+        [colors.textLight]
+    );
 
     React.useEffect(() => {
 
@@ -42,14 +66,28 @@ export default function BrowseCategoryScreen() {
         return () => clearTimeout(timer);
     }, [kind]);
 
-    if (loading) {
+    if (!kind || !title) {
         return (
             <ScreenWrapper>
-                <View className="flex-row items-center px-4 py-3" style={{ backgroundColor: colors.headerBg }}>
+                <View className="flex-row items-center px-4 py-3" style={headerBarStyle}>
                     <Pressable onPress={() => navigation.goBack()} className="mr-3">
                         <ChevronLeft color={colors.headerText} size={28} />
                     </Pressable>
-                    <Text className="text-xl font-bold" style={{ color: colors.headerText }}>{title}</Text>
+                    <Text className="font-psemibold text-[16px] leading-[24px]" style={{ color: colors.headerText }}>श्रेणी</Text>
+                </View>
+                <BhaktiLoader message="कोई डेटा उपलब्ध नहीं है।" />
+            </ScreenWrapper>
+        );
+    }
+
+    if (loading) {
+        return (
+            <ScreenWrapper>
+                <View className="flex-row items-center px-4 py-3" style={headerBarStyle}>
+                    <Pressable onPress={() => navigation.goBack()} className="mr-3">
+                        <ChevronLeft color={colors.headerText} size={28} />
+                    </Pressable>
+                    <Text className="font-psemibold text-[16px] leading-[24px]" style={{ color: colors.headerText }}>{title}</Text>
                 </View>
                 <BhaktiLoader message={`${title} लोड हो रहा है...`} />
             </ScreenWrapper>
@@ -70,16 +108,17 @@ export default function BrowseCategoryScreen() {
                 onPress={() => navigation.navigate('Detail', { item: { ...item, kind } })}
                 className="flex-1 m-2 rounded-[24px] border overflow-hidden shadow-sm"
                 style={{
+                    width: '48%',
+                    aspectRatio: 0.8,
                     backgroundColor: colors.cardBg,
                     borderColor: colors.border,
-                    aspectRatio: 0.8
                 }}
             >
                 <View className="flex-1">
 
                     <View
                         className="flex-1 items-center justify-center"
-                        style={{ backgroundColor: colors.saffron + '10' }}
+                        style={heroBgStyle}
                     >
 
                         <Text className="text-4xl">🕉️</Text>
@@ -99,8 +138,8 @@ export default function BrowseCategoryScreen() {
 
                     <View className="p-3">
                         <Text
-                            className="text-center font-bold text-[14px]"
-                            style={{ color: colors.text }}
+                            className="text-center font-pbold text-[14px]"
+                            style={itemTitleStyle}
                             numberOfLines={2}
                         >
                             {item.title}
@@ -108,7 +147,7 @@ export default function BrowseCategoryScreen() {
                         {item.deity?.name && (
                             <Text
                                 className="text-center text-[11px] mt-1"
-                                style={{ color: colors.textLight }}
+                                style={deityStyle}
                                 numberOfLines={1}
                             >
                                 {item.deity.name}
@@ -122,13 +161,13 @@ export default function BrowseCategoryScreen() {
 
     return (
         <ScreenWrapper>
-            <View style={{ flex: 1, backgroundColor: colors.background }}>
+            <View className="flex-1" style={{ backgroundColor: colors.background }}>
                 {/* Header */}
-                <View className="flex-row items-center px-4 py-3" style={{ backgroundColor: colors.headerBg }}>
+                <View className="flex-row items-center px-4 py-3" style={headerBarStyle}>
                     <Pressable onPress={() => navigation.goBack()} className="mr-3">
                         <ChevronLeft color={colors.headerText} size={28} />
                     </Pressable>
-                    <Text className="text-xl font-bold" style={{ color: colors.headerText }}>{title}</Text>
+                    <Text className="font-psemibold text-[16px] leading-[24px]" style={{ color: colors.headerText }}>{title}</Text>
                 </View>
 
                 <FlatList
@@ -144,9 +183,9 @@ export default function BrowseCategoryScreen() {
                     showsVerticalScrollIndicator={false}
                     ListEmptyComponent={
                         <View className="flex-1 items-center justify-center mt-20">
-                            <Text style={{ color: colors.textLight }}>
-                                इस श्रेणी में कोई डेटा नहीं है।
-                            </Text>
+                             <Text className="font-pmedium text-[16px] leading-[26px]" style={{ color: colors.textLight }}>
+                                 कोई डेटा उपलब्ध नहीं है।
+                             </Text>
                         </View>
                     }
                 />

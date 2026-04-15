@@ -15,6 +15,7 @@ import { BhaktiHeader } from '../components/home/BhaktiHeader';
 import { ROUTES } from '../constants';
 import BhaktiLoader from '../components/BhaktiLoader';
 
+
 const HOME_CATEGORIES = [
   { id: '1', title: 'मंत्र', icon: '🙏', kind: 'mantra' },
   { id: '2', title: 'चालीसा', icon: '🎶', kind: 'chalisa' },
@@ -38,8 +39,9 @@ const SectionHeader = React.memo(({ title }) => {
   const { colors } = useTheme();
   return (
     <View className="items-center mt-8 mb-6">
-      <Text className="text-2xl font-bold" style={{ color: colors.orange }}>
-        {title} <Text style={{ fontSize: 20 }}>›</Text>
+      <Text className="text-[22px] font-pbold leading-[30px]" style={{ color: colors.orange }}>
+        {title}{' '}
+        <Text className="text-[20px] font-pregular"></Text>
       </Text>
     </View>
   );
@@ -118,7 +120,7 @@ export default function HomeScreen() {
   ), [openCategory]);
 
   const renderTrending = useCallback(({ item }) => (
-    <View style={{ width: 280, marginRight: 12 }}>
+    <View className="w-[280px] mr-3">
       <ItemCard
         id={item.id}
         title={item.title}
@@ -143,121 +145,89 @@ export default function HomeScreen() {
 
   return (
     <ScreenWrapper>
-
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
-
+      <View className="flex-1" style={{ backgroundColor: colors.background }}>
         <BhaktiHeader />
-
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 40 }}
-        >
-
-          {/* Categories */}
-
-          <View className="mt-2 flex items-center">
-
+        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 40 }}>
+          <View className="mt-2 px-2">
             <FlatList
               data={HOME_CATEGORIES}
               horizontal
               showsHorizontalScrollIndicator={false}
               keyExtractor={(item) => item.id}
-              contentContainerStyle={{ paddingHorizontal: 10 }}
               renderItem={renderCategory}
+              contentContainerStyle={{ paddingHorizontal: 10 }}
             />
 
-          </View>
+            <SectionHeader title="आज का पंचांग" />
 
-          {/* Panchang */}
-
-          <SectionHeader title="आज का पंचांग" />
-
-          {panchang
-            ? <PanchangSection panchang={panchang} />
-            : (
+            {panchang ? (
+              <PanchangSection panchang={panchang} />
+            ) : (
               <View className="mt-4 flex-row justify-center px-4 flex-wrap">
                 <CategoryPill label="तिथि" color={colors.pillYellow} />
                 <CategoryPill label="राशिफल" color={colors.pillRed} />
                 <CategoryPill label="राहुकाल" color={colors.pillDarkGreen} />
               </View>
-            )
-          }
+            )}
 
-          {/* Today's Devotion */}
+            {todaysDevotion.length > 0 && (
+              <>
+                <SectionHeader title="आज की भक्ति" />
+                <View className="px-4 flex-row flex-wrap justify-between">
+                  {todaysDevotion.map((item) => (
+                    <View key={item.id} className="w-[48%] mb-3">
+                      <ItemCard
+                        id={item.id}
+                        title={item.title}
+                        item={item}
+                        onPress={() => openDetail(item)}
+                      />
+                    </View>
+                  ))}
+                </View>
+              </>
+            )}
 
-          {todaysDevotion.length > 0 && (
-            <>
-              <SectionHeader title="आज की भक्ति" />
+            {dailyPicks.length > 0 && (
+              <>
+                <SectionHeader title="दैनिक चयन" />
+                <View className="px-3 flex-row flex-wrap">
+                  {dailyPicks.map((item) => (
+                    <View key={item.id} className="w-1/2">
+                      <GridListItem
+                        title={item.title}
+                        icon={getKindIcon(item.kind)}
+                        color={colors.primary}
+                        onPress={() => openDetail(item)}
+                      />
+                    </View>
+                  ))}
+                </View>
+              </>
+            )}
 
-              <View className="px-4 flex-row flex-wrap justify-between">
-
-                {todaysDevotion.map((item) => (
-                  <View key={item.id} style={{ width: '48%', marginBottom: 12 }}>
-                    <ItemCard
-                      id={item.id}
-                      title={item.title}
-                      item={item}
-                      onPress={() => openDetail(item)}
-                    />
-                  </View>
-                ))}
-
-              </View>
-            </>
-          )}
-
-          {/* Daily Picks */}
-
-          {dailyPicks.length > 0 && (
-            <>
-              <SectionHeader title="दैनिक चयन" />
-
-              <View className="px-3 flex-row flex-wrap">
-
-                {dailyPicks.map(item => (
-                  <View key={item.id} style={{ width: '50%' }}>
-                    <GridListItem
-                      title={item.title}
-                      icon={getKindIcon(item.kind)}
-                      color={colors.primary}
-                      onPress={() => openDetail(item)}
-                    />
-                  </View>
-                ))}
-
-              </View>
-            </>
-          )}
-
-          {/* Trending */}
-
-          {trending.length > 0 && (
-            <>
-              <SectionHeader title="लोकप्रिय" />
-
-              <View className="px-4">
-
-                <FlatList
-                  data={trending}
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  keyExtractor={(item) => item.id}
-                  renderItem={renderTrending}
-                  contentContainerStyle={{ paddingVertical: 8 }}
-                  initialNumToRender={6}
-                  maxToRenderPerBatch={6}
-                  windowSize={8}
-                  removeClippedSubviews
-                />
-
-              </View>
-            </>
-          )}
-
+            {trending.length > 0 && (
+              <>
+                <SectionHeader title="लोकप्रिय" />
+                <View className="px-4">
+                  <FlatList
+                    data={trending}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    keyExtractor={(item) => item.id}
+                    renderItem={renderTrending}
+                    contentContainerStyle={{ paddingVertical: 8 }}
+                    initialNumToRender={6}
+                    maxToRenderPerBatch={6}
+                    windowSize={8}
+                    removeClippedSubviews
+                  />
+                </View>
+              </>
+            )}
+          </View>
         </ScrollView>
-
       </View>
-
     </ScreenWrapper>
   );
 }

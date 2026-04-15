@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useMemo } from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../context/ThemeContext';
 import { ROUTES } from '../constants';
@@ -19,21 +19,6 @@ function PanchangSection({ panchang }) {
   const { colors } = useTheme();
   const navigation = useNavigation();
 
-  const containerStyle = useMemo(
-    () => ({
-      backgroundColor: colors.cardBg,
-      borderColor: colors.border,
-    }),
-    [colors.cardBg, colors.border],
-  );
-
-  const borderTopStyle = useMemo(
-    () => ({
-      borderTopColor: colors.border + '55',
-    }),
-    [colors.border],
-  );
-
   const openPanchang = useCallback(() => {
     const parent = navigation.getParent();
 
@@ -48,51 +33,54 @@ function PanchangSection({ panchang }) {
   if (!panchang) return null;
 
   return (
-    <View style={styles.wrapper}>
-      <Pressable onPress={openPanchang} style={[styles.card, containerStyle]}>
+    <View className="px-4">
+      <Pressable
+        onPress={openPanchang}
+        className="rounded-3xl p-5 border"
+        style={{
+          backgroundColor: colors.cardBg,
+          borderColor: colors.border,
+          shadowOpacity: 0.1,
+          elevation: 2,
+        }}
+      >
         {/* Header */}
 
-        <View style={styles.header}>
-          <View style={styles.row}>
+        <View className="flex-row justify-between items-center mb-4">
+          <View className="flex-row items-center gap-2">
             <Sun size={20} color={colors.saffron} />
-
-            <Text style={[styles.title, { color: colors.text }]}>
+            <Text className="text-base font-pbold" style={{ color: colors.text }}>
               {panchang.tithi}
             </Text>
           </View>
 
-          <Text style={styles.dateText}>
+          <Text className="text-md font-pmedium" style={{ color: colors.text }}>
             {panchang.dayName}वार - {panchang.date}
           </Text>
         </View>
 
         {/* Nakshatra */}
 
-        <View style={styles.rowSpacing}>
-          <View style={styles.row}>
-            <Wind size={16} color={colors.textLight} />
-
-            <Text style={[styles.text, { color: colors.text }]}>
-              नक्षत्र: {panchang.nakshatra}
-            </Text>
-          </View>
+        <View className="flex-row items-center gap-2 mb-2">
+          <Wind size={16} color={colors.textLight} />
+          <Text className="text-md font-pmedium" style={{ color: colors.text }}>
+            नक्षत्र: {panchang.nakshatra}
+          </Text>
         </View>
 
         {/* Rahukal */}
 
-        <View style={styles.column}>
-          <View style={styles.rowSpacing}>
+        <View className="mb-4">
+          <View className="flex-row items-center gap-2 mb-2">
             <Clock size={16} color={colors.pillRed} />
-
-            <Text style={[styles.text, { color: colors.text }]}>
+            <Text className="text-md font-pmedium" style={{ color: colors.text }}>
               राहुकाल: {panchang.rahukal}
             </Text>
           </View>
 
-          <View style={styles.rowSpacing}>
+          <View className="flex-row items-center gap-2">
             <Sparkles size={16} color={colors.saffron} />
-
-            <Text style={[styles.text, { color: colors.text }]}>
+            <Text className="text-md font-pmedium" style={{ color: colors.text }}>
               शुभ मुहूर्त: {panchang.shubh_muhurat}
             </Text>
           </View>
@@ -100,19 +88,17 @@ function PanchangSection({ panchang }) {
 
         {/* Yoga & Karana */}
 
-        <View style={styles.yogaRow}>
-          <View style={styles.rowFlex}>
+        <View className="flex-row justify-between mb-4">
+          <View className="flex-row items-center gap-2 flex-1">
             <Activity size={16} color={colors.primary} />
-
-            <Text style={[styles.text, { color: colors.text }]}>
+            <Text className="text-md font-pmedium" style={{ color: colors.text }}>
               योग: {panchang.yoga}
             </Text>
           </View>
 
-          <View style={styles.rowEnd}>
+          <View className="flex-row items-center gap-2 flex-1 justify-end">
             <Moon size={16} color={colors.textLight} />
-
-            <Text style={[styles.text, { color: colors.text }]}>
+            <Text className="text-md font-pmedium" style={{ color: colors.text }}>
               करण: {panchang.karana}
             </Text>
           </View>
@@ -120,24 +106,28 @@ function PanchangSection({ panchang }) {
 
         {/* Sunrise Sunset */}
 
-        <View style={[styles.footer, borderTopStyle]}>
-          <View style={styles.row}>
+        <View
+          className="flex-row justify-between pt-3 border-t"
+          style={{
+            borderTopColor: colors.border + '55',
+          }}
+        >
+          <View className="flex-row items-center gap-2">
             <Sunrise size={14} color={colors.orange} />
 
-            <Text style={[styles.smallText, { color: colors.textLight }]}>
+            <Text className="text-xs font-pmedium" style={{ color: colors.textLight }}>
               {panchang.sunrise}
             </Text>
           </View>
 
-          <View style={styles.row}>
+          <View className="flex-row items-center gap-2">
             <Sunset size={14} color={colors.orange} />
-
-            <Text style={[styles.smallText, { color: colors.textLight }]}>
+            <Text className="text-base font-pbold" style={{ color: colors.textLight }}>
               {panchang.sunset}
             </Text>
           </View>
 
-          <Text style={[styles.linkText, { color: colors.saffron }]}>
+          <Text className="font-pbold" style={{ color: colors.saffron }}>
             विस्तृत पंचांग ›
           </Text>
         </View>
@@ -147,93 +137,3 @@ function PanchangSection({ panchang }) {
 }
 
 export default memo(PanchangSection);
-
-const styles = StyleSheet.create({
-  wrapper: {
-    paddingHorizontal: 16,
-  },
-
-  card: {
-    borderRadius: 24,
-    padding: 20,
-    borderWidth: 1,
-    shadowOpacity: 0.1,
-    elevation: 2,
-  },
-
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-
-  rowSpacing: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    marginBottom: 8,
-  },
-
-  column: {
-    marginBottom: 16,
-  },
-
-  yogaRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 16,
-  },
-
-  rowFlex: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    flex: 1,
-  },
-
-  rowEnd: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    flex: 1,
-    justifyContent: 'flex-end',
-  },
-
-  footer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingTop: 12,
-    borderTopWidth: 1,
-  },
-
-  title: {
-    fontSize: 16,
-    fontWeight: '700',
-  },
-
-  text: {
-    fontSize: 14,
-    fontWeight: '700',
-  },
-
-  smallText: {
-    fontSize: 12,
-    fontWeight: '700',
-  },
-
-  linkText: {
-    fontWeight: '700',
-  },
-
-  dateText: {
-    fontSize: 14,
-    fontWeight: '700',
-  },
-});

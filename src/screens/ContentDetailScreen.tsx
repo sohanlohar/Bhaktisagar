@@ -1,12 +1,14 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { ChevronLeft, Heart, Type } from 'lucide-react-native';
-import React, { useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import React, { useCallback, useMemo, useState } from 'react';
+import { Pressable, ScrollView, Text, View } from 'react-native';
 import ScreenWrapper from '../components/ScreenWrapper';
 import { useTheme } from '../context/ThemeContext';
 import { useBookmarks } from '../hooks/useBookmarks';
 import BhaktiLoader from '../components/BhaktiLoader';
 import { RootStackParamList } from '../types';
+import { APP_LAYOUT } from '../theme/layout';
+
 
 type DetailScreenRouteProp = RouteProp<RootStackParamList, 'Detail'>;
 
@@ -17,7 +19,6 @@ const ContentDetailScreen = () => {
 
     // Hooks
     const { toggle, isBookmarked } = useBookmarks();
-    const bookmarked = isBookmarked(item.id);
     const { colors, isDarkMode } = useTheme();
 
     // Local State
@@ -32,22 +33,68 @@ const ContentDetailScreen = () => {
         return () => clearTimeout(timer);
     }, [item?.id]);
 
-    if (!item) return <BhaktiLoader message="सामग्री खोजी जा रही है..." />;
+    const bookmarked = useMemo(() => {
+        if (!item?.id) return false;
+        return isBookmarked(item.id);
+    }, [isBookmarked, item?.id]);
+
+    const increaseFont = useCallback(() => setFontSize(p => Math.min(p + 2, 30)), []);
+    const decreaseFont = useCallback(() => setFontSize(p => Math.max(p - 2, 14)), []);
+
+    if (!item) {
+        return (
+            <ScreenWrapper>
+                <View
+                    className="flex-row items-center justify-between px-5 py-2 border-b"
+                    style={{
+                        minHeight: APP_LAYOUT.headerHeight,
+                        backgroundColor: colors.headerBg,
+                        borderBottomColor: colors.border,
+                    }}
+                >
+                    <View className="flex-row items-center flex-1">
+                        <Pressable
+                            onPress={() => navigation.goBack()}
+                            className="w-10 h-10 items-center justify-center rounded-xl"
+                        >
+                            <ChevronLeft color={colors.headerText} size={28} />
+                        </Pressable>
+                        <Text
+                            className="ml-3 text-base font-pbold"
+                            style={{ color: colors.headerText || '#F7F6E5' }}
+                            numberOfLines={1}
+                        >
+                            विवरण
+                        </Text>
+                    </View>
+                </View>
+                <BhaktiLoader message="कोई डेटा उपलब्ध नहीं है।" />
+            </ScreenWrapper>
+        );
+    }
 
     if (loading) {
         return (
             <ScreenWrapper>
                 <View
-                    style={[
-                        styles.header,
-                        { backgroundColor: colors.headerBg, borderBottomColor: colors.border },
-                    ]}
+                    className="flex-row items-center justify-between px-5 py-2 border-b"
+                    style={{
+                        minHeight: APP_LAYOUT.headerHeight,
+                        backgroundColor: colors.headerBg,
+                        borderBottomColor: colors.border,
+                    }}
                 >
-                    <View style={styles.headerLeft}>
-                        <Pressable onPress={() => navigation.goBack()} style={styles.backBtn}>
+                    <View className="flex-row items-center flex-1">
+                        <Pressable
+                            onPress={() => navigation.goBack()}
+                            className="w-10 h-10 items-center justify-center rounded-xl"
+                        >
                             <ChevronLeft color={colors.headerText} size={28} />
                         </Pressable>
-                        <Text style={[styles.headerTitle, { color: colors.headerText || "#F7F6E5" }]}>
+                        <Text
+                            className="ml-3 text-base font-pbold"
+                            style={{ color: colors.headerText || '#F7F6E5' }}
+                        >
                             {item.title}
                         </Text>
                     </View>
@@ -57,34 +104,36 @@ const ContentDetailScreen = () => {
         );
     }
 
-    const increaseFont = () => setFontSize(p => Math.min(p + 2, 30));
-    const decreaseFont = () => setFontSize(p => Math.max(p - 2, 14));
-
     return (
         <ScreenWrapper>
-            <View style={[styles.container, { backgroundColor: colors.background }]}>
+            <View className="flex-1" style={{ backgroundColor: colors.background }}>
                 {/* Header */}
                 <View
-                    style={[
-                        styles.header,
-                        { backgroundColor: colors.headerBg, borderBottomColor: colors.border },
-                    ]}
+                    className="flex-row items-center justify-between px-5 py-2 border-b"
+                    style={{
+                        minHeight: APP_LAYOUT.headerHeight,
+                        backgroundColor: colors.headerBg,
+                        borderBottomColor: colors.border,
+                    }}
                 >
                     {/* Left Side */}
-                    <View style={styles.headerLeft}>
+                    <View className="flex-row items-center flex-1">
                         <Pressable
                             onPress={() => navigation.goBack()}
                             hitSlop={10}
-                            style={[
-                                styles.backBtn,
-                                { backgroundColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.02)' },
-                            ]}
+                            className="w-10 h-10 items-center justify-center rounded-xl"
+                            style={{
+                                backgroundColor: isDarkMode
+                                    ? 'rgba(255,255,255,0.05)'
+                                    : 'rgba(0,0,0,0.02)',
+                            }}
                         >
                             <ChevronLeft color={colors.headerText} size={28} />
                         </Pressable>
 
                         <Text
-                            style={[styles.headerTitle, { color: colors.headerText || "#F7F6E5" }]}
+                            className="ml-3 text-base font-pbold flex-shrink"
+                            style={{ color: colors.headerText || '#F7F6E5' }}
                             numberOfLines={1}
                         >
                             {item.title}
@@ -92,7 +141,7 @@ const ContentDetailScreen = () => {
                     </View>
 
                     {/* Right Side */}
-                    <View style={styles.headerActions}>
+                    <View className="flex-row items-center">
                         <Pressable
                             onPress={() =>
                                 toggle({
@@ -101,23 +150,29 @@ const ContentDetailScreen = () => {
                                     kind: item.kind,
                                 })
                             }
-                            style={styles.iconBtn}
+                            className="p-2 ml-2"
                         >
                             <Heart
-                                color={bookmarked ? colors.primary : colors.headerText || "#F7F6E5"}
-                                fill={bookmarked ? colors.primary : "none"}
+                                color={bookmarked ? colors.primary : colors.headerText || '#F7F6E5'}
+                                fill={bookmarked ? colors.primary : 'none'}
                                 size={24}
                             />
                         </Pressable>
 
-                        {/* <Pressable style={styles.iconBtn}>
+                        {/* <Pressable className="p-2 ml-2">
                             <Share2 color={colors.headerText || "#F7F6E5"} size={22} />
                         </Pressable> */}
                     </View>
                 </View>
 
                 {/* Content Area */}
-                <ScrollView contentContainerStyle={styles.contentScroll} showsVerticalScrollIndicator={false}>
+                <ScrollView
+                    contentContainerStyle={{
+                        padding: 24,
+                        paddingBottom: 40,
+                    }}
+                    showsVerticalScrollIndicator={false}
+                >
                     <View className="items-center mb-0">
                         <View className="w-20 h-1 bg-saffron/20 rounded-full mb-4" style={{ backgroundColor: colors.saffron + '50' }} />
 
@@ -132,66 +187,20 @@ const ContentDetailScreen = () => {
                         </View>
                     </View>
 
-                    <Text style={[styles.lyrics, { fontSize, color: colors.text, lineHeight: fontSize * 1.8 }]}>
-                        {item.lyrics || item.content || 'विषय-वस्तु जल्द ही आ रही है...'}
+                    <Text
+                        className="text-center font-pmedium"
+                        style={{
+                            fontSize,
+                            color: colors.text,
+                            lineHeight: Math.round(fontSize * 1.8),
+                        }}
+                    >
+                        {item.lyrics || item.content || 'कोई डेटा उपलब्ध नहीं है।'}
                     </Text>
                 </ScrollView>
             </View>
         </ScreenWrapper>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: 8,
-        borderBottomWidth: 1,
-        elevation: 2,
-    },
-
-    headerLeft: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        flex: 1,
-    },
-
-    backBtn: {
-        width: 40,
-        height: 40,
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 12,
-    },
-
-    headerTitle: {
-        fontSize: 15,
-        fontWeight: 'bold',
-        marginLeft: 10,
-        flexShrink: 1,
-    },
-
-    headerActions: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-
-    iconBtn: {
-        padding: 8,
-        marginLeft: 6,
-    },
-    contentScroll: {
-        padding: 24,
-        paddingBottom: 40,
-    },
-    lyrics: {
-        textAlign: 'center',
-        fontWeight: '500',
-    }
-});
 
 export default ContentDetailScreen;

@@ -11,11 +11,6 @@ interface ScreenWrapperProps {
   edges?: Edge[];
 }
 
-/**
- * Optimized universal screen wrapper
- * Handles SafeArea + StatusBar
- */
-
 function ScreenWrapper({
   children,
   backgroundColor,
@@ -33,7 +28,6 @@ function ScreenWrapper({
 
   const containerStyle = useMemo(
     () => ({
-      flex: 1,
       backgroundColor: finalBgColor,
     }),
     [finalBgColor],
@@ -41,22 +35,23 @@ function ScreenWrapper({
 
   const innerStyle = useMemo(
     () => ({
-      flex: 1,
       backgroundColor: colors.background,
     }),
     [colors.background],
   );
 
   return (
-    <View style={containerStyle}>
+    <View className="flex-1" style={containerStyle}>
       <StatusBar
         barStyle={finalBarStyle}
         backgroundColor={finalStatusBarColor}
         translucent
       />
 
-      <SafeAreaView edges={edges} style={{ flex: 1 }}>
-        <View style={innerStyle}>{children}</View>
+      <SafeAreaView edges={edges} className="flex-1">
+        <View className="flex-1" style={innerStyle}>
+          {children}
+        </View>
       </SafeAreaView>
     </View>
   );

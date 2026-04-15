@@ -11,12 +11,9 @@ const ItemCard = React.memo(({ id, title, onPress, item }) => {
   const active = isBookmarked(id);
 
   const handleBookmarkPress = (e) => {
-    // Some RN versions may call onPress without an event argument.
     if (e && typeof e.stopPropagation === 'function') {
       e.stopPropagation();
     }
-
-    // Preserve kind when possible, but keep a safe fallback.
     const bookmarkItem = item || { id, title, kind: 'bhajan' };
     toggle(bookmarkItem);
   };
@@ -24,7 +21,7 @@ const ItemCard = React.memo(({ id, title, onPress, item }) => {
   return (
     <AnimatedPressable
       onPress={onPress}
-      className="rounded-[16px] shadow-md p-5"
+      className="rounded-2xl mb-2.5 p-5 border"
       style={{
         backgroundColor: colors.cardBg,
         shadowColor: colors.primary,
@@ -32,15 +29,13 @@ const ItemCard = React.memo(({ id, title, onPress, item }) => {
         shadowOpacity: 0.08,
         shadowRadius: 16,
         elevation: 4,
-        borderWidth: 1,
         borderColor: colors.border,
-        marginBottom: 10,
       }}
     >
       <View className="flex-row items-center justify-between">
         <View className="flex-1">
           <Text
-            className="text-[14px] font-bold"
+            className="text-sm font-pbold"
             style={{ color: colors.text }}
             numberOfLines={1}
           >

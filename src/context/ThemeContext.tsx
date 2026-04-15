@@ -15,12 +15,14 @@ const STORAGE_KEY = 'themeMode';
 
 type ThemeContextType = {
     isDarkMode: boolean;
+    isThemeReady: boolean;
     toggleTheme: () => void;
     colors: typeof LIGHT_COLORS;
 };
 
 const ThemeContext = createContext<ThemeContextType>({
     isDarkMode: false,
+    isThemeReady: false,
     toggleTheme: () => { },
     colors: LIGHT_COLORS,
 });
@@ -32,6 +34,7 @@ type ThemeProviderProps = {
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
 
     const [isDarkMode, setIsDarkMode] = useState(false); // Default to light theme
+    const [isThemeReady, setIsThemeReady] = useState(false);
 
     useEffect(() => {
 
@@ -46,6 +49,8 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
 
             } catch (e) {
                 console.log('Theme load error', e);
+            } finally {
+                setIsThemeReady(true);
             }
         };
 
@@ -69,9 +74,10 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
 
     const themeValues = useMemo(() => ({
         isDarkMode,
+        isThemeReady,
         toggleTheme,
         colors: isDarkMode ? DARK_COLORS : LIGHT_COLORS,
-    }), [isDarkMode, toggleTheme]);
+    }), [isDarkMode, isThemeReady, toggleTheme]);
 
     return (
         <ThemeContext.Provider value={themeValues}>
