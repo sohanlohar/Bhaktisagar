@@ -1,14 +1,40 @@
-import { useContext } from 'react';
+import { useCallback, useContext, useMemo } from 'react';
 import { BookmarkContext } from '../context/BookmarkContext';
 
-export const useBookmarks = () => {
-    const context = useContext(BookmarkContext);
-    if (!context) {
-        throw new Error('useBookmarks must be used inside BookmarkProvider');
-    }
-    return {
-        bookmarks: context.bookmarks,
-        toggle: context.toggleOffset, // Alias for backward compatibility if needed, or update consumers
-        isBookmarked: context.isBookmarked,
-    };
+const noopToggle = (_item: any) => {};
+const noopIsBookmarked = (_id: string) => false;
+
+/**
+ * Bookmark hook with a stable API for all screens.
+ *
+ * Usage:
+ * - useBookmarks() => { bookmarks, toggle, isBookmarked, bookmarked }
+ * - useBookmarks(id, title) => { bookmarks, toggle, isBookmarked, bookmarked }
+ *   where `toggle` is bound to the given (id,title) and takes no args.
+ */
+export const useBookmarks = (id?: string, title?: string) => {
+  const context = useContext(BookmarkContext);
+
+  const bookmarks = context?.bookmarks ?? [];
+  const toggle = context?.toggle ?? noopToggle;
+  const isBookmarked = context?.isBookmarked ?? noopIsBookmarked;
+
+  const bookmarked = useMemo(() => {
+    if (!id) return false;
+    return isBookmarked(id);
+  }, [id, isBookmarked]);
+
+  const toggleBound = useCallback(() => {
+    if (!id) return;
+    toggle({ id, title: title ?? '' });
+  }, [id, title, toggle]);
+
+  return {
+    bookmarks,
+    // For most callers we want the original toggle signature: toggle(item)
+    // For screens that pass (id,title), toggle is bound and takes no args.
+    toggle: id ? toggleBound : toggle,
+    isBookmarked,
+    bookmarked,
+  };
 };

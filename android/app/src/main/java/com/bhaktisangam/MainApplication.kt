@@ -1,4 +1,4 @@
-package com.bhaktisagar
+package com.bhaktisangam
 
 import android.app.Application
 import com.facebook.react.PackageList

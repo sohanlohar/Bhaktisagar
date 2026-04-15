@@ -1,99 +1,131 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { Home, CalendarDays, Heart } from 'lucide-react-native';
+
+import { useTheme } from '../context/ThemeContext';
+import { ROUTES } from '../constants';
+
+/* ---------- Screens (static imports for navigation stability) ---------- */
 import HomeStack from './home/HomeStack';
 import BookmarksScreen from '../screens/BookmarkScreen';
 import PanchangScreen from '../screens/PanchangScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import SearchScreen from '../screens/SearchScreen';
 import ContentDetailScreen from '../screens/ContentDetailScreen';
-import { Home, Bookmark, CalendarDays, Heart } from 'lucide-react-native';
-import { useTheme } from '../context/ThemeContext';
-import { ROUTES } from '../constants';
-import { BhaktiHeader } from '../components/home/BhaktiHeader';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-const renderIcon =
-  IconComponent =>
-    ({ color, size }) =>
-      <IconComponent color={color} size={size} />;
+/* ---------- Icon Renderer ---------- */
 
-const MainTabs = () => {
+const renderIcon = Icon =>
+  ({ color, size }) =>
+    <Icon color={color} size={size} />;
+
+/* ---------- Tabs ---------- */
+
+const MainTabs = React.memo(() => {
+
   const { colors } = useTheme();
+  const insets = useSafeAreaInsets();
+
+  const screenOptions = useMemo(() => ({
+    headerShown: false,
+    lazy: true,
+    freezeOnBlur: true,
+    tabBarActiveTintColor: colors.tabBarActive,
+    tabBarInactiveTintColor: colors.tabBarInactive,
+    tabBarStyle: {
+      height: 58 + Math.max(insets.bottom, 8),
+      paddingBottom: Math.max(insets.bottom, 8),
+      paddingTop: 6,
+      backgroundColor: colors.background,
+      borderTopWidth: 1,
+      borderTopColor: colors.border
+    },
+    tabBarLabelStyle: {
+      fontSize: 12,
+      fontFamily: 'Poppins-SemiBold',
+    },
+    tabBarHideOnKeyboard: true,
+  }), [colors, insets.bottom]);
 
   return (
-    <Tab.Navigator
-      screenOptions={{
-        headerShown: false,
-        tabBarActiveTintColor: colors.tabBarActive,
-        tabBarInactiveTintColor: colors.tabBarInactive,
-        tabBarLabelStyle: {
-          fontSize: 12,
-          fontWeight: '600',
-          marginBottom: 20,
-        },
-        tabBarStyle: {
-          height: 80,
-          paddingBottom: 10,
-          paddingTop: 5,
-          backgroundColor: colors.background,
-          borderTopWidth: 1,
-          borderTopColor: colors.border,
-          elevation: 0,
-          shadowOpacity: 0,
-        },
-      }}
-    >
+
+    <Tab.Navigator screenOptions={screenOptions}>
+
       <Tab.Screen
         name={ROUTES.HOME_TAB}
         component={HomeStack}
         options={{
-          title: 'Home',
-          tabBarIcon: renderIcon(Home),
+          title: 'मुख्य',
+          tabBarIcon: renderIcon(Home)
         }}
       />
+
       <Tab.Screen
         name={ROUTES.BOOKMARKS}
         component={BookmarksScreen}
         options={{
-          title: 'Favorites',
+          title: 'संग्रह',
           tabBarIcon: renderIcon(Heart),
+          // Pre-mount so first tab press is instant.
+          lazy: false,
         }}
       />
+
       <Tab.Screen
         name={ROUTES.PANCHANG}
         component={PanchangScreen}
         options={{
-          title: 'Panchang',
+          title: 'पंचांग',
           tabBarIcon: renderIcon(CalendarDays),
+          // Pre-mount so first tab press is instant.
+          lazy: false,
         }}
       />
+
     </Tab.Navigator>
   );
-};
+});
+
+/* ---------- Root Stack ---------- */
 
 const RootNavigator = () => {
+
+  const stackOptions = useMemo(() => ({
+    headerShown: false
+  }), []);
+
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+
+    <Stack.Navigator screenOptions={stackOptions}>
+
       <Stack.Screen
         name={ROUTES.ROOT_TABS}
         component={MainTabs}
       />
+
       <Stack.Screen
         name={ROUTES.SETTINGS}
         component={ProfileScreen}
       />
+
       <Stack.Screen
         name={ROUTES.SEARCH}
         component={SearchScreen}
       />
+
       <Stack.Screen
         name={ROUTES.DETAIL}
         component={ContentDetailScreen}
       />
+
     </Stack.Navigator>
+
   );
 };
 

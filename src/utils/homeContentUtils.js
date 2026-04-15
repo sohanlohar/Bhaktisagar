@@ -3,6 +3,16 @@ import chalisas from '../data/chalisas.json';
 import bhajans from '../data/bhajans.json';
 import mantras from '../data/mantras.json';
 
+// Build once for performance (filter/sort runs frequently on Home).
+const ALL_CONTENT = [
+  ...aartis.map((item) => ({ ...item, kind: 'aarti' })),
+  ...chalisas.map((item) => ({ ...item, kind: 'chalisa' })),
+  ...bhajans.map((item) => ({ ...item, kind: 'bhajan' })),
+  ...mantras.map((item) => ({ ...item, kind: 'mantra' })),
+];
+
+const CONTENT_BY_ID = new Map(ALL_CONTENT.map((item) => [item.id, item]));
+
 /**
  * Get current weekday in lowercase (monday, tuesday, etc.)
  * @returns {string} Current weekday
@@ -14,16 +24,11 @@ export const getCurrentWeekday = () => {
 };
 
 /**
- * Combine all devotional content from all categories
- * @returns {Array} Combined array of all items
+ * Resolve content by id across all JSON datasets (offline-first).
  */
-const getAllContent = () => {
-  return [
-    ...aartis.map(item => ({ ...item, kind: 'aarti' })),
-    ...chalisas.map(item => ({ ...item, kind: 'chalisa' })),
-    ...bhajans.map(item => ({ ...item, kind: 'bhajan' })),
-    ...mantras.map(item => ({ ...item, kind: 'mantra' })),
-  ];
+export const resolveContentById = (id) => {
+  if (!id) return null;
+  return CONTENT_BY_ID.get(id) || null;
 };
 
 /**
@@ -35,7 +40,12 @@ const getAllContent = () => {
 const filterByWeekday = (items, weekday) => {
   return items.filter(item => {
     if (!item.days || !Array.isArray(item.days)) return false;
-    return item.days.includes(weekday) || item.days.includes('daily');
+    const w = (weekday || '').toLowerCase();
+    return item.days.some((d) => {
+      if (typeof d !== 'string') return false;
+      const dd = d.toLowerCase();
+      return dd === w || dd === 'daily';
+    });
   });
 };
 
@@ -112,8 +122,7 @@ const limitItems = (items, limit) => {
  */
 export const getTodaysDevotion = (weekday = null) => {
   const currentWeekday = weekday || getCurrentWeekday();
-  const allContent = getAllContent();
-  const filtered = filterByWeekday(allContent, currentWeekday);
+  const filtered = filterByWeekday(ALL_CONTENT, currentWeekday);
   const sorted = sortByPriority(filtered);
   return limitItems(sorted, 8);
 };
@@ -125,8 +134,7 @@ export const getTodaysDevotion = (weekday = null) => {
  * @returns {Array} Daily picks
  */
 export const getDailyPicks = () => {
-  const allContent = getAllContent();
-  const filtered = filterFeaturedOrPopular(allContent);
+  const filtered = filterFeaturedOrPopular(ALL_CONTENT);
   const sorted = sortByPriority(filtered);
   return limitItems(sorted, 6);
 };
@@ -139,8 +147,7 @@ export const getDailyPicks = () => {
  * @returns {Array} Trending items
  */
 export const getTrending = () => {
-  const allContent = getAllContent();
-  const filtered = filterPopular(allContent);
+  const filtered = filterPopular(ALL_CONTENT);
   const sorted = sortByOrder(filtered);
   return limitItems(sorted, 8);
 };

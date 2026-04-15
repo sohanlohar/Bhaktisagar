@@ -1,65 +1,70 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import ScreenWrapper from '../components/ScreenWrapper';
-import { useBookmarks } from '../hooks/useBookmarks';
 import { useTheme } from '../context/ThemeContext';
 import ItemCard from '../components/ItemCard';
 import { useNavigation } from '@react-navigation/native';
 import { BhaktiHeader } from '../components/home/BhaktiHeader';
-import BhaktiLoader from '../components/BhaktiLoader';
+import { useBookmarks } from '../hooks/useBookmarks';
+import { resolveContentById } from '../utils/homeContentUtils';
+
 
 const BookmarksScreen = () => {
+
   const { bookmarks } = useBookmarks();
   const { colors } = useTheme();
   const nav = useNavigation();
-  const [loading, setLoading] = React.useState(true);
 
-  React.useEffect(() => {
-    setLoading(true);
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 600);
-    return () => clearTimeout(timer);
-  }, []);
+  const resolvedBookmarks = useMemo(() => {
+    return bookmarks.map((b) => {
+      const resolved = resolveContentById(b.id);
+      if (resolved) return resolved;
+      return { id: b.id, title: b.title, kind: b.kind };
+    });
+  }, [bookmarks]);
 
-  if (loading) {
-    return (
-      <ScreenWrapper>
-        <BhaktiHeader />
-        <BhaktiLoader message="पसंदीदा सामग्री लोड हो रही है..." />
-      </ScreenWrapper>
-    );
-  }
   return (
     <ScreenWrapper>
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <View className="flex-1" style={{ backgroundColor: colors.background }}>
         <BhaktiHeader />
-        <View style={{ flex: 1, padding: 16 }}>
-          <Text className="text-2xl font-bold mb-6" style={{ color: colors.text }}>मेरे बुकमार्क</Text>
+
+        <View className="flex-1 p-4">
+          <Text
+            className="mb-6 font-pbold text-[24px] leading-[32px]"
+            style={{ color: colors.text }}
+          >
+            मेरे बुकमार्क
+          </Text>
+
           <FlatList
-            data={bookmarks}
+            data={resolvedBookmarks}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
               <ItemCard
                 id={item.id}
                 title={item.title}
+                item={item}
                 onPress={() => nav.navigate('Detail', { item })}
               />
             )}
+            initialNumToRender={8}
+            maxToRenderPerBatch={10}
+            windowSize={10}
+            removeClippedSubviews
             ListEmptyComponent={
-              <View className="flex-1 items-center justify-center mt-20">
-                <Text
-                  className="text-center px-6"
-                  style={{ color: colors.textLight }}
-                >
-                  अभी कोई बुकमार्क नहीं है। अपने प्रिय मंत्र, चालीसा और आरती को
-                  बुकमार्क करके यहां देखें।
-                </Text>
-              </View>
+              <Text
+                className="text-center font-pmedium text-[16px] leading-[26px]"
+                style={{ color: colors.textLight, marginTop: 60 }}
+              >
+                अभी कोई बुकमार्क नहीं है।
+              </Text>
             }
           />
+
         </View>
+
       </View>
+
     </ScreenWrapper>
   );
 };

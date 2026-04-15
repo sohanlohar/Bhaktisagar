@@ -1,35 +1,49 @@
-import React from 'react';
+import React, { memo, useCallback } from 'react';
 import { Pressable } from 'react-native';
-import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+} from 'react-native-reanimated';
 
 const AnimatedPressableBase = Animated.createAnimatedComponent(Pressable);
 
-export default function AnimatedPressable({ children, onPress, style, className }) {
-    const scale = useSharedValue(1);
+const SPRING_IN = {
+  damping: 15,
+  stiffness: 200,
+};
 
-    const animatedStyle = useAnimatedStyle(() => {
-        return {
-            transform: [{ scale: scale.value }],
-        };
-    });
+const SPRING_OUT = {
+  damping: 15,
+  stiffness: 150,
+};
 
-    const handlePressIn = () => {
-        scale.value = withSpring(0.95);
-    };
+function AnimatedPressable({ children, onPress, style, className }) {
+  const scale = useSharedValue(1);
 
-    const handlePressOut = () => {
-        scale.value = withSpring(1);
-    };
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+  }));
 
-    return (
-        <AnimatedPressableBase
-            onPress={onPress}
-            onPressIn={handlePressIn}
-            onPressOut={handlePressOut}
-            style={[style, animatedStyle]}
-            className={className}
-        >
-            {children}
-        </AnimatedPressableBase>
-    );
+  const handlePressIn = useCallback(() => {
+    scale.value = withSpring(0.96, SPRING_IN);
+  }, [scale]);
+
+  const handlePressOut = useCallback(() => {
+    scale.value = withSpring(1, SPRING_OUT);
+  }, [scale]);
+
+  return (
+    <AnimatedPressableBase
+      onPress={onPress}
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}
+      style={[style, animatedStyle]}
+      className={className}
+    >
+      {children}
+    </AnimatedPressableBase>
+  );
 }
+
+export default memo(AnimatedPressable);

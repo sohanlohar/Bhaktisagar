@@ -1,13 +1,17 @@
-import React, { useEffect, useState, memo } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
+import React, { useState, useCallback, useMemo } from 'react';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+
 import ScreenWrapper from '../components/ScreenWrapper';
-import { getMonthPanchang, getTodayPanchang } from '../services/panchangApi';
+import { getTodayPanchang } from '../services/panchangApi';
 import { useTheme } from '../context/ThemeContext';
+
 import { ChevronLeft, ChevronRight } from 'lucide-react-native';
+
 import { BhaktiHeader } from '../components/home/BhaktiHeader';
 import { CalendarGrid } from '../components/panchang/CalendarGrid';
 import { PanchangDetails } from '../components/panchang/PanchangDetails';
-import BhaktiLoader from '../components/BhaktiLoader';
+import { useFocusEffect } from '@react-navigation/native';
+
 
 const HINDI_MONTHS = [
   'जनवरी', 'फरवरी', 'मार्च', 'अप्रैल', 'मई', 'जून',
@@ -15,137 +19,248 @@ const HINDI_MONTHS = [
 ];
 
 export default function PanchangScreen({ navigation }) {
+
   const { colors } = useTheme();
+
   const [selectedDateObj, setSelectedDateObj] = useState(new Date());
   const [selectedData, setSelectedData] = useState(null);
   const [monthData, setMonthData] = useState([]);
+
   const [loading, setLoading] = useState(true);
   const [detailLoading, setDetailLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const [displayDate, setDisplayDate] = useState(new Date());
 
-  // Load month data
-  useEffect(() => {
-    setLoading(true); // Show loader immediately on month change
-    const handle = requestIdleCallback(() => {
-      loadMonthData();
-    });
-    return () => cancelIdleCallback(handle);
-  }, [displayDate]);
+  /* ---------- Generate Month Grid ---------- */
 
-  // Load month data
-  const loadMonthData = async () => {
-    setLoading(true);
-    const year = displayDate.getFullYear();
-    const month = displayDate.getMonth();
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const generateMonthGrid = useCallback((year, month) => {
 
-    // 1. Generate simple grid dates INSTANTLY (structural only)
-    const basicGridData = [];
-    for (let i = 1; i <= daysInMonth; i++) {
-      basicGridData.push({
+    const days = new Date(year, month + 1, 0).getDate();
+
+    const grid = [];
+
+    for (let i = 1; i <= days; i++) {
+      grid.push({
         fullDateObj: new Date(year, month, i)
       });
     }
 
-    // 2. Fetch current day's details IMMEDIATELY (critical path)
-    const now = new Date();
-    let initialSelectedDate = basicGridData[0].fullDateObj;
-    if (month === now.getMonth() && year === now.getFullYear()) {
-      initialSelectedDate = now;
+    return grid;
+
+  }, []);
+
+  /* ---------- Fetch Panchang Detail ---------- */
+
+  const requestIdRef = React.useRef(0);
+  const monthRequestIdRef = React.useRef(0);
+
+  const fetchDetailedDay = useCallback(async (date) => {
+
+    const requestId = ++requestIdRef.current;
+
+    setDetailLoading(true);
+
+    setError(null);
+
+    setSelectedDateObj(date);
+
+    try {
+
+      const data = await getTodayPanchang(date);
+
+      // Ignore stale responses when date/month changes quickly.
+      if (requestIdRef.current !== requestId) return;
+
+      setSelectedData(data);
+
+    } catch (err) {
+
+      if (requestIdRef.current !== requestId) return;
+
+      console.error("Panchang fetch error", err);
+
+      setError("पंचांग विवरण लोड नहीं हो सका। कृपया पुनः प्रयास करें।");
+
+    } finally {
+
+      if (requestIdRef.current === requestId) {
+        setDetailLoading(false);
+      }
+
     }
 
-    // Fetch detail first to ensure we have content before hiding main loader
-    await fetchDetailedDay(initialSelectedDate);
+  }, []);
 
-    setMonthData(basicGridData);
+  const displayDateRef = React.useRef(displayDate);
+  React.useEffect(() => {
+    displayDateRef.current = displayDate;
+  }, [displayDate]);
+
+  /* ---------- Load Month ---------- */
+
+  const loadMonthData = useCallback(async (targetDate, force = false) => {
+    const monthRequestId = ++monthRequestIdRef.current;
+    setLoading(true);
+
+    const finalTarget = targetDate || displayDateRef.current;
+    const year = finalTarget.getFullYear();
+    const month = finalTarget.getMonth();
+
+    const grid = generateMonthGrid(year, month);
+    const today = new Date();
+    let initialDate = finalTarget;
+
+    // Default to today if it's the current month/year
+    if (month === today.getMonth() && year === today.getFullYear()) {
+      initialDate = today;
+    } else if (finalTarget.getDate() !== 1) {
+      // If we're just switching to a different month, default to the 1st
+      initialDate = new Date(year, month, 1);
+    }
+
+    // Apply only if this is still the latest month request.
+    if (monthRequestIdRef.current !== monthRequestId) return;
+    setMonthData(grid);
+
+    await fetchDetailedDay(initialDate);
+
+    if (monthRequestIdRef.current !== monthRequestId) return;
     setLoading(false);
 
-    // 3. Defer background month caching
-    requestIdleCallback(() => {
-      getMonthPanchang(year, month);
-    });
-  };
+  }, [generateMonthGrid, fetchDetailedDay]);
 
-  const fetchDetailedDay = async (date) => {
-    setDetailLoading(true);
-    setSelectedDateObj(date);
-    const data = await getTodayPanchang(date);
-    setSelectedData(data);
-    setDetailLoading(false);
-  };
+  /* ---------- Load Month Effect ---------- */
 
-  const handleSelectDate = (item) => {
+  useFocusEffect(
+    useCallback(() => {
+      const today = new Date();
+      setDisplayDate(today);
+      loadMonthData(today, true);
+    }, [loadMonthData])
+  );
+
+  /* ---------- Date Select ---------- */
+
+  const handleSelectDate = useCallback((item) => {
+
     fetchDetailedDay(item.fullDateObj);
-  };
 
-  const changeMonth = (offset) => {
+  }, [fetchDetailedDay]);
+
+  /* ---------- Month Change ---------- */
+
+  const changeMonth = useCallback((offset) => {
+
     const newDate = new Date(displayDate);
     newDate.setMonth(displayDate.getMonth() + offset);
+
     setDisplayDate(newDate);
-  };
+    loadMonthData(newDate, true);
+
+  }, [displayDate, loadMonthData]);
+
+  /* ---------- Month Title ---------- */
+
+  const monthTitle = useMemo(() => {
+    return `${HINDI_MONTHS[displayDate.getMonth()]} ${displayDate.getFullYear()}`;
+  }, [displayDate]);
+
+  /* ---------- UI ---------- */
 
   return (
     <ScreenWrapper>
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <View className="flex-1" style={{ backgroundColor: colors.background }}>
         <BhaktiHeader navigation={navigation} />
-        {loading ? (
-          <BhaktiLoader message="पंचांग लोड हो रहा है..." />
-        ) : (
-          <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 40 }}>
-            <View className="px-5 py-2">
 
-              {/* Top Selected Date Header */}
-              <View className="mb-6 mt-2 flex flex-row items-center justify-between">
-                <Text className="text-3xl font-bold" style={{ color: colors.text }}>पंचांग</Text>
-                <Text className="text-md font-bold mt-1" style={{ color: colors.saffron }}>
-                  {selectedData?.date}
-                </Text>
-              </View>
+        <ScrollView
+          className="flex-1"
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 40 }}
+        >
+          <View className="px-5 py-2">
+            {/* Header */}
 
-              {/* Month Selector */}
-              <View className="flex-row items-center justify-between mb-4 px-2">
-                <TouchableOpacity
-                  onPress={() => changeMonth(-1)}
-                  className="p-2 rounded-full"
-                  style={{ backgroundColor: colors.cardBg, borderColor: colors.border, borderWidth: 1 }}
-                >
-                  <ChevronLeft size={20} color={colors.text} />
-                </TouchableOpacity>
-
-                <Text className="text-xl font-bold" style={{ color: colors.text }}>
-                  {HINDI_MONTHS[displayDate.getMonth()]} {displayDate.getFullYear()}
-                </Text>
-
-                <TouchableOpacity
-                  onPress={() => changeMonth(1)}
-                  className="p-2 rounded-full"
-                  style={{ backgroundColor: colors.cardBg, borderColor: colors.border, borderWidth: 1 }}
-                >
-                  <ChevronRight size={20} color={colors.text} />
-                </TouchableOpacity>
-              </View>
-
-              {/* Monthly Calendar Grid View */}
-              <CalendarGrid
-                loading={loading}
-                monthData={monthData}
-                selectedDateObj={selectedDateObj}
-                onSelectDate={handleSelectDate}
-                colors={colors}
-              />
-
-              {/* Details Section */}
-              <PanchangDetails
-                detailLoading={detailLoading}
-                selectedData={selectedData}
-                colors={colors}
-              />
-
+            <View className="mb-6 mt-2 flex flex-row items-center justify-between">
+              <Text
+                className="text-[30px] font-pbold leading-[38px]"
+                style={{ color: colors.text }}
+              >
+                पंचांग
+              </Text>
+              <Text
+                className="mt-1 text-[13px] font-pmedium leading-[18px]"
+                style={{ color: colors.saffron }}
+              >
+                {selectedData?.date}
+              </Text>
             </View>
-          </ScrollView>
-        )}
+
+            {/* Month Selector */}
+
+            <View className="flex-row items-center justify-between mb-4 px-2">
+              <TouchableOpacity
+                onPress={() => changeMonth(-1)}
+                className="p-2 rounded-full border"
+                style={{
+                  backgroundColor: colors.cardBg,
+                  borderColor: colors.border,
+                }}
+              >
+                <ChevronLeft size={20} color={colors.text} />
+              </TouchableOpacity>
+
+              <Text
+                className="text-[16px] font-psemibold leading-[24px]"
+                style={{ color: colors.text }}
+              >
+                {monthTitle}
+              </Text>
+
+              <TouchableOpacity
+                onPress={() => changeMonth(1)}
+                className="p-2 rounded-full border"
+                style={{
+                  backgroundColor: colors.cardBg,
+                  borderColor: colors.border,
+                }}
+              >
+                <ChevronRight size={20} color={colors.text} />
+              </TouchableOpacity>
+            </View>
+
+            {/* Calendar */}
+
+            <CalendarGrid
+              loading={loading}
+              monthData={monthData}
+              selectedDateObj={selectedDateObj}
+              onSelectDate={handleSelectDate}
+              colors={colors}
+            />
+
+            {/* Details */}
+
+            {error && !detailLoading && (
+              <View className="px-5 py-2">
+                <Text
+                  className="text-center"
+                  style={{ color: colors.textLight }}
+                >
+                  {error}
+                </Text>
+              </View>
+            )}
+            <PanchangDetails
+              detailLoading={detailLoading}
+              selectedData={selectedData}
+              colors={colors}
+            />
+          </View>
+        </ScrollView>
       </View>
     </ScreenWrapper>
+
   );
+
 }

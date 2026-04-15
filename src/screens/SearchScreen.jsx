@@ -1,189 +1,193 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { View, Text, TextInput, FlatList, Pressable, StyleSheet } from 'react-native';
+import React, { useState, useMemo, useCallback } from 'react';
+import { View, Text, TextInput, FlatList, Pressable } from 'react-native';
 import { Search as SearchIcon, ArrowLeft, X } from 'lucide-react-native';
 import { useNavigation } from '@react-navigation/native';
+
 import ScreenWrapper from '../components/ScreenWrapper';
 import { useTheme } from '../context/ThemeContext';
 import ItemCard from '../components/ItemCard';
-import BhaktiLoader from '../components/BhaktiLoader';
+
 import aartis from '../data/aartis.json';
 import chalisas from '../data/chalisas.json';
 import bhajans from '../data/bhajans.json';
 import mantras from '../data/mantras.json';
+
 import { ROUTES } from '../constants';
+import { APP_LAYOUT } from '../theme/layout';
+
 
 const SearchScreen = () => {
+
     const { colors } = useTheme();
     const navigation = useNavigation();
+
     const [searchQuery, setSearchQuery] = useState('');
-    const [results, setResults] = useState([]);
-    const [searching, setSearching] = useState(false);
-    // Combine and sanitize all data once
-    const allContent = useMemo(() => [
-        ...aartis.map(item => ({ ...item, kind: 'aarti' })),
-        ...chalisas.map(item => ({ ...item, kind: 'chalisa' })),
-        ...bhajans.map(item => ({ ...item, kind: 'bhajan' })),
-        ...mantras.map(item => ({ ...item, kind: 'mantra' })),
-    ].filter(item => item && item.title && item.id), []);
 
-    useEffect(() => {
+    /* ---------- Combine Data Once ---------- */
+
+    const allContent = useMemo(() => {
+
+        const normalize = (item, kind) => ({
+            ...item,
+            kind,
+            _title: item.title?.toLowerCase() || '',
+            _tags: item.tags?.map(t => t.toLowerCase()) || [],
+        });
+
+        return [
+            ...aartis.map(i => normalize(i, 'aarti')),
+            ...chalisas.map(i => normalize(i, 'chalisa')),
+            ...bhajans.map(i => normalize(i, 'bhajan')),
+            ...mantras.map(i => normalize(i, 'mantra')),
+        ];
+
+    }, []);
+
+    /* ---------- Filter Results ---------- */
+
+    const results = useMemo(() => {
+
         const query = searchQuery.trim().toLowerCase();
-        if (query === '') {
-            setResults([]);
-            setSearching(false);
-            return;
-        }
 
-        setSearching(true);
-        
-        // Debounce search a bit or just simulate a small process
-        const timer = setTimeout(() => {
-            const filtered = allContent.filter(item => {
-                if (!item || !item.title) return false;
+        if (!query) return [];
 
-                const titleMatch = item.title.toLowerCase().includes(query);
-                const tagMatch = item.tags && item.tags.some(tag =>
-                    tag.toLowerCase() === query || tag.toLowerCase().startsWith(query)
-                );
+        const filtered = allContent.filter(item => {
 
-                return titleMatch || tagMatch;
-            });
+            if (item._title.includes(query)) return true;
 
-            // Sort results: title matches first
-            const sorted = [...filtered].sort((a, b) => {
-                const aTitleMatch = a.title.toLowerCase().includes(query);
-                const bTitleMatch = b.title.toLowerCase().includes(query);
-                if (aTitleMatch && !bTitleMatch) return -1;
-                if (!aTitleMatch && bTitleMatch) return 1;
-                return 0;
-            });
+            return item._tags.some(tag =>
+                tag === query || tag.startsWith(query)
+            );
 
-            setResults(sorted);
-            setSearching(false);
-        }, 300);
+        });
 
-        return () => clearTimeout(timer);
+        return filtered.sort((a, b) => {
+
+            const aTitle = a._title.includes(query);
+            const bTitle = b._title.includes(query);
+
+            if (aTitle && !bTitle) return -1;
+            if (!aTitle && bTitle) return 1;
+
+            return 0;
+
+        });
+
     }, [searchQuery, allContent]);
+
+    /* ---------- Handlers ---------- */
+
+    const openDetail = useCallback((item) => {
+
+        navigation.navigate(ROUTES.DETAIL, {
+            item: { ...item, kind: item.kind }
+        });
+
+    }, [navigation]);
+
+    /* ---------- UI ---------- */
 
     return (
         <ScreenWrapper>
-            <View style={[styles.container, { backgroundColor: colors.background }]}>
+            <View className="flex-1" style={{ backgroundColor: colors.background }}>
                 {/* Header */}
-                <View className="px-4 py-3 flex-row items-center" style={{ backgroundColor: colors.headerBg }}>
-                    <Pressable onPress={() => navigation.goBack()} style={styles.backButton}>
+
+                <View
+                    className="px-4 py-3 flex-row items-center"
+                    style={{ minHeight: APP_LAYOUT.headerHeight, backgroundColor: colors.headerBg }}
+                >
+
+                    <Pressable
+                        onPress={() => navigation.goBack()}
+                        className="p-1"
+                    >
                         <ArrowLeft size={24} color={colors.headerText} />
                     </Pressable>
 
-                    <View style={[styles.searchBar, { backgroundColor: colors.white + '22' }]}>
-                        <SearchIcon size={20} color={colors.headerText} style={styles.searchIcon} />
+                    <View
+                        className="flex-1 flex-row items-center rounded-lg px-3 h-11"
+                        style={{ backgroundColor: colors.white + '22' }}
+                    >
+                        <SearchIcon
+                            size={20}
+                            color={colors.headerText}
+                            className="mr-2"
+                        />
+
                         <TextInput
                             placeholder="आज क्या पढ़ना चाहेंगे?"
                             placeholderTextColor={colors.headerText + '88'}
-                            style={[styles.input, { color: colors.headerText }]}
+                            className="flex-1 text-base font-pmedium"
+                            style={{ color: colors.headerText }}
                             value={searchQuery}
                             onChangeText={setSearchQuery}
                             autoFocus
                         />
+
                         {searchQuery.length > 0 && (
-                            <Pressable onPress={() => setSearchQuery('')}>
+                            <Pressable onPress={clearSearch}>
                                 <X size={20} color={colors.headerText} />
                             </Pressable>
                         )}
+
                     </View>
+
                 </View>
 
-                {/* Content */}
-                {searching ? (
-                    <View className="flex-1">
-                        <BhaktiLoader message="खोज जारी है..." />
-                    </View>
-                ) : searchQuery.trim() === '' ? (
-                    <View style={styles.emptyContainer}>
+                {/* Empty State */}
+
+                {searchQuery.trim() === '' && (
+                    <View className="flex-1 justify-center items-center pb-24">
                         <SearchIcon size={64} color={colors.border} />
-                        <Text style={[styles.emptyText, { color: colors.textLight }]}>
+
+                        <Text
+                            className="mt-4 text-center font-pmedium text-[16px] leading-[26px]"
+                            style={{ color: colors.textLight }}
+                        >
                             भजन, आरती या चालीसा खोजें
                         </Text>
                     </View>
-                ) : results.length > 0 ? (
+                )}
+
+                {/* Results */}
+
+                {searchQuery.trim() !== '' && (
                     <FlatList
                         data={results}
                         keyExtractor={(item) => `${item.kind}-${item.id}`}
-                        contentContainerStyle={styles.listContent}
                         renderItem={({ item }) => (
-                            <View style={styles.cardWrapper}>
+                            <View className="mb-4">
                                 <ItemCard
                                     id={item.id}
                                     title={item.title}
                                     item={item}
-                                    onPress={() =>
-                                        navigation.navigate(ROUTES.DETAIL, {
-                                            item: { ...item, kind: item.kind },
-                                        })
-                                    }
+                                    onPress={() => openDetail(item)}
                                 />
                             </View>
                         )}
+                        contentContainerStyle={{ padding: 16 }}
+                        initialNumToRender={8}
+                        maxToRenderPerBatch={10}
+                        windowSize={10}
+                        removeClippedSubviews
+                        showsVerticalScrollIndicator={false}
+                        ListEmptyComponent={
+                            <View className="flex-1 justify-center items-center pb-24">
+                                <Text
+                                    className="font-pmedium text-[16px] leading-[26px]"
+                                    style={{ color: colors.textLight }}
+                                >
+                                    कोई परिणाम नहीं मिला
+                                </Text>
+                            </View>
+                        }
                     />
-                ) : (
-                    <View style={styles.emptyContainer}>
-                        <Text style={[styles.emptyText, { color: colors.textLight }]}>
-                            कोई परिणाम नहीं मिला
-                        </Text>
-                    </View>
                 )}
+
             </View>
+
         </ScreenWrapper>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingHorizontal: 16,
-        paddingVertical: 12,
-        gap: 12,
-    },
-    backButton: {
-        padding: 4,
-    },
-    searchBar: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        borderRadius: 12,
-        paddingHorizontal: 12,
-        height: 44,
-    },
-    searchIcon: {
-        marginRight: 8,
-    },
-    input: {
-        flex: 1,
-        fontSize: 16,
-        paddingVertical: 8,
-        fontWeight: '500',
-    },
-    listContent: {
-        padding: 16,
-    },
-    cardWrapper: {
-        marginBottom: 16,
-    },
-    emptyContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingBottom: 100,
-    },
-    emptyText: {
-        marginTop: 16,
-        fontSize: 16,
-        fontWeight: '500',
-    },
-});
 
 export default SearchScreen;
