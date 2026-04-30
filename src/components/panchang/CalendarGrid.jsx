@@ -71,13 +71,13 @@ export const CalendarGrid = memo(function CalendarGrid({
 
   const header = useMemo(
     () => (
-      <View className="flex-row items-center mb-4 px-1">
+      <View className="flex-row items-center mb-3 px-2">
         {DAYS.map((day, idx) => {
           const isSunday = idx === 0;
           return (
             <View key={day} className="flex-1 items-center justify-center">
               <Text
-                className="text-[10px] font-pbold uppercase tracking-widest"
+                className="text-[12px] font-psemibold"
                 style={{ color: isSunday ? colors.orange : colors.textLight }}
               >
                 {day}
@@ -91,7 +91,10 @@ export const CalendarGrid = memo(function CalendarGrid({
   );
 
   return (
-    <View className="mb-8">
+    <View
+      className="mb-8 rounded-[28px] border p-3"
+      style={{ backgroundColor: colors.cardBg, borderColor: colors.border + '35' }}
+    >
       {header}
       <View className="flex-1">
         {loading && !monthData.length ? (

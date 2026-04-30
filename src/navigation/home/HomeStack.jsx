@@ -11,7 +11,7 @@ function HomeStack() {
   const screenOptions = useMemo(
     () => ({
       headerShown: false,
-      animation: 'ios',
+      animation: 'ios_from_right',
       freezeOnBlur: true,
     }),
     [],

@@ -44,14 +44,14 @@ export const CalendarDay = memo(
       <TouchableOpacity
         onPress={handlePress}
         activeOpacity={0.7}
-        className="w-[14.28%] aspect-square items-center justify-center p-1"
+        className="w-full aspect-square items-center justify-center p-1"
       >
         <View
-          className="w-10 h-10 rounded-2xl items-center justify-center relative overflow-hidden"
+          className="w-11 h-11 rounded-2xl items-center justify-center relative overflow-hidden"
           style={[
             styles.dayOuter,
             {
-               backgroundColor: isSelected ? 'transparent' : (isSunday ? colors.pillRed + '05' : 'transparent'),
+              backgroundColor: isSelected ? 'transparent' : (isSunday ? colors.pillRed + '08' : 'transparent'),
             }
           ]}
         >
@@ -68,10 +68,13 @@ export const CalendarDay = memo(
           )}
           
           <Text
-            className="font-pbold text-[15px]"
-            style={{ 
-                color: isSelected ? '#FFFFFF' : (isSunday ? colors.pillRed : colors.text),
-                opacity: isSelected ? 1 : (isSunday ? 0.9 : 0.8)
+            className="text-[15px]"
+            style={{
+              color: isSelected ? '#FFFFFF' : (isSunday ? colors.pillRed : colors.text),
+              opacity: isSelected ? 1 : (isSunday ? 0.95 : 0.85),
+              fontWeight: '700',
+              lineHeight: 18,
+              includeFontPadding: false,
             }}
           >
             {date}

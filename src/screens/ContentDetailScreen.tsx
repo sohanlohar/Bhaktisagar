@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState, useEffect } from 'react';
-import { Pressable, ScrollView, Text, View, StyleSheet, Dimensions } from 'react-native';
+import { Pressable, ScrollView, Text, View, StyleSheet } from 'react-native';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { ChevronLeft, Heart, Type, Share2 } from 'lucide-react-native';
 import Svg, { Defs, LinearGradient, Stop, Rect, RadialGradient } from 'react-native-svg';
@@ -10,8 +10,6 @@ import { useBookmarks } from '../hooks/useBookmarks';
 import BhaktiLoader from '../components/BhaktiLoader';
 import { RootStackParamList } from '../types';
 import { APP_LAYOUT } from '../theme/layout';
-
-const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 type DetailScreenRouteProp = RouteProp<RootStackParamList, 'Detail'>;
 

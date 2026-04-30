@@ -183,3 +183,13 @@ export const PanchangDetails = memo(function PanchangDetails({
     </>
   );
 });
+
+const styles = StyleSheet.create({
+  premiumCard: {
+    shadowColor: '#ff9933',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 2,
+  },
+});

@@ -104,7 +104,7 @@ const RootNavigator = () => {
 
   const stackOptions = useMemo(() => ({
     headerShown: false,
-    animation: 'ios',
+    animation: 'ios_from_right',
   }), []);
 
   return (
