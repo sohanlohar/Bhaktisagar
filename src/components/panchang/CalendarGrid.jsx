@@ -1,5 +1,6 @@
 import React, { memo, useMemo, useCallback } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
+import Animated, { FadeInDown } from 'react-native-reanimated';
 import { CalendarDay } from './PanchangComponents';
 
 const DAYS = ['रवि', 'सोम', 'मंगल', 'बुध', 'गुरु', 'शुक्र', 'शनि'];
@@ -11,45 +12,30 @@ export const CalendarGrid = memo(function CalendarGrid({
   onSelectDate,
   colors,
 }) {
-  /* ---------- Selected Key ---------- */
-
   const selectedKey = useMemo(
     () => selectedDateObj?.toDateString() || '',
     [selectedDateObj],
   );
 
-  /* ---------- Grid Data ---------- */
-
   const gridData = useMemo(() => {
     if (!monthData?.length) return [];
-
     const emptyCount = monthData[0].fullDateObj.getDay();
-
     const emptyCells = Array.from({ length: emptyCount }, (_, i) => ({
       id: `empty-${i}`,
       empty: true,
     }));
-
     const days = monthData.map((item, index) => ({
       id: `day-${index}`,
       empty: false,
       data: item,
     }));
-
     return [...emptyCells, ...days];
   }, [monthData]);
 
-  /* ---------- Day Press Handler ---------- */
-
   const handleDayPress = useCallback((date) => {
-    // Find the item by date
     const item = monthData.find(d => d.fullDateObj.getDate() === date);
-    if (item) {
-      onSelectDate(item);
-    }
+    if (item) onSelectDate(item);
   }, [monthData, onSelectDate]);
-
-  /* ---------- Render Cells ---------- */
 
   const cells = useMemo(() => {
     return gridData.map((item, index) => {
@@ -57,8 +43,7 @@ export const CalendarGrid = memo(function CalendarGrid({
         return (
           <View
             key={`empty-${index}`}
-            className="w-[14.28%] aspect-square border-r border-b"
-            style={{ borderColor: colors.border + '50' }}
+            className="w-[14.28%] aspect-square items-center justify-center"
           />
         );
       }
@@ -67,40 +52,33 @@ export const CalendarGrid = memo(function CalendarGrid({
       const isSelected = dateObj.toDateString() === selectedKey;
 
       return (
-        <CalendarDay
-          key={`day-${dateObj.getDate()}`}
-          date={dateObj.getDate()}
-          isSelected={isSelected}
-          isSunday={dateObj.getDay() === 0}
-          onPress={handleDayPress}
-          colors={colors}
-        />
+        <Animated.View 
+            key={`day-${dateObj.getTime()}`}
+            entering={FadeInDown.duration(400).delay(index * 10)}
+            className="w-[14.28%]"
+        >
+            <CalendarDay
+              date={dateObj.getDate()}
+              isSelected={isSelected}
+              isSunday={dateObj.getDay() === 0}
+              onPress={handleDayPress}
+              colors={colors}
+            />
+        </Animated.View>
       );
     });
   }, [gridData, selectedKey, handleDayPress, colors]);
 
-  /* ---------- Header ---------- */
-
   const header = useMemo(
     () => (
-      <View
-        className="flex-row border-b"
-        style={{ borderBottomColor: colors.border }}
-      >
+      <View className="flex-row items-center mb-4 px-1">
         {DAYS.map((day, idx) => {
           const isSunday = idx === 0;
-
           return (
-            <View
-              key={day}
-              className="flex-1 py-3 items-center justify-center"
-              style={isSunday ? { backgroundColor: colors.pillRed + '20' } : {}}
-            >
+            <View key={day} className="flex-1 items-center justify-center">
               <Text
-                className="text-sm font-pbold"
-                style={{
-                  color: isSunday ? colors.pillRed : colors.textLight,
-                }}
+                className="text-[10px] font-pbold uppercase tracking-widest"
+                style={{ color: isSunday ? colors.orange : colors.textLight }}
               >
                 {day}
               </Text>
@@ -109,48 +87,32 @@ export const CalendarGrid = memo(function CalendarGrid({
         })}
       </View>
     ),
-    [colors.border, colors.pillRed, colors.textLight],
+    [colors.orange, colors.textLight],
   );
-
-  /* ---------- UI ---------- */
-
-  const content = useMemo(() => {
-    if (loading && !monthData.length) {
-      return (
-        <View className="py-20 items-center justify-center">
-          <ActivityIndicator size="large" color={colors.saffron} />
-        </View>
-      );
-    }
-
-    return (
-      <View className="flex-row flex-wrap">
-        {cells}
-
-        {loading && monthData.length > 0 && (
-          <View
-            className="absolute inset-0 items-center justify-center z-10"
-            style={{ backgroundColor: colors.cardBg + '90' }}
-          >
-            <ActivityIndicator size="large" color={colors.saffron} />
-          </View>
-        )}
-      </View>
-    );
-  }, [loading, monthData.length, cells, colors.saffron, colors.cardBg]);
 
   return (
     <View className="mb-8">
-      <View
-        className="border-l border-t rounded-2xl overflow-hidden shadow-sm"
-        style={{
-          backgroundColor: colors.cardBg,
-          borderColor: colors.border,
-        }}
-      >
-        {header}
-        {content}
+      {header}
+      <View className="flex-1">
+        {loading && !monthData.length ? (
+          <View className="py-20 items-center justify-center">
+            <ActivityIndicator size="small" color={colors.saffron} />
+          </View>
+        ) : (
+          <View className="flex-row flex-wrap">
+            {cells}
+            {loading && monthData.length > 0 && (
+              <View
+                className="absolute inset-0 items-center justify-center z-10 rounded-3xl"
+                style={{ backgroundColor: 'rgba(255,255,255,0.4)' }}
+              >
+                <ActivityIndicator size="small" color={colors.saffron} />
+              </View>
+            )}
+          </View>
+        )}
       </View>
     </View>
   );
 });
+

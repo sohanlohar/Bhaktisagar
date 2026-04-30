@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
-import { View, ScrollView, FlatList, Text } from 'react-native';
+import { View, ScrollView, FlatList, Text, InteractionManager } from 'react-native';
 import ScreenWrapper from '../components/ScreenWrapper';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../context/ThemeContext';
@@ -14,7 +14,7 @@ import { getHomePageContent } from '../utils/homeContentUtils';
 import { BhaktiHeader } from '../components/home/BhaktiHeader';
 import { ROUTES } from '../constants';
 import BhaktiLoader from '../components/BhaktiLoader';
-
+import Animated, { FadeInDown } from 'react-native-reanimated';
 
 const HOME_CATEGORIES = [
   { id: '1', title: 'मंत्र', icon: '🙏', kind: 'mantra' },
@@ -22,8 +22,10 @@ const HOME_CATEGORIES = [
   { id: '3', title: 'भजन', icon: '🎶', kind: 'bhajan' },
   { id: '4', title: 'आरती', icon: '🪔', kind: 'aarti' },
   { id: '5', title: 'स्तोत्र', icon: '📜', kind: 'stotra' },
-
 ];
+
+const CATEGORY_ITEM_WIDTH = 96; // w-20 (80px) + mx-2 (8px * 2)
+const TRENDING_ITEM_WIDTH = 292; // w-[280px] + mr-3 (12px)
 
 const getKindIcon = (kind) => {
   switch (kind) {
@@ -38,17 +40,29 @@ const getKindIcon = (kind) => {
 const SectionHeader = React.memo(({ title }) => {
   const { colors } = useTheme();
   return (
-    <View className="items-center mt-8 mb-6">
-      <Text className="text-[22px] font-pbold leading-[30px]" style={{ color: colors.orange }}>
-        {title}{' '}
-        <Text className="text-[20px] font-pregular"></Text>
-      </Text>
-    </View>
+    <Animated.View 
+      entering={FadeInDown.duration(600).delay(100)}
+      className="items-center mt-10 mb-6"
+    >
+      <View className="flex-row items-center">
+        <View className="h-[1px] w-8 bg-orange-200 mr-3" />
+        <Text 
+          className="text-[20px] font-pbold tracking-tight text-center" 
+          style={{ color: colors.orange }}
+        >
+          {title}
+        </Text>
+        <View className="h-[1px] w-8 bg-orange-200 ml-3" />
+      </View>
+      <View 
+        className="h-1 w-6 rounded-full mt-1" 
+        style={{ backgroundColor: colors.saffron + '40' }} 
+      />
+    </Animated.View>
   );
 });
 
 export default function HomeScreen() {
-
   const { colors } = useTheme();
   const navigation = useNavigation();
 
@@ -62,52 +76,42 @@ export default function HomeScreen() {
   });
 
   useEffect(() => {
+    let isMounted = true;
 
     const loadData = async () => {
-
       try {
-
         const panchangData = await getTodayPanchang();
-        setPanchang(panchangData);
+        if (isMounted) setPanchang(panchangData);
 
-        // Defer heavy home-content filtering/sorting so the UI stays responsive.
-        // (Prevents a brief freeze that can impact immediate tab presses.)
-        setTimeout(() => {
-          const content = getHomePageContent();
-          setHomeContent(content);
-        }, 0);
-
+        // Defer heavy home-content loading to ensure smooth navigation transition
+        InteractionManager.runAfterInteractions(() => {
+          if (isMounted) {
+            const content = getHomePageContent();
+            setHomeContent(content);
+            setLoading(false);
+          }
+        });
       } catch (err) {
-
         console.error("Home load error", err);
-
-      } finally {
-
-        setLoading(false);
-
+        if (isMounted) setLoading(false);
       }
-
     };
 
     loadData();
-
+    return () => { isMounted = false; };
   }, []);
 
   const openDetail = useCallback((item) => {
-
-    navigation.navigate('Detail', {
+    navigation.navigate(ROUTES.DETAIL || 'Detail', {
       item: { ...item, kind: item.kind }
     });
-
   }, [navigation]);
 
   const openCategory = useCallback((item) => {
-
     navigation.navigate(ROUTES.BROWSE_CATEGORY || 'BrowseCategory', {
       kind: item.kind,
       title: item.title,
     });
-
   }, [navigation]);
 
   const renderCategory = useCallback(({ item }) => (
@@ -120,7 +124,7 @@ export default function HomeScreen() {
   ), [openCategory]);
 
   const renderTrending = useCallback(({ item }) => (
-    <View className="w-[280px] mr-3">
+    <View style={{ width: 280, marginRight: 12 }}>
       <ItemCard
         id={item.id}
         title={item.title}
@@ -130,9 +134,17 @@ export default function HomeScreen() {
     </View>
   ), [openDetail]);
 
-  const todaysDevotion = useMemo(() => homeContent.todaysDevotion, [homeContent]);
-  const dailyPicks = useMemo(() => homeContent.dailyPicks, [homeContent]);
-  const trending = useMemo(() => homeContent.trending, [homeContent]);
+  const getCategoryLayout = useCallback((_, index) => ({
+    length: CATEGORY_ITEM_WIDTH,
+    offset: CATEGORY_ITEM_WIDTH * index,
+    index,
+  }), []);
+
+  const getTrendingLayout = useCallback((_, index) => ({
+    length: TRENDING_ITEM_WIDTH,
+    offset: TRENDING_ITEM_WIDTH * index,
+    index,
+  }), []);
 
   if (loading) {
     return (
@@ -147,7 +159,11 @@ export default function HomeScreen() {
     <ScreenWrapper>
       <View className="flex-1" style={{ backgroundColor: colors.background }}>
         <BhaktiHeader />
-        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 40 }}>
+        <ScrollView 
+          showsVerticalScrollIndicator={false} 
+          contentContainerStyle={{ paddingBottom: 40 }}
+          removeClippedSubviews={true}
+        >
           <View className="mt-2 px-2">
             <FlatList
               data={HOME_CATEGORIES}
@@ -155,7 +171,10 @@ export default function HomeScreen() {
               showsHorizontalScrollIndicator={false}
               keyExtractor={(item) => item.id}
               renderItem={renderCategory}
+              getItemLayout={getCategoryLayout}
               contentContainerStyle={{ paddingHorizontal: 10 }}
+              initialNumToRender={5}
+              windowSize={3}
             />
 
             <SectionHeader title="आज का पंचांग" />
@@ -170,11 +189,11 @@ export default function HomeScreen() {
               </View>
             )}
 
-            {todaysDevotion.length > 0 && (
+            {homeContent.todaysDevotion.length > 0 && (
               <>
                 <SectionHeader title="आज की भक्ति" />
                 <View className="px-4 flex-row flex-wrap justify-between">
-                  {todaysDevotion.map((item) => (
+                  {homeContent.todaysDevotion.map((item) => (
                     <View key={item.id} className="w-[48%] mb-3">
                       <ItemCard
                         id={item.id}
@@ -188,11 +207,11 @@ export default function HomeScreen() {
               </>
             )}
 
-            {dailyPicks.length > 0 && (
+            {homeContent.dailyPicks.length > 0 && (
               <>
                 <SectionHeader title="दैनिक चयन" />
                 <View className="px-3 flex-row flex-wrap">
-                  {dailyPicks.map((item) => (
+                  {homeContent.dailyPicks.map((item) => (
                     <View key={item.id} className="w-1/2">
                       <GridListItem
                         title={item.title}
@@ -206,21 +225,22 @@ export default function HomeScreen() {
               </>
             )}
 
-            {trending.length > 0 && (
+            {homeContent.trending.length > 0 && (
               <>
                 <SectionHeader title="लोकप्रिय" />
                 <View className="px-4">
                   <FlatList
-                    data={trending}
+                    data={homeContent.trending}
                     horizontal
                     showsHorizontalScrollIndicator={false}
                     keyExtractor={(item) => item.id}
                     renderItem={renderTrending}
+                    getItemLayout={getTrendingLayout}
                     contentContainerStyle={{ paddingVertical: 8 }}
-                    initialNumToRender={6}
-                    maxToRenderPerBatch={6}
-                    windowSize={8}
-                    removeClippedSubviews
+                    initialNumToRender={3}
+                    maxToRenderPerBatch={3}
+                    windowSize={3}
+                    removeClippedSubviews={true}
                   />
                 </View>
               </>
