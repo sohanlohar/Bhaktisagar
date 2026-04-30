@@ -1,5 +1,5 @@
 import React, { memo, useMemo } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import { useTheme } from '../context/ThemeContext';
 import AnimatedPressable from './AnimatedPressable';
 
@@ -11,72 +11,74 @@ export const IconTile = memo(function IconTile({
 }) {
   const { colors } = useTheme();
 
-  const circleStyle = useMemo(
-    () => ({
-      borderColor: colors.orange + '44',
-    }),
-    [colors.orange],
-  );
-
-  const squareStyle = useMemo(
-    () => ({
-      borderColor: colors.orange,
-    }),
-    [colors.orange],
-  );
+  const containerStyle = useMemo(() => ({
+    backgroundColor: colors.cardBg,
+    borderColor: colors.orange + '30',
+    shadowColor: colors.orange,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 3,
+  }), [colors.cardBg, colors.orange]);
 
   return (
     <AnimatedPressable
       onPress={onPress}
-      className="items-center mx-2 flex w-20"
+      className="items-center mx-2 w-20"
     >
-      <View className="items-center justify-center mt-2">
-        <View className="w-16 h-16 items-center justify-center">
-          <View
-            className="absolute w-14 h-14 rounded-full border"
-            style={circleStyle}
+      <View style={styles.contentWrapper}>
+        <View 
+          style={[styles.tileContainer, containerStyle]}
+          className="w-16 h-16 rounded-2xl items-center justify-center border"
+        >
+          {/* Decorative Background Circles */}
+          <View 
+            style={[styles.bgCircle, { backgroundColor: colors.orange + '10' }]} 
+            className="absolute w-12 h-12 rounded-full"
           />
-
-          <View
-            className="absolute w-14 h-14 border-2 rounded-2xl"
-            style={[
-              squareStyle,
-              { transform: [{ rotate: '0deg' }] },
-            ]}
-          />
-
-          <View
-            className="absolute w-14 h-14 border-2 rounded-2xl"
-            style={[
-              squareStyle,
-              { transform: [{ rotate: '45deg' }] },
-            ]}
-          />
-
-          <View className="w-12 h-12 rounded-full items-center justify-center">
-            <Text className="text-xl" style={{ color: colors.orange }}>
-              {icon}
-            </Text>
-          </View>
+          
+          <Text className="text-2xl">{icon}</Text>
         </View>
 
         {isNew && (
           <View
-            className="absolute top-0 right-0 px-1.5 py-0.5 rounded"
-            style={{ backgroundColor: '#16A34A' }}
+            className="absolute -top-1 -right-1 px-1.5 py-0.5 rounded-lg"
+            style={styles.newBadge}
           >
-            <Text className="text-xs font-pbold text-white">NEW</Text>
+            <Text className="text-[8px] font-pbold text-white uppercase tracking-tighter">New</Text>
           </View>
         )}
       </View>
 
       <Text
         numberOfLines={1}
-        className="mt-1 text-sm font-pbold text-center"
+        className="mt-2 text-[12px] font-pbold text-center"
         style={{ color: colors.text }}
       >
         {label}
       </Text>
     </AnimatedPressable>
   );
+});
+
+const styles = StyleSheet.create({
+  contentWrapper: {
+    paddingTop: 8,
+  },
+  tileContainer: {
+    overflow: 'hidden',
+  },
+  bgCircle: {
+    transform: [{ scale: 1.2 }],
+    opacity: 0.5,
+  },
+  newBadge: {
+    backgroundColor: '#16A34A',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
+    zIndex: 10,
+  },
 });

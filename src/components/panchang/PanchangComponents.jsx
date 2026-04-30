@@ -1,29 +1,33 @@
 import React, { memo, useMemo, useCallback } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import Svg, { Defs, LinearGradient, Stop, Circle } from 'react-native-svg';
 
 export const InfoCard = memo(({ icon: Icon, label, value, color, colors }) => {
   return (
     <View
-      className="flex-1 rounded-3xl p-4 border m-1 items-center justify-center shadow-sm"
-      style={{
-        backgroundColor: colors.cardBg,
-        borderColor: colors.border,
-      }}
+      className="flex-1 rounded-[24px] p-4 border m-1.5 items-center justify-center shadow-sm"
+      style={[
+        styles.card,
+        {
+          backgroundColor: colors.cardBg,
+          borderColor: 'rgba(255,153,51,0.1)',
+        }
+      ]}
     >
       <View
-        className="w-12 h-12 rounded-full items-center justify-center mb-3"
-        style={{ backgroundColor: color + '15' }}
+        className="w-12 h-12 rounded-2xl items-center justify-center mb-3"
+        style={{ backgroundColor: color + '08' }}
       >
         <Icon size={22} color={color} />
       </View>
       <Text
-        className="text-base font-pbold tracking-wider mb-1 uppercase"
+        className="text-[10px] font-pbold tracking-widest mb-1 uppercase"
         style={{ color: colors.textLight }}
       >
         {label}
       </Text>
       <Text
-        className="text-base font-pbold text-center"
+        className="text-[14px] font-pbold text-center"
         style={{ color: colors.text }}
       >
         {value}
@@ -36,33 +40,42 @@ export const CalendarDay = memo(
   ({ date, isSelected, isSunday, onPress, colors }) => {
     const handlePress = useCallback(() => onPress(date), [onPress, date]);
 
-    const textColor = useMemo(
-      () => {
-        if (isSelected) return '#FFFFFF';
-        if (isSunday) return colors.pillRed;
-        return colors.text;
-      },
-      [colors.pillRed, colors.text, isSunday, isSelected],
-    );
-
     return (
       <TouchableOpacity
         onPress={handlePress}
-        className="w-[14.28%] aspect-square border-r border-b items-center justify-center p-1"
-        style={{
-          backgroundColor: isSelected ? colors.saffron + '20' : 'transparent',
-          borderColor: colors.border + '50',
-        }}
+        activeOpacity={0.7}
+        className="w-full aspect-square items-center justify-center p-1"
       >
         <View
-          className="w-8 h-8 rounded-full items-center justify-center"
-          style={{
-            backgroundColor: isSelected ? colors.saffron : 'transparent',
-          }}
+          className="w-11 h-11 rounded-2xl items-center justify-center relative overflow-hidden"
+          style={[
+            styles.dayOuter,
+            {
+              backgroundColor: isSelected ? 'transparent' : (isSunday ? colors.pillRed + '08' : 'transparent'),
+            }
+          ]}
         >
+          {isSelected && (
+              <Svg height="100%" width="100%" style={StyleSheet.absoluteFill}>
+                <Defs>
+                  <LinearGradient id="selGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <Stop offset="0%" stopColor={colors.saffron} stopOpacity="1" />
+                    <Stop offset="100%" stopColor={colors.orange} stopOpacity="1" />
+                  </LinearGradient>
+                </Defs>
+                <Circle cx="50%" cy="50%" r="42%" fill="url(#selGrad)" />
+              </Svg>
+          )}
+          
           <Text
-            className="font-pbold"
-            style={{ color: textColor }}
+            className="text-[15px]"
+            style={{
+              color: isSelected ? '#FFFFFF' : (isSunday ? colors.pillRed : colors.text),
+              opacity: isSelected ? 1 : (isSunday ? 0.95 : 0.85),
+              fontWeight: '700',
+              lineHeight: 18,
+              includeFontPadding: false,
+            }}
           >
             {date}
           </Text>
@@ -71,3 +84,17 @@ export const CalendarDay = memo(
     );
   },
 );
+
+const styles = StyleSheet.create({
+    card: {
+        elevation: 4,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.05,
+        shadowRadius: 6,
+    },
+    dayOuter: {
+        // Subtle base for non-selected
+    }
+});
+

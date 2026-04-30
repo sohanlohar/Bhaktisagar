@@ -39,16 +39,22 @@ const MainTabs = React.memo(() => {
     tabBarActiveTintColor: colors.tabBarActive,
     tabBarInactiveTintColor: colors.tabBarInactive,
     tabBarStyle: {
-      height: 58 + Math.max(insets.bottom, 8),
-      paddingBottom: Math.max(insets.bottom, 8),
-      paddingTop: 6,
+      height: 70 + insets.bottom,
+      paddingBottom: insets.bottom + 10,
+      paddingTop: 10,
       backgroundColor: colors.background,
       borderTopWidth: 1,
-      borderTopColor: colors.border
+      borderTopColor: colors.border + '50',
+      elevation: 10,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: -4 },
+      shadowOpacity: 0.1,
+      shadowRadius: 10,
     },
     tabBarLabelStyle: {
       fontSize: 12,
       fontFamily: 'Poppins-SemiBold',
+      marginTop: 2,
     },
     tabBarHideOnKeyboard: true,
   }), [colors, insets.bottom]);
@@ -97,7 +103,8 @@ const MainTabs = React.memo(() => {
 const RootNavigator = () => {
 
   const stackOptions = useMemo(() => ({
-    headerShown: false
+    headerShown: false,
+    animation: 'ios_from_right',
   }), []);
 
   return (
