@@ -20,6 +20,7 @@ import { ChevronLeft, ChevronRight, Calendar as CalendarIcon } from 'lucide-reac
 
 import { CalendarGrid } from '../components/panchang/CalendarGrid';
 import { PanchangDetails } from '../components/panchang/PanchangDetails';
+import { MonthYearPicker } from '../components/panchang/MonthYearPicker';
 import { useFocusEffect } from '@react-navigation/native';
 import { APP_LAYOUT } from '../theme/layout';
 
@@ -44,6 +45,7 @@ export default function PanchangScreen({ navigation }) {
   const [error, setError] = useState(null);
 
   const [displayDate, setDisplayDate] = useState(new Date());
+  const [isPickerVisible, setPickerVisible] = useState(false);
 
   const requestIdRef = React.useRef(0);
   const monthRequestIdRef = React.useRef(0);
@@ -135,6 +137,12 @@ export default function PanchangScreen({ navigation }) {
     loadMonthData(newDate);
   }, [displayDate, loadMonthData]);
 
+  const handleMonthYearSelect = useCallback((monthIndex, year) => {
+    const newDate = new Date(year, monthIndex, 1);
+    setDisplayDate(newDate);
+    loadMonthData(newDate);
+  }, [loadMonthData]);
+
   const monthTitle = useMemo(() => {
     return `${HINDI_MONTHS[displayDate.getMonth()]} ${displayDate.getFullYear()}`;
   }, [displayDate]);
@@ -180,7 +188,9 @@ export default function PanchangScreen({ navigation }) {
                 <ChevronLeft size={20} color={colors.saffron} />
               </TouchableOpacity>
 
-              <Text style={{ color: colors.text }}>{monthTitle}</Text>
+              <TouchableOpacity onPress={() => setPickerVisible(true)} style={styles.monthTitleButton}>
+                <Text style={{ color: colors.text, fontFamily: 'Poppins-SemiBold', fontSize: 16 }}>{monthTitle}</Text>
+              </TouchableOpacity>
 
               <TouchableOpacity onPress={() => changeMonth(1)}>
                 <ChevronRight size={20} color={colors.saffron} />
@@ -218,6 +228,16 @@ export default function PanchangScreen({ navigation }) {
           </View>
         </ScrollView>
       </View>
+      
+      <MonthYearPicker
+        visible={isPickerVisible}
+        onClose={() => setPickerVisible(false)}
+        onSelect={handleMonthYearSelect}
+        currentMonth={displayDate.getMonth()}
+        currentYear={displayDate.getFullYear()}
+        colors={colors}
+        isDarkMode={isDarkMode}
+      />
     </ScreenWrapper>
   );
 }
@@ -229,6 +249,11 @@ const styles = StyleSheet.create({
   },
   monthSelector: {
     backgroundColor: '#fff',
+    alignItems: 'center',
+  },
+  monthTitleButton: {
+    paddingHorizontal: 16,
+    paddingVertical: 4,
   },
   detailsWrapper: {
     position: 'relative',
