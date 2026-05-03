@@ -14,30 +14,29 @@ import {
   Sunset,
   ChevronRight,
   Zap,
+  Calendar,
+  CalendarDays,
 } from 'lucide-react-native';
 
 const GridItem = ({ icon: Icon, label, value, color, colors }) => (
-  <View 
-    className="flex-1 p-3 rounded-2xl border" 
-    style={{ 
-        backgroundColor: colors.cardBg, 
-        borderColor: colors.border + '30',
-        minHeight: 80 
-    }}
-  >
-    <View className="flex-row items-center gap-2 mb-2">
+  <View
+    className="flex-1 rounded-2xl">
+    <View className="flex-row items-center gap-2">
       <Icon size={14} color={color} />
-      <Text className="text-[10px] font-pbold uppercase tracking-wider" style={{ color: colors.textLight }}>
-        {label}
+
+      <Text
+        className="text-[12px] font-pbold flex-1"
+        style={{ color: colors.text }}
+        numberOfLines={1}
+      >
+        {label} : {value}
       </Text>
     </View>
-    <Text className="text-[13px] font-pbold" style={{ color: colors.text }} numberOfLines={1}>
-      {value}
-    </Text>
   </View>
 );
 
 function PanchangSection({ panchang }) {
+
   const { colors, isDarkMode } = useTheme();
   const navigation = useNavigation();
 
@@ -72,7 +71,7 @@ function PanchangSection({ panchang }) {
           {/* Main Tithi Header */}
           <View className="flex-row justify-between items-start mb-6">
             <View className="flex-1">
-              <Text className="text-[22px] font-pbold leading-tight" style={{ color: colors.text }}>
+              <Text className="text-[20px] leading-150" style={{ color: colors.text }}>
                 {panchang.tithi}
               </Text>
               <View className="flex-row items-center mt-1">
@@ -82,34 +81,31 @@ function PanchangSection({ panchang }) {
                 </Text>
               </View>
             </View>
-            <View 
-              className="px-3 py-1.5 rounded-full border flex-row items-center gap-1.5"
-              style={{ borderColor: colors.saffron + '30', backgroundColor: colors.saffron + '10' }}
-            >
-              <Clock size={12} color={colors.saffron} />
-              <Text className="text-[11px] font-pbold" style={{ color: colors.text }}>
+            <View className="flex-row items-start gap-1.5">
+              <CalendarDays size={18} color={colors.saffron} />
+              <Text className="text-[12px] font-pbold" style={{ color: colors.text }}>
                 {panchang.date.split(' ')[0]} {panchang.date.split(' ')[1]}
               </Text>
             </View>
           </View>
 
           {/* Sunrise/Sunset Sub-header */}
-          <View className="flex-row items-center gap-6 mb-6 px-1">
+          <View className="flex-row items-center justify-between mb-6">
             <View className="flex-row items-center gap-2">
               <View className="p-1.5 rounded-lg bg-orange-100 dark:bg-orange-900/30">
-                <Sunrise size={16} color={colors.orange} />
+                <Sunrise size={20} color={colors.orange} />
               </View>
               <View>
-                <Text className="text-[9px] font-pbold uppercase text-gray-400">सूर्योदय</Text>
-                <Text className="text-[12px] font-pbold" style={{ color: colors.text }}>{panchang.sunrise}</Text>
+                <Text className="text-[12px] font-pbold uppercase text-gray-400">सूर्योदय</Text>
+                <Text className="text-[12px] font-pbold capitalize" style={{ color: colors.text }}>{panchang.sunrise}</Text>
               </View>
             </View>
             <View className="flex-row items-center gap-2">
-              <View className="p-1.5 rounded-lg bg-blue-100 dark:bg-blue-900/30">
-                <Sunset size={16} color="#3B82F6" />
+              <View className="p-1.5 rounded-lg bg-orange-200 dark:bg-orange-900/30">
+                <Sunset size={20} color={colors.orange} />
               </View>
               <View>
-                <Text className="text-[9px] font-pbold uppercase text-gray-400">सूर्यास्त</Text>
+                <Text className="text-[12px] font-pbold uppercase text-gray-400">सूर्यास्त</Text>
                 <Text className="text-[12px] font-pbold" style={{ color: colors.text }}>{panchang.sunset}</Text>
               </View>
             </View>
@@ -120,26 +116,26 @@ function PanchangSection({ panchang }) {
             <GridItem icon={Wind} label="नक्षत्र" value={panchang.nakshatra} color="#8B5CF6" colors={colors} />
             <GridItem icon={Zap} label="योग" value={panchang.yoga} color="#10B981" colors={colors} />
           </View>
-          
-          <View className="flex-row gap-3 mb-6">
-            <GridItem 
-              icon={Clock} 
-              label="राहुकाल" 
-              value={panchang.rahukal} 
-              color={colors.pillRed} 
-              colors={colors} 
+
+          <View className="flex-col gap-3 mb-6">
+            <GridItem
+              icon={Clock}
+              label="राहुकाल"
+              value={panchang.rahukal}
+              color={colors.pillRed}
+              colors={colors}
             />
-            <GridItem 
-              icon={Sparkles} 
-              label="शुभ मुहूर्त" 
-              value={panchang.shubh_muhurat} 
-              color={colors.pillGreen} 
-              colors={colors} 
+            <GridItem
+              icon={Sparkles}
+              label="शुभ मुहूर्त"
+              value={panchang.shubh_muhurat}
+              color={colors.pillGreen}
+              colors={colors}
             />
           </View>
 
           {/* Footer Navigation */}
-          <View className="flex-row justify-between items-center pt-4 border-t" style={{ borderTopColor: colors.border + '20' }}>
+          <View className="flex-row justify-between items-center pt-4 border-t" style={{ borderTopColor: colors.gold + '20' }}>
             <Text className="text-[12px] font-pmedium italic" style={{ color: colors.textLight }}>
               विक्रम संवत: {panchang.samvat.vikram}
             </Text>

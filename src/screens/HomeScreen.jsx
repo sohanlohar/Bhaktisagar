@@ -40,23 +40,23 @@ const getKindIcon = (kind) => {
 const SectionHeader = React.memo(({ title }) => {
   const { colors } = useTheme();
   return (
-    <Animated.View 
+    <Animated.View
       entering={FadeInDown.duration(600).delay(100)}
       className="items-center mt-10 mb-6"
     >
       <View className="flex-row items-center">
         <View className="h-[1px] w-8 bg-orange-200 mr-3" />
-        <Text 
-          className="text-[20px] font-pbold tracking-tight text-center" 
+        <Text
+          className="text-[20px] font-pbold tracking-tight text-center"
           style={{ color: colors.orange }}
         >
           {title}
         </Text>
         <View className="h-[1px] w-8 bg-orange-200 ml-3" />
       </View>
-      <View 
-        className="h-1 w-6 rounded-full mt-1" 
-        style={{ backgroundColor: colors.saffron + '40' }} 
+      <View
+        className="h-1 w-6 rounded-full mt-1"
+        style={{ backgroundColor: colors.saffron + '40' }}
       />
     </Animated.View>
   );
@@ -159,8 +159,8 @@ export default function HomeScreen() {
     <ScreenWrapper>
       <View className="flex-1" style={{ backgroundColor: colors.background }}>
         <BhaktiHeader />
-        <ScrollView 
-          showsVerticalScrollIndicator={false} 
+        <ScrollView
+          showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 40 }}
           removeClippedSubviews={true}
         >
@@ -192,9 +192,9 @@ export default function HomeScreen() {
             {homeContent.todaysDevotion.length > 0 && (
               <>
                 <SectionHeader title="आज की भक्ति" />
-                <View className="px-4 flex-row flex-wrap justify-between">
+                <View className="px-4 flex-col flex-wrap justify-between">
                   {homeContent.todaysDevotion.map((item) => (
-                    <View key={item.id} className="w-[48%] mb-3">
+                    <View key={item.id} className="w-full mb-1">
                       <ItemCard
                         id={item.id}
                         title={item.title}

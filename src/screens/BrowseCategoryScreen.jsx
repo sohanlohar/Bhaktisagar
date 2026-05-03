@@ -36,7 +36,7 @@ const BROWSE_DATA = {
 // Refined Category Card with Animation
 const CategoryItemCard = React.memo(({ item, kind, index, navigation, colors, isDarkMode, bookmarked, onBookmark }) => {
     return (
-        <Animated.View 
+        <Animated.View
             entering={FadeInDown.duration(600).delay(index * 100).springify()}
             className="mb-4"
         >
@@ -44,7 +44,7 @@ const CategoryItemCard = React.memo(({ item, kind, index, navigation, colors, is
                 onPress={() => navigation.navigate(ROUTES.DETAIL || 'Detail', { item: { ...item, kind } })}
                 style={[
                     styles.card,
-                    { 
+                    {
                         width: ITEM_WIDTH,
                         backgroundColor: colors.cardBg,
                         borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(255,153,51,0.1)',
@@ -52,26 +52,26 @@ const CategoryItemCard = React.memo(({ item, kind, index, navigation, colors, is
                 ]}
             >
                 {/* Card Top / Symbol Area */}
-                <View 
+                <View
                     style={{ backgroundColor: colors.saffron + '08' }}
                     className="h-32 items-center justify-center relative"
                 >
-                    <View 
+                    <View
                         className="w-16 h-16 rounded-full items-center justify-center"
                         style={{ backgroundColor: colors.saffron + '10' }}
                     >
-                         <Text className="text-3xl text-center">🕉️</Text>
+                        <Text className="text-3xl text-center">🕉️</Text>
                     </View>
-                    
+
                     <Pressable
                         onPress={() => onBookmark(item)}
                         hitSlop={10}
-                        className="absolute top-3 right-3 w-8 h-8 items-center justify-center rounded-full bg-white/80 dark:bg-black/40 shadow-sm"
+                        className="absolute top-3 right-3 w-8 h-8 items-center justify-center shadow-sm"
                     >
                         <Heart
-                            size={16}
+                            size={22}
                             color={bookmarked ? colors.saffron : colors.textLight}
-                            fill={bookmarked ? colors.saffron : 'none'}
+                            fill={bookmarked ? colors.saffron : colors.white}
                         />
                     </Pressable>
                 </View>
@@ -121,14 +121,14 @@ export default function BrowseCategoryScreen() {
     }, [toggle, kind]);
 
     const renderItem = useCallback(({ item, index }) => (
-        <CategoryItemCard 
-            item={item} 
-            kind={kind} 
+        <CategoryItemCard
+            item={item}
+            kind={kind}
             index={index}
-            navigation={navigation} 
-            colors={colors} 
+            navigation={navigation}
+            colors={colors}
             isDarkMode={isDarkMode}
-            bookmarked={isBookmarked(item.id)} 
+            bookmarked={isBookmarked(item.id)}
             onBookmark={handleBookmark}
         />
     ), [kind, navigation, colors, isDarkMode, isBookmarked, handleBookmark]);
@@ -181,8 +181,8 @@ export default function BrowseCategoryScreen() {
                         <Rect width="100%" height="100%" fill="url(#gradHeader)" />
                     </Svg>
                     <View className="flex-row items-center px-5 h-full">
-                        <Pressable 
-                            onPress={() => navigation.goBack()} 
+                        <Pressable
+                            onPress={() => navigation.goBack()}
                             className="w-10 h-10 items-center justify-center rounded-xl bg-white/20"
                         >
                             <ChevronLeft color="#FFFFFF" size={28} />
@@ -241,13 +241,8 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
     },
     card: {
-        borderRadius: 28,
-        borderWidth: 1,
+        borderRadius: 20,
+        borderWidth: 0.5,
         overflow: 'hidden',
-        elevation: 8,
-        shadowColor: '#FF9933',
-        shadowOffset: { width: 0, height: 6 },
-        shadowOpacity: 0.1,
-        shadowRadius: 10,
     }
 });
