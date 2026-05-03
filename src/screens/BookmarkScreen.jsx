@@ -31,24 +31,24 @@ const BookmarksScreen = () => {
       <View className="flex-1" style={{ backgroundColor: colors.background }}>
         {/* Premium Header */}
         <View style={styles.headerContainer}>
-            <Svg height="100%" width="100%" style={StyleSheet.absoluteFill}>
-                <Defs>
-                    <LinearGradient id="bookmarkGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <Stop offset="0%" stopColor={colors.saffron} stopOpacity="1" />
-                        <Stop offset="100%" stopColor={colors.orange} stopOpacity="1" />
-                    </LinearGradient>
-                </Defs>
-                <Rect width="100%" height="100%" fill="url(#bookmarkGrad)" />
-            </Svg>
-            <View className="flex-row items-center px-5 h-full">
-                <Pressable 
-                  onPress={goBack} 
-                  className="w-10 h-10 items-center justify-center rounded-xl bg-white/20 mr-3"
-                >
-                    <ChevronLeft color="#FFFFFF" size={28} />
-                </Pressable>
-                <Text className="text-xl font-pbold text-white">मेरा संग्रह</Text>
-            </View>
+          <Svg height="100%" width="100%" style={StyleSheet.absoluteFill}>
+            <Defs>
+              <LinearGradient id="bookmarkGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <Stop offset="0%" stopColor={colors.saffron} stopOpacity="1" />
+                <Stop offset="100%" stopColor={colors.orange} stopOpacity="1" />
+              </LinearGradient>
+            </Defs>
+            <Rect width="100%" height="100%" fill="url(#bookmarkGrad)" />
+          </Svg>
+          <View className="flex-row items-center px-5 h-full w-full">
+            <Pressable
+              onPress={goBack}
+              className="w-10 h-10 items-center justify-center rounded-xl bg-white/20 mr-3"
+            >
+              <ChevronLeft color="#FFFFFF" size={28} />
+            </Pressable>
+            <Text className="text-xl font-pbold text-white flex-1">मेरे संग्रह</Text>
+          </View>
         </View>
 
         <View className="flex-1">
@@ -70,7 +70,7 @@ const BookmarksScreen = () => {
             showsVerticalScrollIndicator={false}
             ListHeaderComponent={
               resolvedBookmarks.length > 0 ? (
-                <Text 
+                <Text
                   className="mb-6 font-pbold text-[18px] mt-2"
                   style={{ color: colors.text }}
                 >
@@ -80,11 +80,11 @@ const BookmarksScreen = () => {
             }
             ListEmptyComponent={
               <View className="flex-1 justify-center items-center mt-32 px-10">
-                <View 
-                    className="w-20 h-20 rounded-full items-center justify-center mb-6"
-                    style={{ backgroundColor: colors.saffron + '10' }}
+                <View
+                  className="w-20 h-20 rounded-full items-center justify-center mb-6"
+                  style={{ backgroundColor: colors.saffron + '10' }}
                 >
-                    <Heart size={40} color={colors.saffron + '40'} />
+                  <Heart size={40} color={colors.saffron + '40'} />
                 </View>
                 <Text
                   className="text-center font-pbold text-lg mb-2"
@@ -108,16 +108,16 @@ const BookmarksScreen = () => {
 };
 
 const styles = StyleSheet.create({
-    headerContainer: {
-        height: APP_LAYOUT.headerHeight + 20,
-        width: '100%',
-        overflow: 'hidden',
-        elevation: 8,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-    }
+  headerContainer: {
+    height: APP_LAYOUT.headerHeight + 20,
+    width: '100%',
+    overflow: 'hidden',
+    elevation: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  }
 });
 
 export default BookmarksScreen;
