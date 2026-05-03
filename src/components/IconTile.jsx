@@ -34,11 +34,8 @@ export const IconTile = memo(function IconTile({
           >
             {/* Decorative Background Circles */}
             <View
-              style={[styles.bgCircle, { backgroundColor: colors.orange + '10' }]}
-              className="absolute w-12 h-12"
-            />
-
-            <Text className="text-2xl">{icon}</Text>
+              style={[styles.bgCircle, { backgroundColor: colors.orange + '0' }]} />
+            <Text className="text-2xl font-pbold">{icon}</Text>
           </View>
 
           {isNew && (

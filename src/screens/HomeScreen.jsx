@@ -18,8 +18,8 @@ import Animated, { FadeInDown } from 'react-native-reanimated';
 
 const HOME_CATEGORIES = [
   { id: '1', title: 'मंत्र', icon: '🙏', kind: 'mantra' },
-  { id: '2', title: 'चालीसा', icon: '🎶', kind: 'chalisa' },
-  { id: '3', title: 'भजन', icon: '🎶', kind: 'bhajan' },
+  { id: '2', title: 'चालीसा', icon: 'ॐ', kind: 'chalisa' },
+  { id: '3', title: 'भजन', icon: '🎼', kind: 'bhajan' },
   { id: '4', title: 'आरती', icon: '🪔', kind: 'aarti' },
   { id: '5', title: 'स्तोत्र', icon: '📜', kind: 'stotra' },
 ];
