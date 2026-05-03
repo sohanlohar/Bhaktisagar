@@ -82,8 +82,8 @@ android {
         applicationId "com.bhaktisangam"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 10001002
-        versionName "1.0.2"
+        versionCode 10001003
+        versionName "1.0.3"
     }
 
     signingConfigs {
