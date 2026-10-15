@@ -16,6 +16,7 @@ buildscript {
         classpath("com.android.tools.build:gradle:8.6.1")
         classpath("com.facebook.react:react-native-gradle-plugin")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
+        classpath("com.google.gms:google-services:4.5.0")
     }
     configurations.all {
         resolutionStrategy {
@@ -34,6 +35,5 @@ subprojects {
         android.ndkVersion = rootProject.ext.ndkVersion
     }
 }
-
 
 

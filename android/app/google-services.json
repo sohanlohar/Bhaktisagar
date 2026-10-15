@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "151844843046",
+    "project_id": "bhakti-sangam-e9273",
+    "storage_bucket": "bhakti-sangam-e9273.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:151844843046:android:45e70c8b6a2bc9d469c0e7",
+        "android_client_info": {
+          "package_name": "com.bhaktisangam"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANaSrKlL-Km0HdDgmoDZxAI57tu_cMTu0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
