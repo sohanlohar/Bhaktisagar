@@ -3,6 +3,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import HomeScreen from '../../screens/HomeScreen';
 import BrowseCategoryScreen from '../../screens/BrowseCategoryScreen';
+import JaapCounterScreen from '../../screens/JaapCounterScreen';
+import GitaGyanScreen from '../../screens/GitaGyanScreen';
 import { ROUTES } from '../../constants';
 
 const Stack = createNativeStackNavigator();
@@ -21,6 +23,8 @@ function HomeStack() {
     <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name={ROUTES.BROWSE_CATEGORY} component={BrowseCategoryScreen} />
+      <Stack.Screen name={ROUTES.JAAP_COUNTER} component={JaapCounterScreen} />
+      <Stack.Screen name={ROUTES.GITA_GYAN} component={GitaGyanScreen} />
     </Stack.Navigator>
   );
 }

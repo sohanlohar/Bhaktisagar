@@ -7,6 +7,8 @@ export const ROUTES = {
   DETAIL: 'Detail',
   SEARCH: 'Search',
   BROWSE_CATEGORY: 'BrowseCategory',
+  JAAP_COUNTER: 'JaapCounter',
+  GITA_GYAN: 'GitaGyan',
 };
 
 export const STORAGE_KEYS = {
@@ -19,4 +21,3 @@ export const CONTENT_KINDS = {
   BHAJAN: 'bhajan',
   AARTI: 'aarti',
 };
-

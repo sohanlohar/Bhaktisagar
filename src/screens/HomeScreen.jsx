@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
-import { View, ScrollView, FlatList, Text, InteractionManager } from 'react-native';
+import { View, ScrollView, FlatList, Text, InteractionManager, Pressable, StyleSheet } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import ScreenWrapper from '../components/ScreenWrapper';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../context/ThemeContext';
@@ -7,7 +8,7 @@ import { IconTile } from '../components/IconTile';
 import CategoryPill from '../components/CategoryPill';
 import { GridListItem } from '../components/home/HomeComponents';
 import ItemCard from '../components/ItemCard';
-import { Music, Star, ScrollText, Sparkles, Zap } from 'lucide-react-native';
+import { BookOpenText, CalendarDays, Music, Star, ScrollText, Sparkles, Zap } from 'lucide-react-native';
 import PanchangSection from '../components/PanchangSection';
 import { getTodayPanchang } from '../services/panchangApi';
 import { getHomePageContent } from '../utils/homeContentUtils';
@@ -15,6 +16,7 @@ import { BhaktiHeader } from '../components/home/BhaktiHeader';
 import { ROUTES } from '../constants';
 import BhaktiLoader from '../components/BhaktiLoader';
 import Animated, { FadeInDown } from 'react-native-reanimated';
+import { getDailyGitaGyan } from '../utils/gitaGyanUtils';
 
 const HOME_CATEGORIES = [
   { id: '1', title: 'मंत्र', icon: '🙏', kind: 'mantra' },
@@ -27,6 +29,30 @@ const HOME_CATEGORIES = [
 const CATEGORY_ITEM_WIDTH = 96; // w-20 (80px) + mx-2 (8px * 2)
 const TRENDING_ITEM_WIDTH = 292; // w-[280px] + mr-3 (12px)
 
+const styles = StyleSheet.create({
+  featuredCard: {
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.12,
+    shadowRadius: 10,
+    elevation: 4,
+  },
+});
+
+const HINDI_WEEKDAYS = ['रविवार', 'सोमवार', 'मंगलवार', 'बुधवार', 'गुरुवार', 'शुक्रवार', 'शनिवार'];
+const HINDI_MONTHS = [
+  'जनवरी', 'फ़रवरी', 'मार्च', 'अप्रैल', 'मई', 'जून',
+  'जुलाई', 'अगस्त', 'सितंबर', 'अक्टूबर', 'नवंबर', 'दिसंबर',
+];
+
+const getGreeting = (hour) => {
+  if (hour < 12) return 'सुप्रभात';
+  if (hour < 17) return 'शुभ दोपहर';
+  return 'शुभ संध्या';
+};
+
+const getHindiDate = (date) =>
+  `${HINDI_WEEKDAYS[date.getDay()]}, ${date.getDate()} ${HINDI_MONTHS[date.getMonth()]} ${date.getFullYear()}`;
+
 const getKindIcon = (kind) => {
   switch (kind) {
     case 'mantra': return Sparkles;
@@ -35,6 +61,64 @@ const getKindIcon = (kind) => {
     case 'aarti': return Zap;
     default: return Star;
   }
+};
+
+const KIND_LABELS = {
+  aarti: 'आरती',
+  bhajan: 'भजन',
+  chalisa: 'चालीसा',
+  mantra: 'मंत्र',
+  stotra: 'स्तोत्र',
+};
+
+const FeaturedDevotionCard = ({ item, colors, onPress }) => {
+  const FeaturedIcon = getKindIcon(item.kind);
+  const kindLabel = KIND_LABELS[item.kind] || 'भक्ति';
+
+  return (
+    <Pressable
+      onPress={() => onPress(item)}
+      accessibilityRole="button"
+      accessibilityLabel={`${kindLabel}: ${item.title}`}
+      className="mx-4 mb-4 flex-row items-center rounded-3xl border p-4"
+      style={[
+        styles.featuredCard,
+        {
+          backgroundColor: colors.cardBg,
+          borderColor: colors.saffron + '70',
+          shadowColor: colors.orange,
+        },
+      ]}
+    >
+      <View
+        className="mr-4 h-14 w-14 items-center justify-center rounded-2xl"
+        style={{ backgroundColor: colors.saffron + '20' }}
+      >
+        <FeaturedIcon size={26} color={colors.orange} />
+      </View>
+      <View className="flex-1">
+        <Text
+          className="mb-1 text-[11px] font-pbold uppercase"
+          style={{ color: colors.orange }}
+        >
+          आज का {kindLabel}
+        </Text>
+        <Text
+          className="text-[15px] font-pbold"
+          style={{ color: colors.text }}
+          numberOfLines={2}
+        >
+          {item.title}
+        </Text>
+        <Text
+          className="mt-1 text-xs font-pmedium"
+          style={{ color: colors.textLight }}
+        >
+          पढ़ने के लिए टैप करें
+        </Text>
+      </View>
+    </Pressable>
+  );
 };
 
 const SectionHeader = React.memo(({ title }) => {
@@ -68,12 +152,34 @@ export default function HomeScreen() {
 
   const [panchang, setPanchang] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [dailyGyan, setDailyGyan] = useState(() => getDailyGitaGyan());
 
   const [homeContent, setHomeContent] = useState({
     todaysDevotion: [],
     dailyPicks: [],
     trending: [],
   });
+
+  const featuredDevotion = useMemo(
+    () =>
+      homeContent.todaysDevotion.find(
+        (item) => item.kind === 'bhajan' || item.kind === 'aarti',
+      ) || homeContent.todaysDevotion[0],
+    [homeContent.todaysDevotion],
+  );
+  const otherDevotions = useMemo(
+    () =>
+      homeContent.todaysDevotion.filter(
+        (item) => item.id !== featuredDevotion?.id,
+      ),
+    [homeContent.todaysDevotion, featuredDevotion],
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      setDailyGyan(getDailyGitaGyan());
+    }, []),
+  );
 
   useEffect(() => {
     let isMounted = true;
@@ -165,6 +271,73 @@ export default function HomeScreen() {
           removeClippedSubviews={true}
         >
           <View className="mt-2 px-2">
+            <View className="px-4 pt-4 pb-2">
+              <Text className="text-[22px] font-pbold" style={{ color: colors.text }}>
+                {getGreeting(new Date().getHours())} 🙏
+              </Text>
+              <Text className="mt-1 text-sm font-pmedium" style={{ color: colors.textLight }}>
+                {getHindiDate(new Date())}
+              </Text>
+            </View>
+
+            <Pressable
+              onPress={() => navigation.navigate(ROUTES.JAAP_COUNTER)}
+              accessibilityRole="button"
+              accessibilityLabel="डिजिटल जप काउंटर खोलें"
+              className="mx-4 mb-4 flex-row items-center rounded-2xl border p-4"
+              style={{ backgroundColor: colors.cardBg, borderColor: colors.border }}
+            >
+              <View className="mr-3 h-11 w-11 items-center justify-center rounded-xl" style={{ backgroundColor: colors.saffron + '20' }}>
+                <Sparkles size={22} color={colors.orange} />
+              </View>
+              <View className="flex-1">
+                <Text className="font-pbold" style={{ color: colors.text }}>डिजिटल जप</Text>
+                <Text className="mt-1 text-xs font-pmedium" style={{ color: colors.textLight }}>अपना नाम चुनें और जप शुरू करें</Text>
+              </View>
+              <Text className="text-xl font-pbold" style={{ color: colors.orange }}>›</Text>
+            </Pressable>
+
+            <Pressable
+              onPress={() => navigation.navigate(ROUTES.GITA_GYAN)}
+              accessibilityRole="button"
+              accessibilityLabel="आज का गीता ज्ञान खोलें"
+              className="mx-4 mb-4 rounded-2xl border p-4"
+              style={{ backgroundColor: colors.cardBg, borderColor: colors.border }}
+            >
+              <View className="mb-3 flex-row items-center">
+                <View className="mr-3 h-10 w-10 items-center justify-center rounded-xl" style={{ backgroundColor: colors.saffron + '20' }}>
+                  <BookOpenText size={21} color={colors.orange} />
+                </View>
+                <View className="flex-1">
+                  <Text className="font-pbold" style={{ color: colors.text }}>आज का गीता ज्ञान</Text>
+                  <Text className="mt-1 text-xs font-pmedium" style={{ color: colors.textLight }}>
+                    अध्याय {dailyGyan.chapter}, श्लोक {dailyGyan.verse} · {dailyGyan.theme}
+                  </Text>
+                </View>
+                <Text className="text-xl font-pbold" style={{ color: colors.orange }}>›</Text>
+              </View>
+              <Text className="text-sm font-pmedium" style={{ color: colors.text }} numberOfLines={2}>
+                {dailyGyan.shloka}
+              </Text>
+            </Pressable>
+
+            <Pressable
+              onPress={() => navigation.navigate(ROUTES.ROOT_TABS, { screen: ROUTES.PANCHANG })}
+              accessibilityRole="button"
+              accessibilityLabel="पंचांग कैलेंडर खोलें"
+              className="mx-4 mb-4 flex-row items-center rounded-2xl border p-4"
+              style={{ backgroundColor: colors.cardBg, borderColor: colors.border }}
+            >
+              <View className="mr-3 h-11 w-11 items-center justify-center rounded-xl" style={{ backgroundColor: colors.saffron + '20' }}>
+                <CalendarDays size={22} color={colors.orange} />
+              </View>
+              <View className="flex-1">
+                <Text className="font-pbold" style={{ color: colors.text }}>पंचांग और त्योहार</Text>
+                <Text className="mt-1 text-xs font-pmedium" style={{ color: colors.textLight }}>एक ही कैलेंडर में पर्वों की तारीखें देखें</Text>
+              </View>
+              <Text className="text-xl font-pbold" style={{ color: colors.orange }}>›</Text>
+            </Pressable>
+
             <FlatList
               data={HOME_CATEGORIES}
               horizontal
@@ -192,8 +365,15 @@ export default function HomeScreen() {
             {homeContent.todaysDevotion.length > 0 && (
               <>
                 <SectionHeader title="आज की भक्ति" />
+                {featuredDevotion && (
+                  <FeaturedDevotionCard
+                    item={featuredDevotion}
+                    colors={colors}
+                    onPress={openDetail}
+                  />
+                )}
                 <View className="px-4 flex-col flex-wrap justify-between">
-                  {homeContent.todaysDevotion.map((item) => (
+                  {otherDevotions.map((item) => (
                     <View key={item.id} className="w-full mb-1">
                       <ItemCard
                         id={item.id}
